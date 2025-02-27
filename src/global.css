@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+  .categories_btn{
+    @apply text-white w-full text-4xl font-bold bg-[radial-gradient(circle,_#000000bd,_transparent_80%)] hover:backdrop-blur-sm
+  }
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
