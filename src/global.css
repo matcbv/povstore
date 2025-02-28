@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer components{
-  .categories_btn{
-    @apply text-white w-full text-4xl font-bold bg-[radial-gradient(circle,_#000000bd,_transparent_80%)] hover:backdrop-blur-sm
+  .categories-btn{
+    @apply text-white w-full text-4xl font-bold bg-[radial-gradient(circle,_#000000bd,_transparent_80%)] hover:backdrop-blur-sm;
+  }
+
+  .form-inputs{
+    @apply border-red-600 border-b pl-6 focus:outline-none w-full;
   }
 }
 
