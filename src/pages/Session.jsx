@@ -1,6 +1,6 @@
 import { Header } from "../layouts/Header";
 import { Footer } from "../layouts/Footer";
-import { Login } from "../components/Login";
+import { SessionForm } from "../components/SessionForm";
 
 import { Link } from "react-router-dom";
 
@@ -8,21 +8,11 @@ export function Session(){
     return (
         <>
             <Header />
-            <main className="h-screen bg-[linear-gradient(#0000004a,_white_30%)]">
-                <section className="flex justify-center md:justify-evenly items-center h-full">
+            <main className="flex items-center justify-center min-h-screen bg-[linear-gradient(#0000004a,_white_30%)]">
+                <section className="flex justify-evenly items-center my-20 w-full">
                     <div className="flex flex-col gap-y-12 items-start">
-                        <h1 className="text-3xl font-bold tracking-wide">Faça login</h1>
-                        <form action="" method="POST" className="flex flex-col w-[310px] gap-y-8 text-black">
-                            <div className="flex">
-                                <label htmlFor="email" className="border-red-600 border-b whitespace-nowrap">E-mail</label>
-                                <input type="email" id="email" className="form-inputs" />
-                            </div>
-                            <div className="flex">
-                                <label htmlFor="password" className="border-red-600 border-b">Senha</label>
-                                <input type="password" id="password" className="form-inputs" />
-                            </div>
-                            <Login />
-                        </form>
+                        <h1 className="text-3xl font-mono font-bold tracking-tight">Faça login</h1>
+                        <SessionForm />
                         <div className="flex flex-col gap-y-2 w-full">
                             <h2 className="font-bold">Ainda não possui conta?</h2>
                             <Link to="/register" className="border border-black text-center rounded w-full py-1 hover:font-bold">Criar conta</Link>

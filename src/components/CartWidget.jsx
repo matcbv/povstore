@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, } from "react";
 import { CartContext } from "../contexts/CartProvider/context";
 
 export function CartWidget(){
     const [state] = useContext(CartContext);
-    
+
     return (
         <div className="flex items-end">
             <Link to="/checkout"><img src="/assets/images/shopping_bag.png" alt="Sacola de compras" /></Link>
