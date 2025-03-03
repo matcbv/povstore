@@ -17,6 +17,16 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 // Obtendo a instância de autenticação através do Google
 const provider = new GoogleAuthProvider();
+// Com a função setCustomParameters, podemos passar parâmetros que ditam o comportamento de nosso provider.
+provider.setCustomParameters({
+  /*
+    O parâmetro prompt é usado para controlar o comportamento da tela de login ao autenticar um usuário. Temos valores como:
+    
+      select_account: O usuário é forçado a escolher a conta mesmo já estando logado com o Google.
+      consent: É solicitado ao usuário permissões de acesso novamente, mesmo ele já tendo autorizado antes.	
+  */ 
+  prompt: 'select_account',
+});
 // Obtendo a instância do banco de dados do Firebase
 const db = getFirestore(app);
 

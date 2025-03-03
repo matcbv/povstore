@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useContext, } from "react";
-import { CartContext } from "../contexts/CartProvider/context";
+import { CheckoutContext } from "../contexts/CheckoutProvider/context";
 
 export function CartWidget(){
-    const [state] = useContext(CartContext);
+    const [state] = useContext(CheckoutContext);
 
     return (
         <div className="flex items-end">

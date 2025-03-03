@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { CartContext } from "../contexts/CartProvider/context";
-import { action_types } from "../contexts/CartProvider/action_types";
+import { CheckoutContext } from "../contexts/CheckoutProvider/context";
+import { action_types } from "../contexts/CheckoutProvider/action_types";
 
 export function CarouselCatalog(){
-    const [, dispatch] = useContext(CartContext);
+    const [, dispatch] = useContext(CheckoutContext);
 
     return (
-        <section className='flex flex-col items-center px-4 md:px-0'>
+        <section className='flex flex-col items-center px-4 md:px-0 bg-[linear-gradient(to_right,_#0000004a,_white,_#0000004a)]'>
             <h1 className='text-2xl md:text-4xl font-bold mt-16 md:mt-24'>Coleção da estação<span className='text-red-600'>.</span></h1>
             <div className='flex items-center my-16 md:my-24'>
                 <img src="/assets/images/left_arrow.png" alt="Item anterior" className='hover:cursor-pointer' />

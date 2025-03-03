@@ -1,14 +1,14 @@
 import { useReducer } from 'react';
-import { CartContext } from './context';
+import { CheckoutContext } from './context';
 import { data } from './data';
 import { reducer } from './reducer';
 
-export function CartProvider({children}){
+export function CheckoutProvider({children}){
     const [state, dispatch] = useReducer(reducer, data);
 
     return (
-        <CartContext.Provider value={[state, dispatch]}>
+        <CheckoutContext.Provider value={[state, dispatch]}>
             {children}
-        </CartContext.Provider>
+        </CheckoutContext.Provider>
     );
 };
