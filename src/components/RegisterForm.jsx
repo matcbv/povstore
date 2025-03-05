@@ -16,58 +16,62 @@ export function RegisterForm(){
         lastname: '',
         phoneNumber: '',
     });
+
     const [errorObject, setErrorObject] = useState({
         email: '',
         password: '',
-    })
+        name: '',
+        lastname: '',
+        phoneNumber: '',
+    });
 
     const handleChange = (e) => {
-        for(let k of Object.keys(errorObject)){
+        for(let k in errorObject){
             if(k === e.target.name){
-                errorObject[k] = '';
+                setErrorObject({...errorObject, [k]: ''});
             };
-        }
-        setDataObject({
-            ...dataObject,
-            [e.target.name]: e.target.value.trim(),
-        });
+        };
+        setDataObject({...dataObject, [e.target.name]: e.target.value.trim()});
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(dataObject.password.length >= 8){
-            try{
-                /*
-                    Com a função createUserWithEmailAndPassword, é realizado o cadastro de um novo usuário, desde que seus dados atendam os seguintes pré-requisitos:
-                    
-                    O email já está cadastrado?
-                        SIM → Retorna erro (auth/email-already-in-use).
-                        NÃO → Continua com a criação da conta.
+        if(checkData()){
+            return;
+        };
+        try{
+            /*
+                Com a função createUserWithEmailAndPassword, é realizado o cadastro de um novo usuário, desde que seus dados atendam os seguintes pré-requisitos:
+                
+                O email já está cadastrado?
+                    SIM → Retorna erro (auth/email-already-in-use).
+                    NÃO → Continua com a criação da conta.
 
-                    O email tem um formato válido?
-                        SIM → Continua com a criação.
-                        NÃO → Retorna erro (auth/invalid-email).
+                O email tem um formato válido?
+                    SIM → Continua com a criação.
+                    NÃO → Retorna erro (auth/invalid-email).
 
-                    A senha atende os requisitos mínimos? (Ao mínimo 6 caracteres)
-                        SIM → Continua.
-                        NÃO → Retorna erro (auth/weak-password).
+                A senha atende os requisitos mínimos? (Ao mínimo 6 caracteres)
+                    SIM → Continua.
+                    NÃO → Retorna erro (auth/weak-password).
 
-                    Ao final, caso bem-sucedido, nos será retornado um objeto contendo:
+                Ao final, caso bem-sucedido, nos será retornado um objeto contendo:
 
-                        user: Um objeto com os dados do usuário autenticado.
-                        providerId: O provedor de autenticação usado (por exemplo, "password").
-                        operationType: O tipo de operação realizada ("signIn" para login).
-                    
-                    Caso contrário, o erro contendo a causa nos é retornado.
-                */
-                const userCredential = await createUserWithEmailAndPassword(auth, dataObject.email, dataObject.password);
-                /*
-                    A função setDoc nos permite criar um documento definindo manualmente seu ID. Caso um com o mesmo ID já exista, será substituído pelo novo. Sua estrutura segue o seguinte padrão:
+                    user: Um objeto com os dados do usuário autenticado.
+                    providerId: O provedor de autenticação usado (por exemplo, "password").
+                    operationType: O tipo de operação realizada ("signUp" para cadastro e "signIn" para login).
+                
+                Caso contrário, o erro contendo a causa nos é retornado.
+            */
+            const userCredential = await createUserWithEmailAndPassword(auth, dataObject.email, dataObject.password);
+            /*
+                A função setDoc nos permite criar um documento definindo manualmente seu ID. Caso um com o mesmo ID já exista, será substituído pelo novo. Sua estrutura segue o seguinte padrão:
 
-                        setDoc(docRef, { key: value });
+                    setDoc(docRef, { key: value });
 
-                    docRef é a referência ao documento onde os dados serão armazenados. Podemos criar tal referência com a função doc.
-                */
+                docRef é a referência ao documento onde os dados serão armazenados. Podemos criar tal referência com a função doc.
+            */
+           if(userCredential.user){
                 await setDoc(doc(db, 'users', userCredential.user.uid), {
                     name: dataObject.name,
                     lastname: dataObject.lastname,
@@ -75,27 +79,38 @@ export function RegisterForm(){
                     createdAt: new Date().toLocaleDateString('pt-BR'),
                 });
 
-                if(userCredential.user){
-                    navigate('/session');
-                    toast.success('Conta criada com sucesso');
-                };
-            } catch(e){
-                if(e.code === 'auth/email-already-in-use'){
-                    setDataObject({...dataObject, email: ''});
-                    setErrorObject({...errorObject, email: 'E-mail já está em uso'});
-                } else if(e.code === 'auth/invalid-email'){
-                    setDataObject({...dataObject, email: ''});
-                    setErrorObject({...errorObject, email: 'E-mail inválido'});
-                };
+                navigate('/session');
+                toast.success('Conta criada com sucesso');
             };
-        } else{
-            setDataObject({...dataObject, password: ''});
-            setErrorObject({...errorObject, password: 'Senha menor que 8 caracteres'});
+        } catch(e){
+            if(e.code === 'auth/email-already-in-use'){
+                setDataObject({...dataObject, email: ''});
+                setErrorObject({...errorObject, email: 'E-mail já está em uso'});
+            } else if(e.code === 'auth/invalid-email'){
+                setDataObject({...dataObject, email: ''});
+                setErrorObject({...errorObject, email: 'E-mail inválido'});
+            } else if(e.code === 'auth/weak-password'){
+                setDataObject({...dataObject, password: ''});
+                setErrorObject({...errorObject, password: 'Senha menor que 6 caracteres'});
+            } else{
+                throw new Error(e.message);
+            };
         };
     };
 
-    const submitWithGoogle = () => {
-        signInWithPopup(auth, provider);
+    const submitWithGoogle = () => signInWithPopup(auth, provider);
+
+    const checkData = () => {
+        // Variável para indicar se algum erro foi identificado na checagem dos dados
+        let hasError = false;
+        
+        for(let k in dataObject){
+            if(!dataObject[k]){
+                hasError = true;
+                setErrorObject((prev) => ({...prev, [k]: 'Campo obrigatório'}));
+            };
+        };
+        return hasError;
     };
 
     return (
@@ -110,15 +125,15 @@ export function RegisterForm(){
             </div>
             <div className="flex">
                 <label htmlFor="name" className="border-b border-red-600">Nome</label>
-                <input type="name" id="name" name="name" autoComplete="given-name" value={ dataObject.name } className="form-inputs" onChange={ handleChange } />
+                <input type="name" id="name" name="name" autoComplete="given-name" placeholder={ errorObject.name } value={ dataObject.name } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex">
                 <label htmlFor="lastname" className="border-b border-red-600">Sobrenome</label>
-                <input type="lastname" id="lastname" name="lastname" autoComplete="family-name" value={ dataObject.lastname } className="form-inputs" onChange={ handleChange } />
+                <input type="lastname" id="lastname" name="lastname" autoComplete="family-name" placeholder={ errorObject.lastname } value={ dataObject.lastname } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex">
                 <label htmlFor="phoneNumber" className="border-b border-red-600">Telefone</label>
-                <input type="phoneNumber" id="phoneNumber" name="phoneNumber" autoComplete="tel" value={ dataObject.phoneNumber } className="form-inputs" onChange={ handleChange } />
+                <input type="phoneNumber" id="phoneNumber" name="phoneNumber" autoComplete="tel" placeholder={ errorObject.phoneNumber } value={ dataObject.phoneNumber } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex items-center gap-x-4">
                 <input type="submit" value="Cadastrar" className="border border-black py-1 rounded w-full cursor-pointer hover:font-bold" />

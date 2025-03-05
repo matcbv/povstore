@@ -10,6 +10,10 @@
   .form-inputs{
     @apply border-red-600 bg-transparent border-b pl-6 placeholder-red-600 placeholder:font-bold focus:outline-none w-full;
   }
+
+  .catalog-items{
+    @apply flex items-center gap-x-1 hover:pl-2 transition-all hover:cursor-pointer;
+  }
 }
 
 *{

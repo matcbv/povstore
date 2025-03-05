@@ -15,10 +15,10 @@ export function Checkout(){
                     <h1 className="text-3xl font-bold">Sacola de compras</h1>
                     <div className="flex flex-col items-start gap-y-4">
                         <p className="font-bold">Ops... Ainda não há nenhum item aqui.</p>
-                        <Link to='/' className="bg-black text-white p-3 font-bold rounded">Continuar comprando</Link>
+                        <Link to='/' className="bg-black text-white p-3 px-6 font-bold rounded">Continuar comprando</Link>
                     </div>
                 </div>
-                <div className="py-8 px-12 rounded border-2 border-black">
+                <div className="w-[350px] py-10 px-5 rounded border-2 border-black">
                     <h2 className="text-xl mb-8 font-bold">Resumo da compra</h2>
                     <div className="flex flex-col gap-y-8">
                         <ul className="flex flex-col gap-y-2">

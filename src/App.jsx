@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 
 import { AppRoutes } from './routes';
 
-import './global.css';
+import './assets/styles/global.css';
 
 export function App(){
     return (

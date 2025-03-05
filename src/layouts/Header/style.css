@@ -1,0 +1,17 @@
+.submenu{
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out 0s;
+}
+
+.showSubmenu{
+    opacity: 1;
+}
+
+.catalogArrow{
+    transform: rotate(0);
+    transition: transform 0.3s ease-in-out 0s;
+}
+
+.spinArrow{
+    transform: rotate(180deg);
+}
