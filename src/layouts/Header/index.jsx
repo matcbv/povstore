@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { CartWidget } from "../../components/CartWidget";
 import './style.css'
+import { DropdownMenu } from "./DropdownMenu";
 
 export function Header(){
 
     const handleClick = () => {
-        const submenu = document.querySelector('.submenu');
+        const submenu = document.querySelector('.dropdownMenu');
         const catalogArrow = document.querySelector('.catalogArrow');
-        submenu.classList.toggle('showSubmenu');
+        submenu.classList.toggle('showDropdownMenu');
         catalogArrow.classList.toggle('spinArrow');
     };
 
@@ -24,20 +25,6 @@ export function Header(){
                             <p className="text-white font-bold">Catálogo</p>
                             <img src="/assets/images/bottom_arrow.png" alt="Seta para baixo" className="catalogArrow" />
                         </div>
-                        <ul className="submenu w-52 flex flex-col gap-y-4 absolute top-full text-white font-bold border-2 border-t border-black border-t-red-600 bg-black/50 backdrop-blur-lg py-7 px-7">
-                            <li className="catalog-items">
-                                Masculino
-                                <img src="/assets/images/catalog_right_arrow.png" alt="Seta para direita" />
-                            </li>
-                            <li className="catalog-items">
-                                Feminino
-                                <img src="/assets/images/catalog_right_arrow.png" alt="Seta para direita" />
-                            </li> 
-                            <li className="catalog-items">
-                                Infantil
-                                <img src="/assets/images/catalog_right_arrow.png" alt="Seta para direita" />
-                            </li>
-                        </ul>
                     </li>
                     <li>
                         <Link to="/">
@@ -49,6 +36,7 @@ export function Header(){
                     </li>
                 </ul>
             </nav>
+            <DropdownMenu />
         </header>
     ); 
 };
