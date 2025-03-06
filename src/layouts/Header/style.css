@@ -15,3 +15,11 @@
 .spinArrow{
     transform: rotate(180deg);
 }
+
+.submenu{
+    display: none;
+}
+
+.showSubmenu{
+    display: flex;
+}
