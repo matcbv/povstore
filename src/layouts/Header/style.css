@@ -18,10 +18,10 @@
     transform: rotate(180deg);
 }
 
-.submenu{
+.categoriesList{
     display: none;
 }
 
-.showSubmenu{
+.showCategoriesList{
     display: flex;
 }
