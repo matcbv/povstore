@@ -1,16 +1,10 @@
 import { Link } from "react-router-dom";
 import { CartWidget } from "../../components/CartWidget";
-import './style.css'
 import { DropdownMenu } from "./DropdownMenu";
+import { useState } from "react";
 
 export function Header(){
-
-    const handleClick = () => {
-        const submenu = document.querySelector('.dropdownMenu');
-        const catalogArrow = document.querySelector('.catalogArrow');
-        submenu.classList.toggle('showDropdownMenu');
-        catalogArrow.classList.toggle('spinArrow');
-    };
+    const [dropdown, setDropdown] = useState(false);
 
     return (
         <header className="flex justify-between border-b border-red-600 px-12 py-4 bg-black sticky top-0 z-10">
@@ -21,9 +15,9 @@ export function Header(){
                         <Link className="text-white font-bold" to="/session">Iniciar sessão</Link>
                     </li>
                     <li className="group">
-                        <div className="flex items-center gap-x-1 hover:cursor-pointer" onClick={ handleClick }>
+                        <div className="flex items-center gap-x-1 hover:cursor-pointer" onMouseEnter={ () => setDropdown(true) }>
                             <p className="text-white font-bold">Catálogo</p>
-                            <img src="/assets/images/bottom_arrow.png" alt="Seta para baixo" className="catalogArrow" />
+                            <img src="/assets/images/bottom_arrow.png" alt="Seta para baixo" className="transition-transform" style={{transform: dropdown ? 'rotate(180deg)' : 'rotate(0deg)'}} />
                         </div>
                     </li>
                     <li>
@@ -36,7 +30,7 @@ export function Header(){
                     </li>
                 </ul>
             </nav>
-            <DropdownMenu />
+            {dropdown && <DropdownMenu setDropdown={ setDropdown } />}
         </header>
     ); 
 };

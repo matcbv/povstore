@@ -20,7 +20,7 @@ export function Submenu({ gender, activeCategory }){
     return (
         <>
             {activeCategory && (
-                <ul className="submenuProducts flex flex-col justify-center gap-y-4 w-40 text-white text-md">
+                <ul className="submenuProducts flex flex-col justify-center gap-y-6 w-40 text-white text-md">
                     {products[gender][activeCategory].map((product) => (
                         <li key={product} className="product-item hover:cursor-pointer hover:font-bold">{product}</li>
                     ))}
