@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Submenu } from "./Submenu";
 
 export function DropdownMenu({ setDropdown }){
@@ -35,12 +35,12 @@ export function DropdownMenu({ setDropdown }){
         }}
         >
             <div className="flex justify-center w-full">
-                <div className="flex justify-center items-center" onMouseLeave={ () => setActiveGender(null) }>
-                    <ul className="flex flex-col gap-y-10 w-40 text-white text-xl">
+                <div className="flex justify-center items-center gap-x-10" onMouseLeave={ () => setActiveGender(null) }>
+                    <ul className="flex flex-col gap-y-10 text-white text-xl">
                         {genders.map((gender) => (
                             <li
                                 key={gender}
-                                className="catalog-items relative"
+                                className="catalog-items"
                                 onMouseEnter={() => handleMouseEnter(gender)}
                                 style={{ visibility: activeGender && activeGender !== gender ? 'hidden' : 'visible' }}
                             >
@@ -50,8 +50,8 @@ export function DropdownMenu({ setDropdown }){
                         ))}
                     </ul>
                     {activeGender && (
-                            <div className="flex relative left-0" onMouseLeave={ handleMouseLeave }>
-                            <ul className="flex flex-col justify-center gap-y-10 w-40 text-white text-lg">
+                        <div className="flex relative left-0 gap-x-10" onMouseLeave={ handleMouseLeave }>
+                            <ul className="flex flex-col justify-center gap-y-10 text-white text-lg">
                                 {categories.map((category) => (
                                     <li 
                                         key={category} 
