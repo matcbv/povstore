@@ -40,5 +40,5 @@ export function Home(){
             </main>
             <Footer />
         </>
-    )
-}
+    );
+};

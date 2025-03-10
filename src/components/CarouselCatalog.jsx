@@ -1,10 +1,4 @@
-import { useContext } from 'react';
-import { CheckoutContext } from '../contexts/CheckoutProvider/context';
-import { action_types } from '../contexts/CheckoutProvider/action_types';
-
 export function CarouselCatalog() {
-	const [, dispatch] = useContext(CheckoutContext);
-
 	return (
 		<section className="flex flex-col items-center px-4 md:px-0 bg-[linear-gradient(to_right,_#0000004a,_white,_#0000004a)]">
 			<h1 className="text-2xl md:text-4xl font-bold mt-16 md:mt-24">
@@ -14,7 +8,7 @@ export function CarouselCatalog() {
 				<img
 					src="/assets/images/carousel_left_arrow.png"
 					alt="Item anterior"
-					className="cursor-pointer"
+					className="cursor-pointer transition-transform hover:-translate-x-1"
 				/>
 				<div className="flex flex-col items-center mx-5 md:flex-row md:mx-20 cursor-pointer">
 					<img src="/assets/images/overcoat.png" alt="Sobretudo" />
@@ -29,18 +23,17 @@ export function CarouselCatalog() {
 							sem perder a elegância.
 						</p>
 						<button
-							onClick={() => dispatch({ type: action_types.INCREMENT })}
 							type="button"
 							className="addItemBtn border border-black text-sm font-mono font-bold py-2 rounded-md hover:scale-105 transition"
 						>
-							Adicionar à sacola
+							Ver produto
 						</button>
 					</div>
 				</div>
 				<img
 					src="/assets/images/carousel_right_arrow.png"
 					alt="Próximo item"
-					className="cursor-pointer"
+					className="cursor-pointer transition-transform hover:translate-x-1"
 				/>
 			</div>
 		</section>

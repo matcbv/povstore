@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../database/firebase";
+import { UserContext } from "../contexts/UserProvider/context";
+
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { getUserData } from "../utils/getUserData";
 
 export function SessionForm(){
+    const navigate = useNavigate();
+    const [, dispatch] = useContext(UserContext);
+
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
     const [userError, setUserError] = useState('');
@@ -13,14 +20,22 @@ export function SessionForm(){
         e.preventDefault();
         try{
             /*
-                A função signInWithEmailAndPassword é responsável por autenticar o usuário e iniciar a sessão dele no Firebase Authentication. Caso bem-sucedido, nos é retornado um objeto de mesma estrutura que o retornado por createUserWithEmailAndPassword. Caso contrário, um erro contendo a causa nos é retornado.
+                A função signInWithEmailAndPassword é responsável por autenticar o usuário e iniciar a sessão dele no Firebase Authentication. Ao final, caso bem-sucedido, nos será retornado um objeto contendo informações do usuário autenticado:
+
+                    user: Um objeto com os dados do usuário autenticado.
+                    providerId: O provedor de autenticação usado (por exemplo, "password").
+                    operationType: O tipo de operação realizada ("signUp" para cadastro e "signIn" para login).
+                
+                Caso contrário, o erro contendo a causa nos é retornado.
 
                 Sua estrutura segue o seguinte padrão:
-                    
-                    userCredentials(auth, 'user', 'password');
+                
+                    signInWithEmailAndPassword(auth, 'user', 'password');
             */
             const userCredentials = await signInWithEmailAndPassword(auth, user, password);
-            console.log(userCredentials.user);
+            getUserData(userCredentials.user, dispatch);
+            navigate('/');
+
         } catch(e){
             if(e.code === 'auth/invalid-email'){
                 setUser('');

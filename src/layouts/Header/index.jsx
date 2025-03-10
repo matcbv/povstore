@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { CartWidget } from '../../components/CartWidget';
 import { DropdownMenu } from './DropdownMenu';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserContext } from '../../contexts/UserProvider/context';
 
 export function Header() {
+	const [state, ] = useContext(UserContext);
 	const [dropdown, setDropdown] = useState(false);
 
 	return (
@@ -16,14 +18,15 @@ export function Header() {
 			<nav className="flex items-center">
 				<ul className="flex gap-x-6 items-center">
 					<li>
-						<Link className="text-white font-bold" to="/session">
-							Iniciar sessão
-						</Link>
+					{Object.keys(state).length > 0 ? 
+						(<Link className="text-white font-bold" to="/account">Minha conta</Link>) : 
+						(<Link className="text-white font-bold" to="/session">Iniciar sessão</Link>)
+					}
 					</li>
 					<li className="group">
 						<div
 							className="flex items-center gap-x-1 cursor-pointer"
-							onMouseEnter={() => setDropdown(true)}
+							onMouseEnter={ () => setDropdown(true) }
 						>
 							<p className="text-white font-bold">Catálogo</p>
 							<img
@@ -49,4 +52,4 @@ export function Header() {
 			{dropdown && <DropdownMenu setDropdown={setDropdown} />}
 		</header>
 	);
-}
+};

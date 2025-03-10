@@ -1,28 +1,31 @@
-import { useState } from "react";
-import { Submenu } from "./Submenu";
+import { useEffect, useState } from "react";
+import { ProductsList } from "./ProductsList";
 
 export function DropdownMenu({ setDropdown }){
-    const genders = ["Masculino", "Feminino", "Infantil"];
     const categories = ["Roupas", "Calçados", "Acessórios"];
 
     const [activeGender, setActiveGender] = useState(null);
     const [activeCategory, setActiveCategory] = useState(null);
-    const [isVisible, setIsVisible] = useState(true);
+    const [isVisible, setIsVisible] = useState(false);
 
-    const handleMouseEnter = (gender) => {
+    const updateGender = (gender) => {
         setActiveGender(gender);
         setActiveCategory(null);
     };
 
-    const handleMouseLeave = () => {
+    const resetGender = () => {
         setActiveGender(null);
         setActiveCategory(null);
     };
 
     const delayDropdown = () => {
-        setIsVisible(false);
-        setTimeout(() => setDropdown(false), 300);
+        setIsVisible(prev => !prev);
+        setTimeout(() => setDropdown(prev => !prev), 300);
     };
+
+    useEffect(() => {
+        setIsVisible(true);
+    }, []);
 
     return (
         <nav
@@ -31,17 +34,18 @@ export function DropdownMenu({ setDropdown }){
         style={{
             opacity: isVisible ? 1 : 0,
             visibility: isVisible ? 'visible' : 'hidden',
-            transition: 'opacity 0.3s ease-in-out, visibility 0s linear 0.3s',
+            transition: 'opacity 0.3s ease-in-out, visibility 0.3s ease-in-out',
         }}
         >
             <div className="flex justify-center w-full">
                 <div className="flex justify-center items-center gap-x-10" onMouseLeave={ () => setActiveGender(null) }>
                     <ul className="flex flex-col gap-y-10 text-white text-xl">
-                        {genders.map((gender) => (
+                        {/* Iterando sobre a lista de gêneros */}
+                        {["Masculino", "Feminino", "Infantil"].map((gender) => (
                             <li
                                 key={gender}
-                                className="catalog-items"
-                                onMouseEnter={() => handleMouseEnter(gender)}
+                                className="menu-items relative"
+                                onMouseEnter={() => updateGender(gender)}
                                 style={{ visibility: activeGender && activeGender !== gender ? 'hidden' : 'visible' }}
                             >
                                 {gender}
@@ -50,12 +54,12 @@ export function DropdownMenu({ setDropdown }){
                         ))}
                     </ul>
                     {activeGender && (
-                        <div className="flex relative left-0 gap-x-10" onMouseLeave={ handleMouseLeave }>
+                        <div className="flex gap-x-10 relative left-0" onMouseLeave={ resetGender }>
                             <ul className="flex flex-col justify-center gap-y-10 text-white text-lg">
                                 {categories.map((category) => (
                                     <li 
                                         key={category} 
-                                        className="catalog-items categoriesItems"
+                                        className="menu-items categoriesItems"
                                         onMouseEnter={() => setActiveCategory(category)}
                                     >
                                         {category}
@@ -63,7 +67,8 @@ export function DropdownMenu({ setDropdown }){
                                     </li>
                                 ))}
                             </ul>
-                            {activeGender && <Submenu gender={activeGender} activeCategory={activeCategory} />}
+                            {/* Passando o gênero e a categoria ativos */}
+                            {activeGender && <ProductsList gender={activeGender} activeCategory={activeCategory} />}
                         </div>
                     )}
                 </div>

@@ -1,14 +1,9 @@
-import { action_types } from "./action_types";
+import { actionTypes } from "./actionTypes";
 
 export function reducer(state, action){
     switch(action.type){
-        case action_types.INCREMENT: return {...state, index: state.index + 1};
-        case action_types.DECREMENT: {
-            if(state.index <= 0){
-                return state;
-            };
-            return {...state, index: state.index - 1};
-        };
+        case actionTypes.INCREMENT: return {...state, index: state.index + 1};
+        case actionTypes.DECREMENT: return state.index <= 0 ? state : {...state, index: state.index - 1};
         default: return state;
     };
 };

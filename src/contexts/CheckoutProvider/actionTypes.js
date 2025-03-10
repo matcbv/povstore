@@ -1,4 +1,4 @@
-export const action_types = {
+export const actionTypes = {
     INCREMENT: 'INCREMENT',
     DECREMENT: 'DECREMENT',
 };

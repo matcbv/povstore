@@ -55,7 +55,7 @@ export function RegisterForm(){
                     SIM → Continua.
                     NÃO → Retorna erro (auth/weak-password).
 
-                Ao final, caso bem-sucedido, nos será retornado um objeto contendo:
+                Ao final, caso bem-sucedido, nos será retornado um objeto contendo informações do usuário autenticado:
 
                     user: Um objeto com os dados do usuário autenticado.
                     providerId: O provedor de autenticação usado (por exemplo, "password").
@@ -76,6 +76,7 @@ export function RegisterForm(){
                     name: dataObject.name,
                     lastname: dataObject.lastname,
                     phoneNumber: dataObject.phoneNumber,
+                    address: null,
                     createdAt: new Date().toLocaleDateString('pt-BR'),
                 });
 

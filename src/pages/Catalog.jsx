@@ -1,5 +1,5 @@
 import { Footer } from "../layouts/Footer";
-import { Header } from "../layouts/Header"
+import { Header } from "../layouts/Header";
 
 export function Catalog(){
     return (
