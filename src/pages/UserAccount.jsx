@@ -2,10 +2,21 @@ import { useContext } from "react";
 import { Footer } from "../layouts/Footer";
 import { Header } from "../layouts/Header";
 import { UserContext } from "../contexts/UserProvider/context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { logout } from "../database/auth";
 
 export function UserAccount(){
+    const navigate = useNavigate();
     const [state, ] = useContext(UserContext);
+
+    const handleClick = () => {
+        try{
+            logout();
+            navigate('/');
+        }catch(e){
+            throw new Error(e.message);
+        };
+    };
 
     const addressExists = () => {
         if (state.address) {
@@ -33,12 +44,12 @@ export function UserAccount(){
             <main className="flex flex-col gap-y-20 min-h-screen my-20">
                 <div className="flex justify-between items-center px-8 md:px-40">
                     <h1 className="text-2xl md:text-4xl font-bold">Conta de <span className="underline decoration-red-600 underline-offset-4">{state.name}</span></h1>
-                    <span className="cursor-pointer font-bold">
+                    <span className="flex flex-col items-center cursor-pointer font-bold" onClick={ handleClick }>
                         <img src="/assets/images/sign_out.png" alt="Sair" />
                         Sair
                     </span>
                 </div>
-                <section className="flex flex-col md:flex-row items-center md:items-stretch gap-y-20 md:gap-y-0 justify-center gap-x-40 text-black">
+                <section className="flex flex-col md:flex-row items-center md:items-stretch gap-y-20 md:gap-y-0 justify-center md:gap-x-10 lg:gap-x-40 text-black">
                     <div className="flex flex-col gap-y-20">
                         <div className="flex flex-col gap-y-8">
                             {addressExists()}

@@ -29,7 +29,7 @@ export function DropdownMenu({ setDropdown }){
 
     return (
         <nav
-        className="flex justify-end absolute left-0 top-full w-full bg-black/85 backdrop-blur-md border border-t-red-600 border-b-black h-80"
+        className="flex justify-end absolute left-0 top-full w-full bg-black/90 backdrop-blur-md border border-t-red-600 border-b-black h-80"
         onMouseLeave={ delayDropdown }
         style={{
             opacity: isVisible ? 1 : 0,

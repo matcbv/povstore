@@ -7,6 +7,7 @@ import { Session } from './pages/Session';
 import { Register } from './pages/Register';
 import { NotFound } from './pages/NotFound';
 import { UserAccount } from './pages/UserAccount';
+import { AddProduct } from './pages/AddProduct';
 
 export function AppRoutes(){
     return (
@@ -16,6 +17,7 @@ export function AppRoutes(){
             <Route path='/session' element={ <Session /> } />
             <Route path='/register' element={ <Register /> } />
             <Route path='/account' element={ <UserAccount /> } />
+            <Route path='/addProduct' element={ <AddProduct /> } />
             <Route path='*' element={ <NotFound /> } />
         </Routes>
     );

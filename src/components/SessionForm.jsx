@@ -1,11 +1,10 @@
 import { useContext, useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../database/firebase";
 import { UserContext } from "../contexts/UserProvider/context";
 
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { getUserData } from "../utils/getUserData";
+import { loginWithEmail } from "../database/auth";
+import { actionTypes } from "../contexts/UserProvider/actionTypes";
 
 export function SessionForm(){
     const navigate = useNavigate();
@@ -18,29 +17,15 @@ export function SessionForm(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try{
-            /*
-                A função signInWithEmailAndPassword é responsável por autenticar o usuário e iniciar a sessão dele no Firebase Authentication. Ao final, caso bem-sucedido, nos será retornado um objeto contendo informações do usuário autenticado:
-
-                    user: Um objeto com os dados do usuário autenticado.
-                    providerId: O provedor de autenticação usado (por exemplo, "password").
-                    operationType: O tipo de operação realizada ("signUp" para cadastro e "signIn" para login).
-                
-                Caso contrário, o erro contendo a causa nos é retornado.
-
-                Sua estrutura segue o seguinte padrão:
-                
-                    signInWithEmailAndPassword(auth, 'user', 'password');
-            */
-            const userCredentials = await signInWithEmailAndPassword(auth, user, password);
-            getUserData(userCredentials.user, dispatch);
+        const respone = await loginWithEmail(user, password);
+        if(respone.success){
+            dispatch({ type: actionTypes.ADD_DATA, payload: respone.data });
             navigate('/');
-
-        } catch(e){
-            if(e.code === 'auth/invalid-email'){
+        } else{
+            if(respone.error === 'auth/invalid-email'){
                 setUser('');
                 setUserError('E-mail inválido');
-            } else if(e.code === 'auth/invalid-credential'){
+            } else if(respone.error === 'auth/invalid-credential'){
                 // Podemos chamar diferentes tipos de toasts (info, success, error, warn), passando a eles a mensagem a ser exibida e um objeto opcional para personalização.
                 toast.error('E-mail ou senha incorretos');
             };
