@@ -118,23 +118,23 @@ export function RegisterForm(){
         <form onSubmit={ handleSubmit } className="flex flex-col w-[310px] gap-y-8 text-black overflow-hidden">
             <div className="flex">
                 <label htmlFor="email" className="border-b border-red-600 whitespace-nowrap">E-mail</label>
-                <input type="email" id="email" name="email" autoComplete="email" placeholder={ errorObject.email } className="form-inputs" onChange={ handleChange } />
+                <input type="email" id="email" name="email" autoComplete="email" placeholder={ errorObject.email } className="form-inputs" value={ errorObject.email } onChange={ handleChange } />
             </div>
             <div className="flex">
                 <label htmlFor="password" className="border-red-600 border-b">Senha</label>
-                <input type="password" id="password" name="password" autoComplete="new-password" placeholder={ errorObject.password } className="form-inputs" onChange={ handleChange } />
+                <input type="password" id="password" name="password" autoComplete="new-password" placeholder={ errorObject.password } value={ errorObject.password } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex">
                 <label htmlFor="name" className="border-b border-red-600">Nome</label>
-                <input type="name" id="name" name="name" autoComplete="given-name" placeholder={ errorObject.name } className="form-inputs" onChange={ handleChange } />
+                <input type="name" id="name" name="name" autoComplete="given-name" placeholder={ errorObject.name } value={ errorObject.name } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex">
                 <label htmlFor="lastname" className="border-b border-red-600">Sobrenome</label>
-                <input type="lastname" id="lastname" name="lastname" autoComplete="family-name" placeholder={ errorObject.lastname } className="form-inputs" onChange={ handleChange } />
+                <input type="lastname" id="lastname" name="lastname" autoComplete="family-name" placeholder={ errorObject.lastname } value={ errorObject.lastname } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex">
                 <label htmlFor="phoneNumber" className="border-b border-red-600">Telefone</label>
-                <input type="phoneNumber" id="phoneNumber" name="phoneNumber" autoComplete="tel" placeholder={ errorObject.phoneNumber } className="form-inputs" onChange={ handleChange } />
+                <input type="phoneNumber" id="phoneNumber" name="phoneNumber" autoComplete="tel" placeholder={ errorObject.phoneNumber } value={ errorObject.phoneNumber } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex items-center gap-x-4">
                 <input type="submit" value="Cadastrar" className="border border-black py-1 rounded w-full cursor-pointer hover:font-bold" />

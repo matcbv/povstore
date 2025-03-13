@@ -20,7 +20,7 @@
 	}
 
 	.product-inputs{
-		@apply px-2 py-1 lg:py-2 border-2 border-black rounded-sm font-bold text-red-700;
+		@apply px-2 py-1 lg:py-2 border-2 border-black rounded-sm font-bold text-gray-800 placeholder-red-600;
 	}
 }
 
