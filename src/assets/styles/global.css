@@ -18,6 +18,10 @@
 	.account-options{
 		@apply border-2 rounded-md px-4 py-2 text-sm md:text-base border-black hover:bg-black hover:text-white transition-colors;
 	}
+
+	.product-inputs{
+		@apply px-2 py-1 lg:py-2 border-2 border-black rounded-sm font-bold text-red-700;
+	}
 }
 
 * {
