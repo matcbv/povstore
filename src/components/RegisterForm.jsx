@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 export function RegisterForm(){
     const navigate = useNavigate();
-
+    const [hasError, setHasError] = useState(false);
     const [userData, setuserData] = useState({
         email: '',
         password: '',
@@ -17,26 +17,13 @@ export function RegisterForm(){
         phoneNumber: '',
     });
 
-    const [errorObject, setErrorObject] = useState({
-        email: '',
-        password: '',
-        name: '',
-        lastname: '',
-        phoneNumber: '',
-    });
-
-    const handleChange = (e) => {
-        for(let k in errorObject){
-            if(k === e.target.name){
-                setErrorObject({...errorObject, [k]: ''});
-            };
-        };
-        setuserData({...userData, [e.target.name]: e.target.value.trim()});
-    };
+    const handleChange = (e) => setuserData({...userData, [e.target.name]: e.target.value});
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(checkData()){
+        checkData();
+        if(hasError){
+            setHasError(false);
             return;
         };
         try{
@@ -83,17 +70,23 @@ export function RegisterForm(){
                 toast.success('Conta criada com sucesso');
             };
         } catch(e){
-            if(e.code === 'auth/email-already-in-use'){
-                setuserData({...userData, email: ''});
-                setErrorObject({...errorObject, email: 'E-mail já está em uso'});
-            } else if(e.code === 'auth/invalid-email'){
-                setuserData({...userData, email: ''});
-                setErrorObject({...errorObject, email: 'E-mail inválido'});
-            } else if(e.code === 'auth/weak-password'){
-                setuserData({...userData, password: ''});
-                setErrorObject({...errorObject, password: 'Senha menor que 6 caracteres'});
-            } else{
-                throw new Error(e.message);
+            switch(e.code){
+                case('auth/email-already-in-use'): {
+                    toast.error('E-mail já cadastrado.');
+                    break;
+                };
+                case('auth/invalid-email'): {
+                    toast.error('E-mail inválido');
+                    break;
+                };
+                case('auth/weak-password'): {
+                    toast.error('A senha deve conter, ao menos, 6 caracteres');
+                    break;
+                };
+                default: {
+                    toast.error('Um erro desconhecido ocorreu. Tente novamente.')
+                    throw new Error(e.code);
+                };
             };
         };
     };
@@ -101,39 +94,35 @@ export function RegisterForm(){
     const submitWithGoogle = () => signInWithPopup(auth, provider);
 
     const checkData = () => {
-        // Variável para indicar se algum erro foi identificado na checagem dos dados
-        let hasError = false;
-        
-        for(let k in userData){
-            if(!userData[k]){
-                hasError = true;
-                setErrorObject((prev) => ({...prev, [k]: 'Campo obrigatório'}));
+        for(const value of userData){
+            if(!value){
+                toast.error('Preencha todos os campos para concluir o cadastro.')
+                setHasError(true);
             };
         };
-        return hasError;
     };
 
     return (
         <form onSubmit={ handleSubmit } className="flex flex-col w-[310px] gap-y-8 text-black overflow-hidden">
             <div className="flex">
                 <label htmlFor="email" className="border-b border-red-600 whitespace-nowrap">E-mail</label>
-                <input type="email" id="email" name="email" autoComplete="email" placeholder={ errorObject.email } value={ userData.email } className="form-inputs" onChange={ handleChange } />
+                <input type="email" id="email" name="email" autoComplete="email" value={ userData.email } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex">
                 <label htmlFor="password" className="border-red-600 border-b">Senha</label>
-                <input type="password" id="password" name="password" autoComplete="new-password" placeholder={ errorObject.password } value={ userData.password } className="form-inputs" onChange={ handleChange } />
+                <input type="password" id="password" name="password" autoComplete="new-password" value={ userData.password } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex">
                 <label htmlFor="name" className="border-b border-red-600">Nome</label>
-                <input type="name" id="name" name="name" autoComplete="given-name" placeholder={ errorObject.name } value={ userData.name } className="form-inputs" onChange={ handleChange } />
+                <input type="name" id="name" name="name" autoComplete="given-name" value={ userData.name } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex">
                 <label htmlFor="lastname" className="border-b border-red-600">Sobrenome</label>
-                <input type="lastname" id="lastname" name="lastname" autoComplete="family-name" placeholder={ errorObject.lastname } value={ userData.lastname } className="form-inputs" onChange={ handleChange } />
+                <input type="lastname" id="lastname" name="lastname" autoComplete="family-name" value={ userData.lastname } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex">
                 <label htmlFor="phoneNumber" className="border-b border-red-600">Telefone</label>
-                <input type="phoneNumber" id="phoneNumber" name="phoneNumber" autoComplete="tel" placeholder={ errorObject.phoneNumber } value={ userData.phoneNumber } className="form-inputs" onChange={ handleChange } />
+                <input type="phoneNumber" id="phoneNumber" name="phoneNumber" autoComplete="tel" value={ userData.phoneNumber } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex items-center gap-x-4">
                 <input type="submit" value="Cadastrar" className="border border-black py-1 rounded w-full cursor-pointer hover:font-bold" />
