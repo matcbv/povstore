@@ -13,8 +13,9 @@ export async function addProduct(productData, productImage) {
         // Obtendo a URL da imagem
         const imageURL = await getDownloadURL(storageRef);
         // Atualizando o documento do produto com a URL da imagem obtido
-        updateDoc(docRef, {imageURL});
+        await updateDoc(docRef, {imageURL});
+        return {success: true}
     } catch(e){
-        throw new Error(e.message);
+        return {success: false, error: e.code};
     };
 };
