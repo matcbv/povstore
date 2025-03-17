@@ -54,18 +54,19 @@ export function UserAccount(){
                         <div className="flex flex-col gap-y-8">
                             {addressExists()}
                         </div>
-                        <div className="flex flex-col gap-y-4 md:gap-y-8">
+                        <div className="flex flex-col gap-y-4 md:gap-y-6">
                             <Link className="account-options">Editar dados da conta</Link>
+                            <Link className="account-options">Métodos de pagamento</Link>
                             <Link className="account-options">Favoritos</Link>
                             <Link className="account-options">Meus pedidos</Link>
                             {state.administrator && (
-                                <Link to="/addProduct" className="account-options">Adicionar produto</Link>
+                                <Link to="/add-product" className="account-options">Adicionar produto</Link>
                             )}
                         </div>
                     </div>
                     <span className="border border-red-600 w-full md:w-auto" />
                     <div className="flex flex-col gap-y-8">
-                        <h2 className="text-xl md:text-2xl font-bold">Últimos pedidos<span className="text-red-600">:</span></h2>
+                        <h2 className="text-xl md:text-3xl font-bold">Últimos pedidos<span className="text-red-600">:</span></h2>
                         <div className="flex flex-col items-start gap-y-4">
                             <p className="md:text-lg">Não há nenhum pedido feito recentemente</p>
                             <Link className="bg-black rounded-md px-4 py-2 text-sm font-mono text-white hover:scale-105 transition-transform">Ir ao catálogo</Link>

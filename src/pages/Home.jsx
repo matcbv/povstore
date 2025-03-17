@@ -2,6 +2,7 @@
 import { Header } from '../layouts/Header';
 import { Footer } from '../layouts/Footer';
 import { CarouselCatalog } from "../components/CarouselCatalog";
+import { Link } from 'react-router-dom';
 
 export function Home(){
     return (
@@ -26,13 +27,13 @@ export function Home(){
                 <section className="border-y border-red-600">
                     <div className="flex flex-col md:flex-row justify-evenly max-w-full h-screen">
                         <div className="bg-[url('/assets/images/woman.jpg')] bg-cover bg-center flex justify-center w-full h-full">
-                            <button type='button' className="categories-btn">Feminino</button>
+                            <Link to='/catalog/woman' className="categories-btn">Feminino</Link>
                         </div>
                         <div className="bg-[url('/assets/images/man.jpg')] bg-cover bg-center flex justify-center w-full h-full">
-                            <button type='button' className="categories-btn">Masculino</button>
+                            <Link to='/catalog/man' className="categories-btn">Masculino</Link>
                         </div>
-                        <div className="bg-[url('/assets/images/kid.jpg')] bg-cover bg-center flex justify-center w-full h-full">
-                            <button type='button' className="categories-btn">Infantil</button>
+                        <div className="bg-[url('/assets/images/child.jpg')] bg-cover bg-center flex justify-center w-full h-full">
+                            <Link to='/catalog/child' className="categories-btn">Infantil</Link>
                         </div>
                     </div>
                 </section>

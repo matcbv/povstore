@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
 import { ProductsList } from "./ProductsList";
+import { Link } from "react-router-dom";
 
 export function DropdownMenu({ setDropdown }){
     const categories = ["Roupas", "Calçados", "Acessórios"];
+    const categoryMap = {
+        Masculino: 'man',
+        Feminino: 'woman',
+        Infantil: 'child',
+    };
 
     const [activeGender, setActiveGender] = useState(null);
     const [activeCategory, setActiveCategory] = useState(null);
@@ -48,7 +54,7 @@ export function DropdownMenu({ setDropdown }){
                                 onMouseEnter={() => updateGender(gender)}
                                 style={{ visibility: activeGender && activeGender !== gender ? 'hidden' : 'visible' }}
                             >
-                                {gender}
+                                <Link to={`/catalog/${categoryMap[gender]}`}>{gender}</Link>
                                 <img src="/assets/images/catalog_right_arrow.png" alt="Seta para direita" />
                             </li>
                         ))}
@@ -59,7 +65,7 @@ export function DropdownMenu({ setDropdown }){
                                 {categories.map((category) => (
                                     <li 
                                         key={category} 
-                                        className="menu-items categoriesItems"
+                                        className="menu-items"
                                         onMouseEnter={() => setActiveCategory(category)}
                                     >
                                         {category}
@@ -68,7 +74,7 @@ export function DropdownMenu({ setDropdown }){
                                 ))}
                             </ul>
                             {/* Passando o gênero e a categoria ativos */}
-                            {activeGender && <ProductsList gender={activeGender} activeCategory={activeCategory} />}
+                            {activeGender && <ProductsList gender={activeGender} category={activeCategory} />}
                         </div>
                     )}
                 </div>

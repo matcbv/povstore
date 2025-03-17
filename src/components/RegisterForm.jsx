@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { auth, db, provider } from "../database/firebase";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
@@ -8,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 export function RegisterForm(){
     const navigate = useNavigate();
-    const [hasError, setHasError] = useState(false);
     const [userData, setuserData] = useState({
         email: '',
         password: '',
@@ -21,9 +19,8 @@ export function RegisterForm(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        checkData();
-        if(hasError){
-            setHasError(false);
+        if(!checkData()){
+            toast.error('Preencha todos os campos para concluir o cadastro.');
             return;
         };
         try{
@@ -58,7 +55,7 @@ export function RegisterForm(){
 
                 docRef é a referência ao documento onde os dados serão armazenados. Podemos criar tal referência com a função doc.
             */
-           if(userCredential.user){
+            if(userCredential.user){
                 await setDoc(doc(db, 'users', userCredential.user.uid), {
                     name: userData.name,
                     lastname: userData.lastname,
@@ -94,22 +91,22 @@ export function RegisterForm(){
     const submitWithGoogle = () => signInWithPopup(auth, provider);
 
     const checkData = () => {
-        for(const value of userData){
+        for(const value of Object.values(userData)){
             if(!value){
-                toast.error('Preencha todos os campos para concluir o cadastro.')
-                setHasError(true);
+                return false;
             };
         };
+        return true;
     };
 
     return (
         <form onSubmit={ handleSubmit } className="flex flex-col w-[310px] gap-y-8 text-black overflow-hidden">
             <div className="flex">
-                <label htmlFor="email" className="border-b border-red-600 whitespace-nowrap">E-mail</label>
+                <label htmlFor="email" className="border-b border-red-600 whitespace-nowrap w-">E-mail</label>
                 <input type="email" id="email" name="email" autoComplete="email" value={ userData.email } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex">
-                <label htmlFor="password" className="border-red-600 border-b">Senha</label>
+                <label htmlFor="password" className="border-b border-red-600">Senha</label>
                 <input type="password" id="password" name="password" autoComplete="new-password" value={ userData.password } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex">

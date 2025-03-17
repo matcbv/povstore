@@ -4,7 +4,7 @@
 
 @layer components {
 	.categories-btn {
-		@apply text-white w-full text-4xl font-bold bg-[radial-gradient(circle,_#000000bd,_transparent_80%)] hover:backdrop-blur-sm;
+		@apply flex items-center justify-center w-full text-white text-4xl font-bold bg-[radial-gradient(circle,_#000000bd,_transparent_80%)] hover:backdrop-blur-sm;
 	}
 
 	.form-inputs {
@@ -20,7 +20,7 @@
 	}
 
 	.product-inputs{
-		@apply px-2 py-1 lg:py-2 border-2 border-black rounded-sm font-bold text-gray-800 placeholder-red-600;
+		@apply px-2 py-1 lg:py-2 border-2 border-black rounded-md font-bold text-gray-800 placeholder-red-600 bg-white;
 	}
 }
 

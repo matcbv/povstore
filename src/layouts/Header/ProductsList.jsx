@@ -1,4 +1,4 @@
-export function ProductsList({ gender, activeCategory }) {
+export function ProductsList({ gender, category }) {
 	const products = {
 		Masculino: {
 			Roupas: ['Camisas', 'Camisetas', 'Jaquetas e Casacos', 'Moletons', 'Calças'],
@@ -19,10 +19,10 @@ export function ProductsList({ gender, activeCategory }) {
 
 	return (
 		<>
-			{activeCategory && (
+			{category && (
 				<ul className="flex flex-col justify-center gap-y-5 w-40 text-white text-md">
 					{/* Realizando a iteração dos produtos com base no gênero e categoria ativos */}
-					{products[gender][activeCategory].map((product) => (
+					{products[gender][category].map((product) => (
 						<li key={product} className="product-item cursor-pointer hover:font-bold">
 							{product}
 						</li>
