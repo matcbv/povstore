@@ -1,6 +1,7 @@
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { actionTypes } from "../contexts/UserProvider/actionTypes";
 
 export async function loginWithEmail(user, password){
     try{
@@ -28,11 +29,28 @@ export async function loginWithEmail(user, password){
             Obs.: getDoc nos retorna uma promise, portanto, devemos trabalhar por meio de funções assíncronas ou callbacks.
         */
         const userData = (await getDoc(userRef)).data();
-        return {success: true, data: userData}
+        return {success: true, data: userData};
     } catch(e){
         return {success: false, error: e.code};
     };
 };
+
+export function checkAuth(dispatch){
+    onAuthStateChanged(auth, async (user) => {
+        if(user){
+            try{
+                const userRef = doc(db, 'users', user.uid);
+                const userData = (await getDoc(userRef)).data();
+                dispatch({ type: actionTypes.ADD_DATA, payload: userData });
+            } catch(e){
+                throw new Error(e.message);
+            };
+        } else{
+            dispatch({ type: actionTypes.REMOVE_DATA })
+        };
+    });
+}
+
 
 export async function logout() {
     await signOut(auth);

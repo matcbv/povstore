@@ -3,11 +3,10 @@ import { ProductsList } from "./ProductsList";
 import { Link } from "react-router-dom";
 
 export function DropdownMenu({ setDropdown }){
-    const categories = ["Roupas", "Calçados", "Acessórios"];
     const categoryMap = {
-        Masculino: 'man',
-        Feminino: 'woman',
-        Infantil: 'child',
+        Masculino: 'men',
+        Feminino: 'women',
+        Infantil: 'children',
     };
 
     const [activeGender, setActiveGender] = useState(null);
@@ -62,9 +61,9 @@ export function DropdownMenu({ setDropdown }){
                     {activeGender && (
                         <div className="flex gap-x-10 relative left-0" onMouseLeave={ resetGender }>
                             <ul className="flex flex-col justify-center gap-y-10 text-white text-lg">
-                                {categories.map((category) => (
+                                {["Roupas", "Calçados", "Acessórios"].map((category) => (
                                     <li 
-                                        key={category} 
+                                        key={category}
                                         className="menu-items"
                                         onMouseEnter={() => setActiveCategory(category)}
                                     >

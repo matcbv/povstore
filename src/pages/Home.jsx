@@ -27,13 +27,13 @@ export function Home(){
                 <section className="border-y border-red-600">
                     <div className="flex flex-col md:flex-row justify-evenly max-w-full h-screen">
                         <div className="bg-[url('/assets/images/woman.jpg')] bg-cover bg-center flex justify-center w-full h-full">
-                            <Link to='/catalog/woman' className="categories-btn">Feminino</Link>
+                            <Link to='/catalog/women' className="categories-btn">Feminino</Link>
                         </div>
                         <div className="bg-[url('/assets/images/man.jpg')] bg-cover bg-center flex justify-center w-full h-full">
-                            <Link to='/catalog/man' className="categories-btn">Masculino</Link>
+                            <Link to='/catalog/men' className="categories-btn">Masculino</Link>
                         </div>
                         <div className="bg-[url('/assets/images/child.jpg')] bg-cover bg-center flex justify-center w-full h-full">
-                            <Link to='/catalog/child' className="categories-btn">Infantil</Link>
+                            <Link to='/catalog/children' className="categories-btn">Infantil</Link>
                         </div>
                     </div>
                 </section>

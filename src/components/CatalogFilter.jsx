@@ -1,28 +1,29 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function CatalogFilter({ gender, category }){
     const [activeCategory, setActiveCategory] = useState(category);
 
     const categories = {
-		man: {
-			clothes: ['Camisas', 'Camisetas', 'Jaquetas e Casacos', 'Moletons', 'Calças'],
-			footwear: ['Tênis', 'Sapatos', 'Mocassins', 'Botas'],
-			accessories: ['Chapéus e Bonés', 'Bolsas e Mochilas', 'Cintos', 'Gravatas'],
+		men: {
+			Roupas: ['Camisas', 'Camisetas', 'Jaquetas e Casacos', 'Moletons', 'Calças'],
+			Calçados: ['Tênis', 'Sapatos', 'Mocassins', 'Botas'],
+			Acessórios: ['Chapéus e Bonés', 'Bolsas e Mochilas', 'Cintos', 'Gravatas'],
 		},
-		woman: {
-			clothes: ['Camisas', 'Blusas', 'Vestidos', 'Moletons', 'Calças'],
-			footwear: ['Tênis', 'Saltos', 'Sapatilhas'],
-			accessories: ['Chapéus e Bonés', 'Bolsas e Mochilas', 'Luvas'],
+		women: {
+			Roupas: ['Camisas', 'Blusas', 'Vestidos', 'Moletons', 'Calças'],
+			Calçados: ['Tênis', 'Saltos', 'Sapatilhas'],
+			Acessórios: ['Chapéus e Bonés', 'Bolsas e Mochilas', 'Luvas'],
 		},
-		child: {
-			clothes: ['Camisas', 'Camisetas', 'Jaquetas e Casacos', 'Vestidos', 'Macacões', 'Calças'],
-			footwear: ['Tênis', 'Botas', 'Sapatos', 'Mocassins', 'Sandálias'],
-			accessories: ['Chapéus e Bonés', 'Mochilas', 'Suspensórios'],
+		children: {
+			Roupas: ['Camisas', 'Camisetas', 'Jaquetas e Casacos', 'Vestidos', 'Macacões', 'Calças'],
+			Calçados: ['Tênis', 'Botas', 'Sapatos', 'Mocassins', 'Sandálias'],
+			Acessórios: ['Chapéus e Bonés', 'Mochilas', 'Suspensórios'],
 		},
     };
 
     return (
-        <nav className="h-screen w-80 flex flex-col items-center gap-y-10 py-10 sticky top-20 px-8 bg-black/90 shadow-[20px_0px_30px_rgba(0,0,0,0.2)] text-white font-bold">        
+        <nav className="h-screen w-80 flex flex-col gap-y-10 sticky top-20 p-10 px-8 bg-black/90 shadow-[20px_0px_30px_rgba(0,0,0,0.2)] text-white font-bold overflow-y-scroll">
             <div className="w-full flex flex-col gap-y-10">
                 <h2 className="text-2xl border-b border-b-red-600">Filtros</h2>
                 <div className="flex flex-col gap-y-10">
@@ -36,7 +37,7 @@ export function CatalogFilter({ gender, category }){
                                     onClick={ () => setActiveCategory(c) }
                                 >
                                     <img src="/assets/images/catalog_right_arrow.png" alt={c} />
-                                    {activeCategory === c ? c+' ✓' : c}
+                                    <Link to={`/catalog/${gender}/${c}`}>{activeCategory === c ? c+' ✓' : c}</Link>
                                 </li>
                             ))}    
                         </ul>
@@ -56,7 +57,7 @@ export function CatalogFilter({ gender, category }){
                     )}
                 </div>
             </div>
-            <button type="button" className="w-full flex items-center justify-center gap-x-1 py-3 rounded-md transition-colors hover:bg-black">
+            <button type="button" className="w-full flex items-center justify-center gap-x-1 py-2 px-4 border border-white rounded-md text-sm transition-colors hover:bg-black">
                 <img src="/assets/images/remove.png" alt="Limpar filtros" />
                 Limpar filtros
             </button>
