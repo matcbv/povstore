@@ -1,5 +1,6 @@
 export const data = {
-    user: null,
+    userData: null,
+    uid: null,
     loading: true,
     error: null,
 };

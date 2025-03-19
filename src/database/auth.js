@@ -2,6 +2,7 @@ import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebas
 import { auth, db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { actionTypes } from "../contexts/UserProvider/actionTypes";
+import { use } from "react";
 
 export async function loginWithEmail(user, password){
     try{
@@ -39,19 +40,27 @@ export function checkAuth(dispatch){
     onAuthStateChanged(auth, async (user) => {
         if(user){
             try{
+                dispatch({ type: actionTypes.SET_UID, payload: user.uid })
                 const userRef = doc(db, 'users', user.uid);
                 const userData = (await getDoc(userRef)).data();
-                dispatch({ type: actionTypes.ADD_DATA, payload: userData });
+                dispatch({ type: actionTypes.ADD_DATA, payload: userData }); 
             } catch(e){
+                dispatch({type: actionTypes.SET_ERROR, payload: e.message});
                 throw new Error(e.message);
             };
+            dispatch({type: actionTypes.SET_LOADING, payload: false});
         } else{
-            dispatch({ type: actionTypes.REMOVE_DATA })
+            dispatch({ type: actionTypes.REMOVE_DATA });
         };
     });
-}
+};
 
 
-export async function logout() {
-    await signOut(auth);
+export async function logout(dispatch) {
+    try{
+        await signOut(auth)
+        dispatch({ type:actionTypes.REMOVE_DATA });
+    } catch(e){
+        dispatch({type: actionTypes.SET_ERROR, payload: e.message});
+    };
 };

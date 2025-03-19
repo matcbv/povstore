@@ -60,11 +60,10 @@ export function RegisterForm(){
                     name: userData.name,
                     lastname: userData.lastname,
                     phoneNumber: userData.phoneNumber,
-                    address: null,
                     createdAt: new Date().toLocaleDateString('pt-BR'),
                 });
                 navigate('/session');
-                toast.success('Conta criada com sucesso');
+                toast.success('Conta criada com sucesso.');
             };
         } catch(e){
             switch(e.code){
@@ -73,11 +72,11 @@ export function RegisterForm(){
                     break;
                 };
                 case('auth/invalid-email'): {
-                    toast.error('E-mail inválido');
+                    toast.error('E-mail inválido.');
                     break;
                 };
                 case('auth/weak-password'): {
-                    toast.error('A senha deve conter, ao menos, 6 caracteres');
+                    toast.error('A senha deve conter, ao menos, 6 caracteres.');
                     break;
                 };
                 default: {

@@ -7,11 +7,11 @@ import { logout } from "../database/auth";
 
 export function UserAccount(){
     const navigate = useNavigate();
-    const [state, ] = useContext(UserContext);
+    const [state, dispatch] = useContext(UserContext);
 
     const handleClick = () => {
         try{
-            logout();
+            logout(dispatch);
             navigate('/');
         }catch(e){
             throw new Error(e.message);
@@ -19,7 +19,7 @@ export function UserAccount(){
     };
 
     const addressExists = () => {
-        if (state.address) {
+        if (state.userData.address) {
             return (
                 <>
                     <p>Endereço</p>
@@ -38,12 +38,20 @@ export function UserAccount(){
         };
     };
 
+    if(state.loading){
+        return (
+            <div>
+                <p>Carregando...</p>
+            </div>
+        );
+    };
+
     return (
         <>
             <Header />
             <main className="flex flex-col gap-y-20 min-h-screen my-20">
                 <div className="flex justify-between items-center px-8 md:px-40">
-                    <h1 className="text-2xl md:text-4xl font-bold">Conta de <span className="underline decoration-red-600 underline-offset-4">{state.name}</span></h1>
+                    <h1 className="text-2xl md:text-4xl font-bold">Conta de <span className="underline decoration-red-600 underline-offset-4">{state.userData.name}</span></h1>
                     <span className="flex flex-col items-center cursor-pointer font-bold" onClick={ handleClick }>
                         <img src="/assets/images/sign_out.png" alt="Sair" />
                         Sair
@@ -59,7 +67,7 @@ export function UserAccount(){
                             <Link className="account-options">Métodos de pagamento</Link>
                             <Link className="account-options">Favoritos</Link>
                             <Link className="account-options">Meus pedidos</Link>
-                            {state.administrator && (
+                            {state.userData.administrator && (
                                 <Link to="/add-product" className="account-options">Adicionar produto</Link>
                             )}
                         </div>

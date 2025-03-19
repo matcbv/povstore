@@ -1,4 +1,14 @@
+import { useContext } from "react";
+import { addFavorite } from "../database/addFavorite";
+import { UserContext } from "../contexts/UserProvider/context";
+
 export function ProductsMap({ products, loading }){
+    const [state, ] = useContext(UserContext);
+
+    const handleClick = (productID) => {
+        addFavorite(state.uid, productID);
+    };
+
     if(loading){
         return (
             <div>
@@ -26,7 +36,12 @@ export function ProductsMap({ products, loading }){
                             <p className="text-sm text-neutral-400">6x de {(Number.parseFloat(prod.price)/6).toFixed(2)}</p>
                         </span>
                     </div>
-                    <img src="/assets/images/favorite.png" alt="Favoritar" className="hidden absolute top-0 right-0 transition-transform group-hover:block hover:scale-110" />
+                    <img 
+                        src="/assets/images/favorite.png"
+                        alt="Favoritar"
+                        className="hidden absolute top-0 right-0 transition-transform group-hover:block hover:scale-110"
+                        onClick={ () => handleClick(prod.id) }
+                    />
                 </div>
             ))}
         </div>
