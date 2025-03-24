@@ -32,7 +32,7 @@ export function ProductsCatalog(){
     return (
         <>
             <Header />
-            <main className="flex">
+            <main className="flex min-h-screen">
                 <CatalogFilter gender={ params.gender } category={ params.category } />
                 <section className="w-full flex flex-col m-20 text-black">
                     <div className="w-full flex justify-between pb-20">
