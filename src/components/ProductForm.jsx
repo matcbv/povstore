@@ -8,7 +8,7 @@ export function ProductForm(){
         name: '',
         description: '',
         gender: 'unisex',
-        category: 'clothing',
+        category: 'clothes',
         subcategory: '',
         price: '',
         quantity: 1,

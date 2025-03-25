@@ -8,14 +8,20 @@ import { Register } from './pages/Register';
 import { NotFound } from './pages/NotFound';
 import { UserAccount } from './pages/UserAccount';
 import { AddProduct } from './pages/AddProduct';
-import { ProductsCatalog } from './pages/ProductsCatalog';
 import { Favorites } from './pages/Favorites';
+import { ProductsCatalog } from './pages/ProductsCatalog';
+
+import { ProductProvider } from './contexts/ProductProvider/index';
 
 export function AppRoutes(){
     return (
         <Routes>
             <Route path='/' element={ <Home /> } />
-            <Route path='/catalog/:gender/:category?' element={ <ProductsCatalog /> }/>
+            <Route path='/catalog/:gender/:category?/:subcategory?' element={
+                <ProductProvider>
+                    <ProductsCatalog />
+                </ProductProvider>
+            } />
             <Route path='/checkout' element={ <Checkout /> } />
             <Route path='/session' element={ <Session /> } />
             <Route path='/register' element={ <Register /> } />

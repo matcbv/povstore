@@ -1,25 +1,23 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { getCategory, getPath } from "../utils/getPathnames";
+import { useContext } from "react";
+import { ProductContext } from "../contexts/ProductProvider/context";
+import { catalogMap } from "../utils/getPathnames";
+import { actionTypes } from "../contexts/ProductProvider/actionTypes";
 
-export function CatalogFilter({ gender, category }){
-    const [activeCategory, setActiveCategory] = useState(category);
+export function CatalogFilter(){
+    const navigate = useNavigate();
+    const [state, dispatch] = useContext(ProductContext);
 
-    const categories = {
-		men: {
-			Roupas: ['Camisas', 'Camisetas', 'Jaquetas e Casacos', 'Moletons', 'Calças'],
-			Calçados: ['Tênis', 'Sapatos', 'Mocassins', 'Botas'],
-			Acessórios: ['Chapéus e Bonés', 'Bolsas e Mochilas', 'Cintos', 'Gravatas'],
-		},
-		women: {
-			Roupas: ['Camisas', 'Blusas', 'Vestidos', 'Moletons', 'Calças'],
-			Calçados: ['Tênis', 'Saltos', 'Sapatilhas'],
-			Acessórios: ['Chapéus e Bonés', 'Bolsas e Mochilas', 'Luvas'],
-		},
-		children: {
-			Roupas: ['Camisas', 'Camisetas', 'Jaquetas e Casacos', 'Vestidos', 'Macacões', 'Calças'],
-			Calçados: ['Tênis', 'Botas', 'Sapatos', 'Mocassins', 'Sandálias'],
-			Acessórios: ['Chapéus e Bonés', 'Mochilas', 'Suspensórios'],
-		},
+    const clearFilters = () => {
+        dispatch({ type: actionTypes.SET_ACTIVE_CATEGORY, payload: null });
+        dispatch({ type: actionTypes.SET_ACTIVE_SUBCATEGORY, payload: null });
+        /*
+            É necessário redirecionarmos nossa página pois mesmo após limpar nossos estados, a URL continua com os valores de category e subcategory. Dessa forma, após a re-renderização, nosso useEffect de ProductsCatalog volta a adicionar os filtros nos estados.
+
+            Obs.: Com replace, podemos optar com que a URL atual substitua a anterior no histórico do navegador, impedindo que o usuário retorne à ela.
+        */
+        navigate(getPath(state.activeGender), { replace: true });
     };
 
     return (
@@ -34,22 +32,26 @@ export function CatalogFilter({ gender, category }){
                                 <li
                                     key={c}
                                     className="flex transition-transform hover:translate-x-2 cursor-pointer"
-                                    onClick={ () => setActiveCategory(c) }
                                 >
                                     <img src="/assets/images/catalog_right_arrow.png" alt={c} />
-                                    <Link to={`/catalog/${gender}/${c}`}>{activeCategory === c ? c+' ✓' : c}</Link>
+                                    <Link to={getPath(state.activeGender, getCategory(c))}>
+                                        {state.activeCategory === getCategory(c) ? c +' ✓' : c}
+                                    </Link>
                                 </li>
                             ))}    
                         </ul>
                     </div>
-                    {activeCategory && (
+                    {state.activeCategory && (
                         <div className="flex flex-col gap-y-5">
                             <h3 className="text-lg">Tipo de produto</h3>
                             <ul className="flex flex-col gap-y-2 pl-2">
-                                {categories[gender][activeCategory]?.map((p) => (
-                                    <li key={p} className="flex transition-transform hover:translate-x-2 cursor-pointer">
-                                        <img src="/assets/images/catalog_right_arrow.png" alt={p} />
-                                        {p}
+                                {/* Realizando o mapeamento do mapa do catálogo, obtendo os respectivos nome e apelido do gênero e categoria atuais: */}
+                                {Object.entries(catalogMap[state.activeGender][state.activeCategory]).map(([name, slug]) => (
+                                    <li key={name} className="flex transition-transform hover:translate-x-2 cursor-pointer">
+                                        <img src="/assets/images/catalog_right_arrow.png" alt={name} />
+                                        <Link to={getPath(state.activeGender, state.activeCategory, slug)}>
+                                            {state.activeSubcategory === slug ? name +' ✓' : name}
+                                        </Link>
                                     </li>
                                 ))}
                             </ul>
@@ -57,7 +59,11 @@ export function CatalogFilter({ gender, category }){
                     )}
                 </div>
             </div>
-            <button type="button" className="w-full flex items-center justify-center gap-x-1 py-2 px-4 border border-white rounded-md text-sm transition-colors hover:bg-black">
+            <button
+                type="button"
+                className="w-full flex items-center justify-center gap-x-1 py-2 px-4 border border-white rounded-md text-sm transition-colors hover:bg-black"
+                onClick={ clearFilters }
+            >
                 <img src="/assets/images/remove.png" alt="Limpar filtros" />
                 Limpar filtros
             </button>

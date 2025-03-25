@@ -2,7 +2,6 @@ import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebas
 import { auth, db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { actionTypes } from "../contexts/UserProvider/actionTypes";
-import { use } from "react";
 
 export async function loginWithEmail(user, password){
     try{

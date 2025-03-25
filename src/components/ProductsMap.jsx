@@ -2,14 +2,19 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserProvider/context";
 import { getDoc, setDoc, doc, collection, getDocs, deleteDoc } from "firebase/firestore";
 import { db } from "../database/firebase";
+import { Link, useParams } from "react-router-dom";
+import { ProductContext } from "../contexts/ProductProvider/context";
+import { actionTypes } from "../contexts/ProductProvider/actionTypes";
 
-export function ProductsMap({ products, loading }){
-    const [state, ] = useContext(UserContext);
+export function ProductsMap({ products }){
+    const params = useParams();
+    const [userState, ] = useContext(UserContext);
+    const [productState, productDispatch] = useContext(ProductContext);
     const [favorites, setFavorites] = useState({});
 
     const handleClick = async (productID) => {
         try{
-            const productRef = doc(db, 'users', state.uid, 'favorites', productID);
+            const productRef = doc(db, 'users', userState.uid, 'favorites', productID);
             const product = await getDoc(productRef);
             if(product.exists()){
                 await deleteDoc(productRef);
@@ -31,9 +36,9 @@ export function ProductsMap({ products, loading }){
 
     useEffect(() => {
         const getFavorites = async () => {
-            if(state.uid){
+            if(userState.uid){
                 try{
-                    const userFavorites = await getDocs(collection(db, 'users', state.uid, 'favorites'));
+                    const userFavorites = await getDocs(collection(db, 'users', userState.uid, 'favorites'));
                     userFavorites.docs.map(fav => setFavorites(prevFavorites => ({...prevFavorites, [fav.id]: true})));
                 } catch(e){
                     throw new Error(e);
@@ -41,9 +46,9 @@ export function ProductsMap({ products, loading }){
             };
         };
         getFavorites();
-    }, [state.uid]);
+    }, [userState.uid]);
     
-    if(loading){
+    if(productState.loading){
         return (
             <div className="w-full h-full flex flex-col items-center justify-center gap-y-10">
                 <img className="w-60" src="/assets/images/loading.gif" alt="Caregando" />
@@ -52,32 +57,49 @@ export function ProductsMap({ products, loading }){
         );
     };
 
-    return(
-        <div className="grid grid-cols-[repeat(auto-fit,_minmax(240px,_1fr))] items-end justify-items-center gap-y-20 gap-x-16">
-            {products?.map((prod) => (
-                <div
-                    key={prod.id}
-                    className="w-60 h-[356px] flex flex-col items-center justify-end gap-y-10 relative font-bold transition-transform hover:scale-105 cursor-pointer group"
-                >
-                    <div className="w-full h-full flex justify-center items-center relative">
-                        <img src={prod.imageURL} alt={prod.name} className="object-cover max-h-60" />
-                        <span className="w-full h-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10"></span>
-                    </div>    
-                    <div className="flex flex-col items-center gap-y-2">
-                        <p className="pl-2 border-l-2 border-red-600">{prod.name}</p>
-                        <span>
-                            <p>R$ {prod.price}</p>
-                            <p className="text-sm text-neutral-400">6x de {(Number.parseFloat(prod.price)/6).toFixed(2)}</p>
-                        </span>
-                    </div>
-                    <img
-                        src={ favorites[prod.id] ? "/assets/images/favorited.png" : "/assets/images/favorite.png" }
-                        alt="Favoritar"
-                        className="hidden absolute top-0 right-0 transition-transform group-hover:block hover:scale-110"
-                        onClick={ () => handleClick(prod.id) }
-                    />
+    if(products){
+        if(products.length <= 0){
+            return(
+                <div className="flex flex-col items-start gap-y-5">
+                    <h2 className="text-2xl font-bold">Ainda não há produtos nessa seção<span className="text-red-600">.</span></h2>
+                    <Link
+                        to={`/catalog/${params.gender}`}
+                        className="flex justify-center py-3 px-5 border-2 border-black rounded-md text-sm font-bold transition-colors hover:bg-black hover:text-white"
+                        onClick={ () => productDispatch({ type: actionTypes.SET_ACTIVE_CATEGORY, payload: null }) }
+                    >
+                        Veja outros produtos
+                    </Link>
                 </div>
-            ))}
-        </div>
-    );
+            );
+        };
+
+        return(
+            <div className="grid grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))] items-end justify-items-center gap-y-20 gap-x-16">
+                {products.map((prod) => (
+                        <div
+                            key={prod.id}
+                            className="w-60 h-[356px] flex flex-col items-center justify-end gap-y-10 relative font-bold transition-transform hover:scale-105 cursor-pointer group"
+                        >
+                            <div className="w-full h-full flex justify-center items-center relative">
+                                <img src={prod.imageURL} alt={prod.name} className="object-cover max-h-60" />
+                                <span className="w-full h-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10"></span>
+                            </div>    
+                            <div className="flex flex-col items-center gap-y-2">
+                                <p className="pl-2 border-l-2 border-red-600">{prod.name}</p>
+                                <span>
+                                    <p>R$ {prod.price}</p>
+                                    <p className="text-sm text-neutral-400">6x de {(Number.parseFloat(prod.price)/6).toFixed(2)}</p>
+                                </span>
+                            </div>
+                            <img
+                                src={ favorites[prod.id] ? "/assets/images/favorited.png" : "/assets/images/favorite.png" }
+                                alt="Favoritar"
+                                className="hidden absolute top-0 right-0 transition-transform group-hover:block hover:scale-110"
+                                onClick={ () => handleClick(prod.id) }
+                            />
+                        </div>
+                    ))}
+            </div>
+        );
+    };
 };
