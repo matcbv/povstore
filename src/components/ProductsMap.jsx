@@ -2,17 +2,18 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserProvider/context";
 import { getDoc, setDoc, doc, collection, getDocs, deleteDoc } from "firebase/firestore";
 import { db } from "../database/firebase";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ProductContext } from "../contexts/ProductProvider/context";
 import { actionTypes } from "../contexts/ProductProvider/actionTypes";
 
 export function ProductsMap({ products }){
+    const navigate = useNavigate();
     const params = useParams();
     const [userState, ] = useContext(UserContext);
     const [productState, productDispatch] = useContext(ProductContext);
     const [favorites, setFavorites] = useState({});
 
-    const handleClick = async (productID) => {
+    const handleFavorite = async (productID) => {
         try{
             const productRef = doc(db, 'users', userState.uid, 'favorites', productID);
             const product = await getDoc(productRef);
@@ -74,11 +75,12 @@ export function ProductsMap({ products }){
         };
 
         return(
-            <div className="grid grid-cols-[repeat(auto-fill,_minmax(240px,_1fr))] items-end justify-items-center gap-y-20 gap-x-16">
+            <div className="grid grid-cols-[repeat(auto-fill,_minmax(224px,_1fr))] items-end justify-items-center gap-y-20 gap-x-16">
                 {products.map((prod) => (
                         <div
                             key={prod.id}
-                            className="w-60 h-[356px] flex flex-col items-center justify-end gap-y-10 relative font-bold transition-transform hover:scale-105 cursor-pointer group"
+                            className="w-56 h-[356px] flex flex-col items-center justify-end gap-y-10 relative font-bold transition-transform hover:scale-105 cursor-pointer group"
+                            onClick={ () => navigate(`/catalog/product/${prod.id}`) }
                         >
                             <div className="w-full h-full flex justify-center items-center relative">
                                 <img src={prod.imageURL} alt={prod.name} className="object-cover max-h-60" />
@@ -95,7 +97,7 @@ export function ProductsMap({ products }){
                                 src={ favorites[prod.id] ? "/assets/images/favorited.png" : "/assets/images/favorite.png" }
                                 alt="Favoritar"
                                 className="hidden absolute top-0 right-0 transition-transform group-hover:block hover:scale-110"
-                                onClick={ () => handleClick(prod.id) }
+                                onClick={ () => handleFavorite(prod.id) }
                             />
                         </div>
                     ))}

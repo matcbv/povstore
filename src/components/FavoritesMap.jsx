@@ -43,7 +43,7 @@ export function FavoritesMap(){
                     Nenhum favorito adicionado
                     <img src="/assets/images/no-favorites.png" alt="Nenhum favorito" />
                 </h2>
-                    <Link to="/" className="flex justify-center py-3 px-5 border-2 border-black rounded-md text-sm font-bold transition-colors hover:bg-black hover:text-white">
+                    <Link to="/catalog/men" className="flex justify-center py-3 px-5 border-2 border-black rounded-md text-sm font-bold transition-colors hover:bg-black hover:text-white">
                         Veja outros produtos
                     </Link>
             </div>

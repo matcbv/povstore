@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { categoriesMap, gendersMap, getPath } from "../utils/getPathnames";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ProductContext } from "../contexts/ProductProvider/context";
 import { catalogMap } from "../utils/getPathnames";
 import { actionTypes } from "../contexts/ProductProvider/actionTypes";
@@ -8,6 +8,7 @@ import { actionTypes } from "../contexts/ProductProvider/actionTypes";
 export function CatalogFilter(){
     const navigate = useNavigate();
     const [state, dispatch] = useContext(ProductContext);
+    const [isVisible, setIsVisible] = useState(true);
 
     const clearFilters = () => {
         dispatch({ type: actionTypes.SET_ACTIVE_CATEGORY, payload: null });
@@ -18,6 +19,23 @@ export function CatalogFilter(){
             Obs.: Com replace, podemos optar com que a URL atual substitua a anterior no histórico do navegador, impedindo que o usuário retorne à ela.
         */
         navigate(getPath(state.activeGender), { replace: true });
+    };
+
+    const hideFilters = () => {
+        setIsVisible(prev => !prev);
+    };
+
+    if(!isVisible){
+        return (
+            <span className="h-screen">
+                <img 
+                    src="/assets/images/show-filters.png"
+                    alt="Exibir filtros"
+                    className="fixed top-1/2 left-2 cursor-pointer transition-transform hover:translate-x-2"
+                    onClick={ hideFilters }
+                />
+            </span>
+        );
     };
 
     return (
@@ -73,13 +91,16 @@ export function CatalogFilter(){
                 type="button"
                 className="w-full flex items-center justify-center gap-x-1 py-2 px-4 border border-white rounded-md text-sm transition-colors hover:bg-black"
                 onClick={ clearFilters }
-            >
+            >   
                 <img src="/assets/images/remove.png" alt="Limpar filtros" />
                 Limpar filtros
             </button>
-            {/* <span className="absolute right-0 top-1/2 transition-transform translate-x-1/2 hover:scale-105 cursor-pointer bg-white rounded-full">
-                <img src="/assets/images/carousel_left_arrow.png" alt="Esconder filtros" className="w-10" /> 
-            </span> */}
+            <span 
+                className="absolute top-2 right-4 transition-transform translate-x-1/2 hover:scale-105 cursor-pointer"
+                onClick={ hideFilters }
+            >
+                <img src="/assets/images/hide-filters.png" alt="Esconder filtros" /> 
+            </span>
         </nav>
     );
 };
