@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserProvider/context";
 import { collection, deleteDoc, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../database/firebase";
+import { Link } from "react-router-dom";
 
 export function FavoritesMap(){
     const [state, ] = useContext(UserContext);
@@ -12,9 +13,7 @@ export function FavoritesMap(){
             if(state.uid){
                 try{
                     const userFavorites = await getDocs(collection(db, 'users', state.uid, 'favorites'));
-                    userFavorites.docs.forEach(favorite => {
-                        getProduct(favorite.id);
-                    });
+                    userFavorites.docs.forEach(favorite => getProduct(favorite.id));
                 } catch(e){
                     throw new Error(e);
                 };
@@ -26,7 +25,7 @@ export function FavoritesMap(){
     const getProduct = async (favoriteID) => {
         const productRef = doc(db, 'products', favoriteID);
         const product = await getDoc(productRef);
-        setFavorites(prevFavorites => ({...prevFavorites, [favoriteID]: product.data() }))
+        setFavorites(prevFavorites => ({...prevFavorites, [favoriteID]: product.data() }));
     };
 
     const handleClick = async (favoriteID) => {
@@ -35,6 +34,20 @@ export function FavoritesMap(){
         const newFavorites = {...favorites};
         delete newFavorites[favoriteID];
         setFavorites(newFavorites);
+    };
+
+    if(Object.keys(favorites).length <= 0){
+        return (
+            <div className="flex flex-col justify-center items-start gap-y-5">
+                <h2 className="flex gap-x-2 text-2xl font-bold">
+                    Nenhum favorito adicionado
+                    <img src="/assets/images/no-favorites.png" alt="Nenhum favorito" />
+                </h2>
+                    <Link to="/" className="flex justify-center py-3 px-5 border-2 border-black rounded-md text-sm font-bold transition-colors hover:bg-black hover:text-white">
+                        Veja outros produtos
+                    </Link>
+            </div>
+        );
     };
 
     return (

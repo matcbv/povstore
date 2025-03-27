@@ -7,7 +7,7 @@ import { CatalogFilter } from "../components/CatalogFilter";
 import { ProductsMap } from "../components/ProductsMap";
 import { ProductContext } from "../contexts/ProductProvider/context";
 import { actionTypes } from "../contexts/ProductProvider/actionTypes";
-import { getGender } from "../utils/getPathnames";
+import { gendersMap } from "../utils/getPathnames";
 
 export function ProductsCatalog(){
     const params = useParams();
@@ -36,7 +36,7 @@ export function ProductsCatalog(){
                 <CatalogFilter />
                 <section className="w-full flex flex-col m-20 text-black">
                     <div className="w-full flex justify-between pb-20">
-                        <h1 className="text-2xl md:text-3xl font-bold">Catálogo <span className="underline decoration-red-600 underline-offset-4">{getGender(state.activeGender)}</span></h1>
+                        <h1 className="text-2xl md:text-3xl font-bold">Catálogo <span className="underline decoration-red-600 underline-offset-4">{Object.keys(gendersMap).find(k => gendersMap[k] === state.activeGender)}</span></h1>
                         <span className="flex flex-col items-center cursor-pointer font-bold" onClick={() => navigate(-1)}>
                                 <img src="/assets/images/return.png" alt="Voltar" />
                                 <p>Voltar</p>

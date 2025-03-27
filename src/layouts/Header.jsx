@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
-import { CartWidget } from '../../components/CartWidget';
-import { DropdownMenu } from './DropdownMenu';
+import { CartWidget } from '../components/CartWidget';
 import { useContext, useState } from 'react';
-import { UserContext } from '../../contexts/UserProvider/context';
+import { UserContext } from '../contexts/UserProvider/context';
+import { DropdownMenu } from '../components/DropdownMenu';
 
 export function Header() {
 	const [state, ] = useContext(UserContext);
 	const [dropdown, setDropdown] = useState(false);
 
 	return (
-		<header className="w-full flex items-center justify-between border-b border-red-600 px-12 h-20 bg-black sticky top-0 z-10">
+		<header className="w-full flex items-center justify-between px-12 h-20 bg-black sticky top-0 z-10">
 			<h1 className="text-5xl text-white">
 				<Link to="/">
 					POV<span className="text-red-600">.</span>

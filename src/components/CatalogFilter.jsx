@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { getCategory, getPath } from "../utils/getPathnames";
+import { categoriesMap, gendersMap, getPath } from "../utils/getPathnames";
 import { useContext } from "react";
 import { ProductContext } from "../contexts/ProductProvider/context";
 import { catalogMap } from "../utils/getPathnames";
@@ -21,21 +21,31 @@ export function CatalogFilter(){
     };
 
     return (
-        <nav className="h-screen w-80 flex flex-col gap-y-10 sticky top-20 p-10 px-8 bg-black/90 shadow-[20px_0px_30px_rgba(0,0,0,0.2)] text-white font-bold">
+        <nav className="h-screen w-80 flex flex-col gap-y-10 sticky top-20 py-20 px-8 bg-black/90 shadow-[20px_0px_30px_rgba(0,0,0,0.2)] text-white font-bold overflow-y-scroll scrollbar-none">
             <div className="w-full flex flex-col gap-y-10">
                 <h2 className="text-2xl border-b border-b-red-600">Filtros</h2>
                 <div className="flex flex-col gap-y-10">
                     <div className="flex flex-col gap-y-5">
+                        <h3 className="text-xl">Gênero</h3>
+                        <ul className="flex flex-col gap-y-2 pl-2">
+                            {Object.entries(gendersMap).map(([gender, slug]) => (
+                                <li key={slug} className="flex transition-transform hover:translate-x-2 cursor-pointer">
+                                    <img src="/assets/images/catalog_right_arrow.png" alt={gender} />
+                                    <Link to={getPath(slug)}>
+                                        {state.activeGender === slug ? gender +' ✓' : gender}
+                                    </Link>
+                                </li>
+                            ))}    
+                        </ul>
+                    </div>
+                    <div className="flex flex-col gap-y-5">
                         <h3 className="text-xl">Categoria</h3>
                         <ul className="flex flex-col gap-y-2 pl-2">
-                            {['Roupas', 'Calçados', 'Acessórios'].map(c => (
-                                <li
-                                    key={c}
-                                    className="flex transition-transform hover:translate-x-2 cursor-pointer"
-                                >
-                                    <img src="/assets/images/catalog_right_arrow.png" alt={c} />
-                                    <Link to={getPath(state.activeGender, getCategory(c))}>
-                                        {state.activeCategory === getCategory(c) ? c +' ✓' : c}
+                            {Object.entries(categoriesMap).map(([category, slug]) => (
+                                <li key={slug} className="flex transition-transform hover:translate-x-2 cursor-pointer">
+                                    <img src="/assets/images/catalog_right_arrow.png" alt={category} />
+                                    <Link to={getPath(state.activeGender, slug)}>
+                                        {state.activeCategory === slug ? category +' ✓' : category}
                                     </Link>
                                 </li>
                             ))}    
@@ -47,7 +57,7 @@ export function CatalogFilter(){
                             <ul className="flex flex-col gap-y-2 pl-2">
                                 {/* Realizando o mapeamento do mapa do catálogo, obtendo os respectivos nome e apelido do gênero e categoria atuais: */}
                                 {Object.entries(catalogMap[state.activeGender][state.activeCategory]).map(([name, slug]) => (
-                                    <li key={name} className="flex transition-transform hover:translate-x-2 cursor-pointer">
+                                    <li key={slug} className="flex transition-transform hover:translate-x-2 cursor-pointer">
                                         <img src="/assets/images/catalog_right_arrow.png" alt={name} />
                                         <Link to={getPath(state.activeGender, state.activeCategory, slug)}>
                                             {state.activeSubcategory === slug ? name +' ✓' : name}
@@ -67,9 +77,9 @@ export function CatalogFilter(){
                 <img src="/assets/images/remove.png" alt="Limpar filtros" />
                 Limpar filtros
             </button>
-            <span className="absolute right-0 top-1/2 transition-transform translate-x-1/2 hover:scale-105 cursor-pointer bg-white rounded-full">
+            {/* <span className="absolute right-0 top-1/2 transition-transform translate-x-1/2 hover:scale-105 cursor-pointer bg-white rounded-full">
                 <img src="/assets/images/carousel_left_arrow.png" alt="Esconder filtros" className="w-10" /> 
-            </span>
+            </span> */}
         </nav>
     );
 };

@@ -1,10 +1,10 @@
-const gendersMap = {
-    men: 'Masculino',
-    women: 'Feminino',
-    children: 'Infantil',
+export const gendersMap = {
+    Masculino: 'men',
+    Feminino: 'women',
+    Infantil: 'children',
 };
 
-const categoriesMap = {
+export const categoriesMap = {
     Roupas: 'clothes',
     Calçados: 'footwear',
     Acessórios: 'acessories',
@@ -73,14 +73,6 @@ export const catalogMap = {
             'Suspensórios': 'suspenders',
         },
     },
-};
-
-export function getGender(gender){
-    return gendersMap[gender];
-}
-
-export function getCategory(category){
-    return categoriesMap[category];
 };
 
 export function getPath(gender, category, subcategory){
