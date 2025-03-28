@@ -10,8 +10,9 @@ import { UserAccount } from './pages/UserAccount';
 import { AddProduct } from './pages/AddProduct';
 import { Favorites } from './pages/Favorites';
 import { ProductsCatalog } from './pages/ProductsCatalog';
+import { ProductPage } from './pages/ProductPage';
 
-import { ProductProvider } from './contexts/ProductProvider/index';
+import{ ProductProvider } from './contexts/ProductProvider/index';
 
 export function AppRoutes(){
     return (
@@ -22,6 +23,7 @@ export function AppRoutes(){
                     <ProductsCatalog />
                 </ProductProvider>
             } />
+            <Route path='/catalog/product/:productId' element={ <ProductPage /> } />
             <Route path='/checkout' element={ <Checkout /> } />
             <Route path='/session' element={ <Session /> } />
             <Route path='/register' element={ <Register /> } />

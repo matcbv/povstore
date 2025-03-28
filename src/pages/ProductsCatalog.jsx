@@ -7,7 +7,7 @@ import { CatalogFilter } from "../components/CatalogFilter";
 import { ProductsMap } from "../components/ProductsMap";
 import { ProductContext } from "../contexts/ProductProvider/context";
 import { actionTypes } from "../contexts/ProductProvider/actionTypes";
-import { gendersMap } from "../utils/getPathnames";
+import { gendersMap } from "../utils/getPath";
 
 export function ProductsCatalog(){
     const params = useParams();

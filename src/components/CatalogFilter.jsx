@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { categoriesMap, gendersMap, getPath } from "../utils/getPathnames";
+import { categoriesMap, gendersMap, getPath } from "../utils/getPath";
 import { useContext, useState } from "react";
 import { ProductContext } from "../contexts/ProductProvider/context";
-import { catalogMap } from "../utils/getPathnames";
+import { catalogMap } from "../utils/getPath";
 import { actionTypes } from "../contexts/ProductProvider/actionTypes";
 
 export function CatalogFilter(){

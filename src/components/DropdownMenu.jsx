@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { catalogMap, categoriesMap, gendersMap, getPath } from "../utils/getPathnames";
+import { catalogMap, categoriesMap, gendersMap, getPath } from "../utils/getPath";
 
 export function DropdownMenu({ setDropdown }){
     const [activeOptions, setActiveOptions] = useState({
