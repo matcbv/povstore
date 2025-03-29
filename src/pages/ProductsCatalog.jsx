@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Footer } from "../layouts/Footer";
 import { Header } from "../layouts/Header";
-import { getProducts } from "../database/getProducts";
+import { getProducts } from "../utils/getProducts";
 import { useContext, useEffect, useState } from "react";
 import { CatalogFilter } from "../components/CatalogFilter";
 import { ProductsMap } from "../components/ProductsMap";

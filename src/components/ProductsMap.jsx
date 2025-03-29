@@ -90,7 +90,7 @@ export function ProductsMap({ products }){
                                 <p className="pl-2 border-l-2 border-red-600">{prod.name}</p>
                                 <span>
                                     <p>R$ {prod.price}</p>
-                                    <p className="text-sm text-neutral-400">6x de {(Number.parseFloat(prod.price)/6).toFixed(2)}</p>
+                                    <p className="text-sm text-neutral-400">6x de {(Number.parseFloat(prod.price)/6).toFixed(2).replace('.', ',')}</p>
                                 </span>
                             </div>
                             <img

@@ -1,4 +1,4 @@
-import { db } from "./firebase";
+import { db } from "../database/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
 export async function getProducts(gender, category, subcategory){
@@ -10,6 +10,11 @@ export async function getProducts(gender, category, subcategory){
         if(subcategory){
             q = query(q, where('subcategory', '==', subcategory));
         };
+        /*
+            Obtendo todos os documentos de uma coleção com o método getDocs:
+
+            Devemos passar como parâmetro uma referência à coleção.
+        */
         const productsRef = await getDocs(q);
         const products = productsRef.docs.map((doc) => (
             {

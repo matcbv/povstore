@@ -16,8 +16,14 @@ export function SessionForm(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        /*
+            Iniciando uma sessão com o método loginWithEmail:
+
+            Devemos passar o email e senha como parâmetro.
+        */
         const respone = await loginWithEmail(email, password);
         if(respone.success){
+            // Adicionado as dados do usuário logado ao ao estado do usuário:
             dispatch({ type: actionTypes.ADD_DATA, payload: respone.data });
             navigate('/');
         } else{

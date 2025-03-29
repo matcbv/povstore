@@ -77,7 +77,7 @@ export const catalogMap = {
 
 export function getPath(gender, category, subcategory){
     const basePath = '/catalog';
-
+    
     if(gender && category && subcategory){
         return `${basePath}/${gender}/${category}/${subcategory}`;
     } else if(gender && category){

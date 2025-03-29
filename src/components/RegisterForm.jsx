@@ -53,7 +53,7 @@ export function RegisterForm(){
 
                     setDoc(docRef, { key: value });
 
-                docRef é a referência ao documento onde os dados serão armazenados. Podemos criar tal referência com a função doc.
+                Obs.: docRef é a referência ao documento onde os dados serão armazenados. Podemos criar tal referência com a função doc.
             */
             if(userCredential.user){
                 await setDoc(doc(db, 'users', userCredential.user.uid), {

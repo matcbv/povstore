@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addProduct } from "../database/addProduct";
+import { addProduct } from "../utils/addProduct";
 import { toast } from "react-toastify";
 
 export function ProductForm(){

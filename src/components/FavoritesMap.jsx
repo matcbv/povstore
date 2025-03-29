@@ -1,40 +1,51 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserProvider/context";
-import { collection, deleteDoc, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../database/firebase";
 import { Link } from "react-router-dom";
+import { getProduct } from "../utils/getProduct";
+import { actionTypes } from "../contexts/ProductProvider/actionTypes";
 
 export function FavoritesMap(){
-    const [state, ] = useContext(UserContext);
+    const [state, dispatch] = useContext(UserContext);
     const [favorites, setFavorites] = useState({});
 
     useEffect(() => {
         const getFavorites = async () => {
             if(state.uid){
                 try{
+                    
                     const userFavorites = await getDocs(collection(db, 'users', state.uid, 'favorites'));
-                    userFavorites.docs.forEach(favorite => getProduct(favorite.id));
+                    userFavorites.docs.forEach(async (favorite) => {
+                        const productData = await getProduct(favorite.id);
+                        console.log(productData);
+                        setFavorites(prevFavorites => ({...prevFavorites, [favorite.id]: productData }));
+                        dispatch({ type: actionTypes.SET_LOADING, payload: false });
+                    });
                 } catch(e){
                     throw new Error(e);
                 };
             };
         };
         getFavorites();
-    }, [state.uid]);
+    }, [state.uid, dispatch]);
 
-    const getProduct = async (favoriteID) => {
-        const productRef = doc(db, 'products', favoriteID);
-        const product = await getDoc(productRef);
-        setFavorites(prevFavorites => ({...prevFavorites, [favoriteID]: product.data() }));
-    };
-
-    const handleClick = async (favoriteID) => {
+    const removeFavorite = async (favoriteID) => {
         const favoriteRef = doc(db, 'users', state.uid, 'favorites', favoriteID);
         await deleteDoc(favoriteRef);
         const newFavorites = {...favorites};
         delete newFavorites[favoriteID];
         setFavorites(newFavorites);
     };
+
+    if(state.loading){
+        return (
+            <div className="w-full h-full flex flex-col items-center justify-center gap-y-10">
+                <img className="w-60" src="/assets/images/loading.gif" alt="Caregando" />
+                <p className="font-bold text-2xl">Carregando favoritos<span className="text-red-600">...</span></p>
+            </div>
+        );
+    }
 
     if(Object.keys(favorites).length <= 0){
         return (
@@ -67,7 +78,7 @@ export function FavoritesMap(){
                             <button
                                 type="button"
                                 className="border-2 border-black px-4 py-1 rounded-sm transition-colors hover:border-red-600"
-                                onClick={ () => handleClick(k) }
+                                onClick={ () => removeFavorite(k) }
                             >
                                 Remover
                             </button>

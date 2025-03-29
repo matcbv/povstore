@@ -32,7 +32,6 @@ export function DropdownMenu({ setDropdown }){
             <div className="flex justify-center w-full">
                 <div className="flex justify-center items-center gap-x-10" onMouseLeave={ () => setActiveOptions({gender: null, category: null}) }>
                     <ul className="flex flex-col gap-y-10 text-white text-xl">
-                        {/* Iterando sobre a lista de gêneros */}
                         {Object.entries(gendersMap).map(([gender, slug]) => (
                             <li
                                 key={slug}
@@ -59,7 +58,6 @@ export function DropdownMenu({ setDropdown }){
                                     </li>
                                 ))}
                             </ul>
-                            {/* Passando o gênero e a categoria ativos */}
                             {activeOptions.category && (
                                 <ul className="flex flex-col justify-center gap-y-5 w-40 text-white text-md">
                                     {/* Realizando a iteração dos produtos com base no gênero e categoria ativos */}
