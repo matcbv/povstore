@@ -15,8 +15,9 @@ export async function getProducts(gender, category, subcategory){
 
             Devemos passar como parâmetro uma referência à coleção.
         */
-        const productsRef = await getDocs(q);
-        const products = productsRef.docs.map((doc) => (
+        const productsSnap = await getDocs(q);
+        // Iremos retornar um array contendo objetos com os dados e o id de cada produto:
+        const products = productsSnap.docs.map((doc) => (
             {
                 id: doc.id,
                 ...doc.data(),

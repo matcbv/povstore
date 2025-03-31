@@ -42,7 +42,7 @@ export function checkAuth(dispatch){
                 dispatch({ type: actionTypes.SET_UID, payload: user.uid })
                 const userRef = doc(db, 'users', user.uid);
                 const userData = (await getDoc(userRef)).data();
-                dispatch({ type: actionTypes.ADD_DATA, payload: userData }); 
+                dispatch({ type: actionTypes.ADD_DATA, payload: userData });
             } catch(e){
                 dispatch({type: actionTypes.SET_ERROR, payload: e.message});
                 throw new Error(e.message);

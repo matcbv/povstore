@@ -8,7 +8,7 @@ export function UserProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, data);
 
     useEffect(() => {
-        return checkAuth(dispatch);
+        checkAuth(dispatch);
     }, []);
 
     return (

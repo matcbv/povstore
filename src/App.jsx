@@ -1,5 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { UserProvider } from './contexts/UserProvider';
+import { CheckoutProvider } from './contexts/CheckoutProvider';
 // ToastContainer é responsável por renderizar as notificações na tela, funcionando como um template para exibir os toasts quando o toast() é chamado em qualquer parte da aplicação. É recomendado sempre adicionarmos apenas um ToastContainer de escopo global, como em nosso App.
 import { ToastContainer } from 'react-toastify';
 import { AppRoutes } from './routes';
@@ -9,9 +10,11 @@ export function App(){
     return (
         <>
             <UserProvider>
-                <BrowserRouter>
-                    <AppRoutes />
-                </BrowserRouter>
+                <CheckoutProvider>
+                    <BrowserRouter>
+                        <AppRoutes />
+                    </BrowserRouter>
+                </CheckoutProvider>
             </UserProvider>
             {/* As configurações passadas para ToastContainer serão aplicadas de forma global. */}
             <ToastContainer position='top-center' theme='dark' />

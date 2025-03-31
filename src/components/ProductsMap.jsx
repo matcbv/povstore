@@ -14,24 +14,28 @@ export function ProductsMap({ products }){
     const [favorites, setFavorites] = useState({});
 
     const handleFavorite = async (productID) => {
-        try{
-            const productRef = doc(db, 'users', userState.uid, 'favorites', productID);
-            const product = await getDoc(productRef);
-            if(product.exists()){
-                await deleteDoc(productRef);
-                setFavorites(prevFavorites => {
-                    const newFavorites = {...prevFavorites};
-                    delete newFavorites[productID]
-                    return newFavorites;
-                });
-            } else{
-                await setDoc(productRef, {
-                    addedAt: new Date().toLocaleString('pt-BR'),
-                });
-                setFavorites({...favorites, [productRef.id]: true})
+        if(userState.uid){
+            try{
+                const productRef = doc(db, 'users', userState.uid, 'favorites', productID);
+                const productSnap = await getDoc(productRef);
+                if(productSnap.exists()){
+                    await deleteDoc(productRef);
+                    setFavorites(prevFavorites => {
+                        const newFavorites = {...prevFavorites};
+                        delete newFavorites[productID]
+                        return newFavorites;
+                    });
+                } else{
+                    await setDoc(productRef, {
+                        addedAt: new Date().toLocaleString('pt-BR'),
+                    });
+                    setFavorites({...favorites, [productRef.id]: true})
+                };
+            } catch(e){
+                throw new Error(e.message);
             };
-        } catch(e){
-            throw new Error(e.message);
+        } else{
+            navigate('/session');
         };
     };
 
@@ -88,15 +92,15 @@ export function ProductsMap({ products }){
                             </div>    
                             <div className="flex flex-col items-center gap-y-2">
                                 <p className="pl-2 border-l-2 border-red-600">{prod.name}</p>
-                                <span>
+                                <span className="flex flex-col items-center">
                                     <p>R$ {prod.price}</p>
-                                    <p className="text-sm text-neutral-400">6x de {(Number.parseFloat(prod.price)/6).toFixed(2).replace('.', ',')}</p>
+                                    <p className="text-sm text-neutral-400">6x de R${(Number.parseFloat(prod.price)/6).toFixed(2).replace('.', ',')}</p>
                                 </span>
                             </div>
                             <img
                                 src={ favorites[prod.id] ? "/assets/images/favorited.png" : "/assets/images/favorite.png" }
                                 alt="Favoritar"
-                                className="hidden absolute top-0 right-0 transition-transform group-hover:block hover:scale-110"
+                                className="w-6 hidden absolute top-0 right-0 transition-transform group-hover:block hover:scale-110"
                                 onClick={ () => handleFavorite(prod.id) }
                             />
                         </div>

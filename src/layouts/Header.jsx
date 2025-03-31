@@ -18,7 +18,7 @@ export function Header() {
 			<nav className="flex items-center">
 				<ul className="flex gap-x-6 items-center">
 					<li>
-						{state.userData ? 
+						{state.uid ? 
 							(<Link className="text-white font-bold" to="/account">Minha conta</Link>) : 
 							(<Link className="text-white font-bold" to="/session">Iniciar sessão</Link>)
 						}

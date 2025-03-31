@@ -13,9 +13,9 @@ export async function getProduct(id){
         */
         const productRef = doc(db, 'products', id);
         // Obtendo o nosso docunento através da referência obtida:
-        const product = await getDoc(productRef);
+        const productSnap = await getDoc(productRef);
         // Retornado os dados do documento obtido através do método data:
-        return product.data();
+        return productSnap.data();
     } catch(e){
         throw new Error(e.message);
     };

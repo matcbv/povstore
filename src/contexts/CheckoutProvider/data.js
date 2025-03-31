@@ -1,4 +1,1 @@
-export const data = {
-    index: 0,
-    price: 0,
-};
+export const data = [];

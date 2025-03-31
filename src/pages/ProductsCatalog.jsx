@@ -16,6 +16,7 @@ export function ProductsCatalog(){
     const [state, dispatch] = useContext(ProductContext);
 
     useEffect(() => {
+        // Atualizando o filtro do catálogo através dos parâmetros recebidos
         dispatch({ type: actionTypes.SET_ACTIVE_GENDER, payload: params.gender })
         dispatch({ type: actionTypes.SET_ACTIVE_CATEGORY, payload: params.category });
         dispatch({ type: actionTypes.SET_ACTIVE_SUBCATEGORY, payload: params.subcategory });
