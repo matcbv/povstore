@@ -16,7 +16,7 @@ export function CheckoutProvider({children}){
             const callGetDocs = async () => {
                 const checkoutSnaps = await getDocs(collection(db, 'users', userState.uid, 'checkout'));
                 const checkoutItems = checkoutSnaps.docs.map(snap => snap.data());
-                dispatch({ type: actionTypes.ADD_DATA, payload: checkoutItems });
+                dispatch({ type: actionTypes.ADD_ITEMS, payload: checkoutItems });
             };
             callGetDocs();
         };

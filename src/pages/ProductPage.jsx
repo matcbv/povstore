@@ -70,6 +70,7 @@ export function ProductPage(){
     const handleCheckout = async () => {
         if(selectedSize){
             const result = await addItemToBag(userState.uid, {
+                productId: params.productId,
                 imageURL: product.imageURL,
                 name: product.name,
                 price: product.price,
@@ -77,7 +78,7 @@ export function ProductPage(){
             });
             if(result.success){
                 checkoutDispatch({ type: actionTypes.INCREMENT });
-                toast.success('Item adicionado com sucesso à sacola.');
+                toast.success('Item adicionado à sacola.');
             } else{
                 throw new Error(result.error);
             };

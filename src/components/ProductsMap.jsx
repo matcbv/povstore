@@ -87,8 +87,7 @@ export function ProductsMap({ products }){
                             onClick={ () => navigate(`/catalog/product/${prod.id}`) }
                         >
                             <div className="w-full h-full flex justify-center items-center relative">
-                                <img src={prod.imageURL} alt={prod.name} className="object-cover max-h-60" />
-                                <span className="w-full h-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10"></span>
+                                <img src={prod.imageURL} alt={prod.name} className="object-contain max-h-60" />
                             </div>    
                             <div className="flex flex-col items-center gap-y-2">
                                 <p className="pl-2 border-l-2 border-red-600">{prod.name}</p>
