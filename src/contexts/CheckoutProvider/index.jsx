@@ -3,23 +3,14 @@ import { CheckoutContext } from './context';
 import { data } from './data';
 import { reducer } from './reducer';
 import { UserContext } from '../UserProvider/context';
-import { actionTypes } from './actionTypes';
-import { db } from '../../database/firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { updateCheckout } from '../../utils/updateCheckout';
 
 export function CheckoutProvider({children}){
     const [userState, ] = useContext(UserContext);
     const [state, dispatch] = useReducer(reducer, data);
 
     useEffect(() => {
-        if(userState.uid){
-            const callGetDocs = async () => {
-                const checkoutSnaps = await getDocs(collection(db, 'users', userState.uid, 'checkout'));
-                const checkoutItems = checkoutSnaps.docs.map(snap => snap.data());
-                dispatch({ type: actionTypes.ADD_ITEMS, payload: checkoutItems });
-            };
-            callGetDocs();
-        };
+        userState.uid && updateCheckout(userState.uid, dispatch);
     }, [userState.uid]);
 
     return (

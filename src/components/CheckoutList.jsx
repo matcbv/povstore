@@ -5,6 +5,7 @@ import { db } from "../database/firebase";
 import { UserContext } from "../contexts/UserProvider/context";
 import { collection, deleteDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { actionTypes } from "../contexts/CheckoutProvider/actionTypes";
+import { updateCheckout } from "../utils/updateCheckout";
 
 export function CheckoutList() {
     const [userState, ] = useContext(UserContext); 
@@ -13,21 +14,23 @@ export function CheckoutList() {
     const setQuantity = async (productId, increase) => {
         const checkoutRef = collection(db, 'users', userState.uid, 'checkout');
         const q = query(checkoutRef, where('productId', '==', productId));
-        const itemSnap = await getDocs(q);
-        const itemData = itemSnap.docs[0].data();
-        const itemRef = itemSnap.docs[0].ref;
+        const itemSnap = (await getDocs(q)).docs[0];
+        const itemData = itemSnap.data();
+        const itemRef = itemSnap.ref;
         if(increase){
             await updateDoc(itemRef, {...itemData, quantity: itemData.quantity + 1});
         } else{
             itemData.quantity <= 1 ? deleteDoc(itemRef) : await updateDoc(itemRef, {...itemData, quantity: itemData.quantity - 1});
         };
-
-        const updatedItemsSnap = (await getDocs(checkoutRef)).docs;
-        const updatedItemsData = updatedItemsSnap.map(snap => snap.data());
-        checkoutDispatch({ type: actionTypes.ADD_ITEMS, payload: updatedItemsData });
+        updateCheckout(userState.uid, checkoutDispatch);
     };
 
-    const removeItems = () => {
+    const removeItems = async () => {
+        const checkoutRef = collection(db, 'users', userState.uid, 'checkout');
+        const itemsSnap = await getDocs(checkoutRef);
+        itemsSnap.docs.forEach(item => {
+            deleteDoc(item.ref);
+        });
         checkoutDispatch({ type: actionTypes.REMOVE_ITEMS });
     };
 
@@ -49,6 +52,7 @@ export function CheckoutList() {
                         <div className="flex flex-col items-start gap-y-5">
                             <h2 className="underline underline-offset-4 decoration-2 decoration-red-600 text-lg">{item.name}</h2>
                             <p>R$ {item.price}</p>
+                            <p>Tamanho: {item.size}</p>
                             <div className='flex flex-col items-center gap-y-2'>
                                 <p>Quantidade:</p>
                                 <span className='flex gap-x-4'>

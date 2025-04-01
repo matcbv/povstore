@@ -10,6 +10,7 @@ import { db } from '../database/firebase';
 import { actionTypes } from '../contexts/CheckoutProvider/actionTypes';
 import { toast } from 'react-toastify';
 import { addItemToBag } from '../utils/addItemToBag';
+import { updateCheckout } from '../utils/updateCheckout';
 
 export function ProductPage(){
     const navigate = useNavigate();
@@ -74,10 +75,12 @@ export function ProductPage(){
                 imageURL: product.imageURL,
                 name: product.name,
                 price: product.price,
+                size: selectedSize,
                 quantity,
             });
             if(result.success){
                 checkoutDispatch({ type: actionTypes.INCREMENT });
+                updateCheckout(userState.uid, checkoutDispatch);
                 toast.success('Item adicionado à sacola.');
             } else{
                 throw new Error(result.error);
