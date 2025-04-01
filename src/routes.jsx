@@ -18,7 +18,7 @@ export function AppRoutes(){
     return (
         <Routes>
             <Route path='/' element={ <Home /> } />
-            <Route path='/catalog/:gender/:category?/:subcategory?' element={
+            <Route path='/catalog/:gender?/:category?/:subcategory?' element={
                 <ProductProvider>
                     <ProductsCatalog />
                 </ProductProvider>

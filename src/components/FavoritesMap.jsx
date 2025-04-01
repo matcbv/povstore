@@ -54,7 +54,7 @@ export function FavoritesMap(){
                     Nenhum favorito adicionado
                     <img src="/assets/images/no-favorites.png" alt="Nenhum favorito" />
                 </h2>
-                    <Link to="/catalog/men" className="flex justify-center py-3 px-5 border-2 border-black rounded-md text-sm font-bold transition-colors hover:bg-black hover:text-white">
+                    <Link to="/catalog" className="flex justify-center py-3 px-5 border-2 border-black rounded-md text-sm font-bold transition-colors hover:bg-black hover:text-white">
                         Veja outros produtos
                     </Link>
             </div>
@@ -78,7 +78,7 @@ export function FavoritesMap(){
                         </div>
                         <button
                             type="button"
-                            className="border-2 border-black px-4 py-1 rounded-sm transition-colors hover:border-red-600"
+                            className="border-2 border-black px-4 py-1 rounded transition-colors hover:border-red-600"
                             onClick={ () => removeFavorite(k) }
                         >
                             Remover

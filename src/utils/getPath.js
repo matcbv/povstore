@@ -82,7 +82,9 @@ export function getPath(gender, category, subcategory){
         return `${basePath}/${gender}/${category}/${subcategory}`;
     } else if(gender && category){
         return `${basePath}/${gender}/${category}`;
-    } else{
+    } else if(gender){
         return `${basePath}/${gender}`;
+    } else{
+        return basePath;
     };
 };

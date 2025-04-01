@@ -78,7 +78,7 @@ export function UserAccount(){
                         <h2 className="text-xl md:text-3xl font-bold">Últimos pedidos<span className="text-red-600">:</span></h2>
                         <div className="flex flex-col items-start gap-y-4">
                             <p className="md:text-lg">Não há pedidos feitos recentemente.</p>
-                            <Link className="bg-black rounded-md px-4 py-2 text-sm font-mono text-white hover:scale-105 transition-transform">Ir ao catálogo</Link>
+                            <Link to="/catalog" className="bg-black rounded-md px-6 py-3 text-sm font-mono text-white hover:scale-105 transition-transform">Ir ao catálogo</Link>
                         </div>
                     </div>
                 </section>

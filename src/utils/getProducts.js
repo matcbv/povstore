@@ -3,7 +3,10 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 
 export async function getProducts(gender, category, subcategory){
     try{
-        let q = query(collection(db, 'products'), where('gender', 'in', [gender, 'unisex']));
+        let q = query(collection(db, 'products'));
+        if(gender){
+            q = query(q,  where('gender', 'in', [gender, 'unisex']));
+        };
         if(category){
             q = query(q, where('category', '==', category));
         };

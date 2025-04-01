@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 
 export function CheckoutList() {
     const [state, ] = useContext(CheckoutContext);
+    const setQuantity = () => {
+
+    }
 
     if(state.length <= 0){
         return (
-            <div className="flex flex-col items-start gap-y-14">
-                <h1 className="text-3xl font-bold">Sacola de compras</h1>
-                <div className="flex flex-col items-start gap-y-4">
-                    <p className="font-bold">Ops... Ainda não há nenhum item aqui.</p>
-                    <Link to='/' className="bg-black text-white p-3 px-6 font-bold rounded">Continuar comprando</Link>
-                </div>
+            <div className="flex flex-col items-start gap-y-5 font-bold">
+                <p className="text-lg">Ops... Ainda não há nenhum item aqui.</p>
+                <Link to='/catalog' className="bg-black text-white p-3 px-6 rounded transition-transform hover:scale-105">Continuar comprando</Link>
             </div>
         );
     };
@@ -25,7 +25,24 @@ export function CheckoutList() {
                     <div className="flex flex-col ">
                         <h2>{item.name}</h2>
                         <p>Preço: {item.price}</p>
-                        <p>Quantidade: {item.quantity}</p>
+                        <div className='flex flex-col items-center gap-y-1'>
+                            <p>Quantidade:</p>
+                            <span className='w-full flex justify-around'>
+                                <img
+                                    src="/assets/images/decrease.png"
+                                    alt="Diminuir"
+                                    className='cursor-pointer'
+                                    onClick={ () => item.quantity > 1 && setQuantity(prev => prev -1) }
+                                />
+                                <span>{item.quantity}</span>
+                                <img
+                                    src="/assets/images/increase.png"
+                                    alt="Aumentar"
+                                    className='cursor-pointer'
+                                    onClick={ () => setQuantity(prev => prev + 1) }
+                                />
+                            </span>
+                        </div>
                     </div>
                 </div>
             ))}
