@@ -39,7 +39,7 @@ export function CatalogFilter(){
     };
 
     return (
-        <nav className="h-screen w-80 flex flex-col gap-y-10 sticky top-20 py-20 px-8 bg-black/90 shadow-[20px_0px_30px_rgba(0,0,0,0.2)] text-white font-bold overflow-y-scroll scrollbar-none">
+        <nav className="h-screen w-80 flex flex-col gap-y-10 sticky top-20 py-20 px-5 bg-black/90 shadow-[20px_0px_30px_rgba(0,0,0,0.2)] text-white font-bold overflow-y-scroll scrollbar-none">
             <div className="w-full flex flex-col gap-y-10">
                 <h2 className="text-2xl border-b border-b-red-600">Filtros</h2>
                 <div className="flex flex-col gap-y-10">

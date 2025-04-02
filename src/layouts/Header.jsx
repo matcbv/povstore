@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
-import { CartWidget } from '../components/CartWidget';
 import { useContext, useState } from 'react';
 import { UserContext } from '../contexts/UserProvider/context';
 import { DropdownMenu } from '../components/DropdownMenu';
+import { CheckoutContext } from '../contexts/CheckoutProvider/context';
 
 export function Header() {
-	const [state, ] = useContext(UserContext);
+	const [userState, ] = useContext(UserContext);
+	const [checkoutState, ] = useContext(CheckoutContext);
 	const [dropdown, setDropdown] = useState(false);
-
+	console.log(checkoutState.totalQuantity);
 	return (
 		<header className="w-full flex items-center justify-between px-12 h-20 bg-black sticky top-0 z-10">
 			<h1 className="text-5xl text-white">
@@ -18,14 +19,14 @@ export function Header() {
 			<nav className="flex items-center">
 				<ul className="flex gap-x-6 items-center">
 					<li>
-						{state.uid ? 
+						{userState.uid ? 
 							(<Link className="text-white font-bold" to="/account">Minha conta</Link>) : 
 							(<Link className="text-white font-bold" to="/session">Iniciar sessão</Link>)
 						}
 					</li>
 					<li>
 						<div className="flex items-center gap-x-1 cursor-pointer" onMouseEnter={ () => setDropdown(true) }>
-							<p className="text-white font-bold">Catálogo</p>
+							<Link to="/catalog" className="text-white font-bold">Catálogo</Link>
 							<img
 								src="/assets/images/bottom_arrow.png"
 								alt="Seta para baixo"
@@ -40,7 +41,10 @@ export function Header() {
 						</Link>
 					</li>
 					<li>
-						<CartWidget />
+						<Link to="/checkout" className="flex items-end relative">
+							<img src="/assets/images/shopping_bag.png" alt="Sacola de compras" />
+							{checkoutState.totalQuantity > 0 && <span className="absolute top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm text-white font-bold">{checkoutState.totalQuantity > 99 ? '99+': checkoutState.totalQuantity}</span>}
+        				</Link>
 					</li>
 				</ul>
 			</nav>

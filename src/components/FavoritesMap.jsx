@@ -15,7 +15,6 @@ export function FavoritesMap(){
         const getFavorites = async () => {
             if(state.uid){
                 try{
-                    
                     const userFavorites = await getDocs(collection(db, 'users', state.uid, 'favorites'));
                     userFavorites.docs.forEach(async (favorite) => {
                         const productData = await getProduct(favorite.id);

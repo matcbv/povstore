@@ -1,5 +1,5 @@
 export const data = {
-    index: 0,
+    totalQuantity: 0,
     finalPrice: 0,
     items: [],
     laoding: true,

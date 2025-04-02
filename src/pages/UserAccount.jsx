@@ -31,7 +31,7 @@ export function UserAccount(){
                     <h2 className="text-lg md:text-xl font-bold">Endereço principal<span className="text-red-600">:</span></h2>
                     <div className="flex flex-col items-start gap-y-4">
                         <p className="md:text-lg">Nenhum endereço cadastrado<span className="text-red-600">.</span></p>
-                        <Link to="/account/editProfile" className="bg-black rounded-md px-4 py-2 text-sm font-mono text-white hover:scale-105 transition-transform">Adicionar endereço</Link>
+                        <Link to="/account/editProfile" className="bg-black rounded-md px-4 py-3 text-sm font-bold text-white hover:scale-105 transition-transform">Adicionar endereço</Link>
                     </div>
                 </>
             );
@@ -78,7 +78,7 @@ export function UserAccount(){
                         <h2 className="text-xl md:text-3xl font-bold">Últimos pedidos<span className="text-red-600">:</span></h2>
                         <div className="flex flex-col items-start gap-y-4">
                             <p className="md:text-lg">Não há pedidos feitos recentemente.</p>
-                            <Link to="/catalog" className="bg-black rounded-md px-6 py-3 text-sm font-mono text-white hover:scale-105 transition-transform">Ir ao catálogo</Link>
+                            <Link to="/catalog" className="bg-black rounded-md px-8 py-3 text-sm font-bold text-white hover:scale-105 transition-transform">Ir ao catálogo</Link>
                         </div>
                     </div>
                 </section>

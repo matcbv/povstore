@@ -11,6 +11,7 @@ import { actionTypes } from '../contexts/CheckoutProvider/actionTypes';
 import { toast } from 'react-toastify';
 import { addItemToBag } from '../utils/addItemToBag';
 import { updateCheckout } from '../utils/updateCheckout';
+import { updateTotalQuantity } from '../utils/updateTotalQuantity';
 
 export function ProductPage(){
     const navigate = useNavigate();
@@ -81,6 +82,7 @@ export function ProductPage(){
             if(result.success){
                 checkoutDispatch({ type: actionTypes.INCREMENT });
                 updateCheckout(userState.uid, checkoutDispatch);
+                updateTotalQuantity(userState.uid, checkoutDispatch);
                 toast.success('Item adicionado à sacola.');
             } else{
                 throw new Error(result.error);

@@ -6,10 +6,11 @@ import { UserContext } from "../contexts/UserProvider/context";
 import { collection, deleteDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { actionTypes } from "../contexts/CheckoutProvider/actionTypes";
 import { updateCheckout } from "../utils/updateCheckout";
+import { CheckoutResume } from "./CheckoutResume";
 
 export function CheckoutList() {
     const [userState, ] = useContext(UserContext); 
-    const [checkoutState, checkoutDispatch] = useContext(CheckoutContext);
+    const [checkoutState, checkoutDispatch] = useContext(CheckoutContext);   
 
     const setQuantity = async (productId, increase) => {
         const checkoutRef = collection(db, 'users', userState.uid, 'checkout');
@@ -32,6 +33,7 @@ export function CheckoutList() {
             deleteDoc(item.ref);
         });
         checkoutDispatch({ type: actionTypes.REMOVE_ITEMS });
+        checkoutDispatch({ type: actionTypes.SET_TOTAL_QUANTITY, payload: 0 });
     };
 
     if(Object.keys(checkoutState.items).length <= 0){
@@ -82,19 +84,7 @@ export function CheckoutList() {
                     Limpar sacola
                 </button>
             </div>
-            <div className="flex flex-col gap-y-10 w-[350px] px-5 py-10 rounded border-2 border-black">
-                <h2 className="text-xl">Resumo da compra</h2>
-                <div className="flex flex-col gap-y-10">
-                    <ul className="flex flex-col gap-y-5">
-                        <li>Número de itens: <span className="text-red-600">0</span></li>
-                        <li>Valor total: <span className="text-red-600">R$ 00,00</span></li>
-                        <li>Descontos:</li>
-                    </ul>
-                    <div>
-                        <p className="text-xl">Valor final: <span className="text-red-600">R$ 00.00</span></p>
-                    </div>
-                </div>
-            </div>
+            <CheckoutResume />
         </section>   
     );
 };
