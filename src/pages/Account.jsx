@@ -5,7 +5,7 @@ import { UserContext } from "../contexts/UserProvider/context";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../database/auth";
 
-export function UserAccount(){
+export function Account(){
     const navigate = useNavigate();
     const [state, dispatch] = useContext(UserContext);
 
@@ -64,9 +64,9 @@ export function UserAccount(){
                             {addressExists()}
                         </div>
                         <div className="flex flex-col gap-y-4 md:gap-y-6">
-                            <Link className="account-options">Editar dados da conta</Link>
+                            <Link to="edit" className="account-options">Editar conta</Link>
                             <Link className="account-options">Métodos de pagamento</Link>
-                            <Link to='favorites' className="account-options">Favoritos</Link>
+                            <Link to="favorites" className="account-options">Favoritos</Link>
                             <Link className="account-options">Meus pedidos</Link>
                             {state.userData.administrator && (
                                 <Link to="add-product" className="account-options">Adicionar produto</Link>

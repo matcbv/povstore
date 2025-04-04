@@ -41,9 +41,9 @@ export function Header() {
 						</Link>
 					</li>
 					<li>
-						<Link to="/checkout" className="flex items-end relative">
+						<Link to="/bag" className="flex items-end relative">
 							<img src="/assets/images/shopping_bag.png" alt="Sacola de compras" />
-							{checkoutState.totalQuantity > 0 && <span className="absolute top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm text-white font-bold">{checkoutState.totalQuantity > 99 ? '99+': checkoutState.totalQuantity}</span>}
+							{checkoutState.totalQuantity > 0 && <span className="absolute top-2/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm text-white font-bold">{checkoutState.totalQuantity}</span>}
         				</Link>
 					</li>
 				</ul>

@@ -118,7 +118,7 @@ export function RegisterForm(){
             </div>
             <div className="flex">
                 <label htmlFor="phoneNumber" className="border-b border-red-600">Telefone</label>
-                <input type="phoneNumber" id="phoneNumber" name="phoneNumber" autoComplete="tel" value={ userData.phoneNumber } className="form-inputs" onChange={ handleChange } />
+                <input type="tel" id="phoneNumber" name="phoneNumber" autoComplete="tel" value={ userData.phoneNumber } className="form-inputs" onChange={ handleChange } />
             </div>
             <div className="flex items-center gap-x-4">
                 <input type="submit" value="Cadastrar" className="border border-black py-1 rounded w-full cursor-pointer hover:font-bold" />

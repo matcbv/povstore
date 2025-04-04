@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import { CheckoutContext } from "../contexts/CheckoutProvider/context";
+import { Link } from "react-router-dom";
 
-export function CheckoutResume(){
+export function BagResume(){
     const [state, ] = useContext(CheckoutContext);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [discount, setDiscount] = useState(0);
+    const [discount, ] = useState(0);
 
     useEffect(() => {
-        const newTotalPrice = state.items.reduce((acc, item) => acc + parseFloat(item.price.replace(',', '.')), 0);
+        const newTotalPrice = state.items.reduce((acc, item) => acc + (parseFloat(item.price.replace(',', '.')) * item.quantity ), 0);
         setTotalPrice(newTotalPrice);
     }, [state.items]);
 
@@ -32,7 +33,7 @@ export function CheckoutResume(){
                     <input type="text" className="p-2 border-2 border-black rounded" />
                 </label>
             </div>
-            <button className="py-3 bg-black rounded-md text-white hover:scale-105 transition-transform">Finalizar compra</button>
+            <Link to="/checkout" className="py-3 bg-black rounded-md text-white text-center hover:scale-105 transition-transform">Finalizar compra</Link>
         </div>
 
     );

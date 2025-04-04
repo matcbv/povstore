@@ -56,19 +56,21 @@ export function CatalogFilter(){
                             ))}    
                         </ul>
                     </div>
-                    <div className="flex flex-col gap-y-5">
-                        <h3 className="text-xl">Categoria</h3>
-                        <ul className="flex flex-col gap-y-2 pl-2">
-                            {Object.entries(categoriesMap).map(([category, slug]) => (
-                                <li key={slug} className="flex transition-transform hover:translate-x-2 cursor-pointer">
-                                    <img src="/assets/images/catalog_right_arrow.png" alt={category} />
-                                    <Link to={getPath(state.activeGender, slug)}>
-                                        {state.activeCategory === slug ? category +' ✓' : category}
-                                    </Link>
-                                </li>
-                            ))}    
-                        </ul>
-                    </div>
+                    {state.activeGender && (
+                        <div className="flex flex-col gap-y-5">
+                            <h3 className="text-xl">Categoria</h3>
+                            <ul className="flex flex-col gap-y-2 pl-2">
+                                {Object.entries(categoriesMap).map(([category, slug]) => (
+                                    <li key={slug} className="flex transition-transform hover:translate-x-2 cursor-pointer">
+                                        <img src="/assets/images/catalog_right_arrow.png" alt={category} />
+                                        <Link to={getPath(state.activeGender, slug)}>
+                                            {state.activeCategory === slug ? category +' ✓' : category}
+                                        </Link>
+                                    </li>
+                                ))}    
+                            </ul>
+                        </div>
+                    )}
                     {state.activeCategory && (
                         <div className="flex flex-col gap-y-5">
                             <h3 className="text-lg">Tipo de produto</h3>
