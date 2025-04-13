@@ -5,16 +5,19 @@ import { CheckoutProvider } from './contexts/CheckoutProvider';
 import { ToastContainer } from 'react-toastify';
 import { AppRoutes } from './routes';
 import './assets/styles/global.css';
+import { AddressProvider } from './contexts/AddressProvider';
 
 export function App(){
     return (
         <>
             <UserProvider>
-                <CheckoutProvider>
-                    <BrowserRouter>
-                        <AppRoutes />
-                    </BrowserRouter>
-                </CheckoutProvider>
+                <AddressProvider>
+                    <CheckoutProvider>
+                        <BrowserRouter>
+                            <AppRoutes />
+                        </BrowserRouter>
+                    </CheckoutProvider>
+                </AddressProvider>
             </UserProvider>
             {/* As configurações passadas para ToastContainer serão aplicadas de forma global. */}
             <ToastContainer position='top-center' theme='dark' />

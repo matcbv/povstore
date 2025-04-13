@@ -12,7 +12,7 @@ export function EditAccount(){
 
     if(!userState.userData){
         return (
-            <div className="w-full h-full flex flex-col items-center justify-center gap-y-10">
+            <div className="w-screen h-screen flex flex-col items-center justify-center gap-y-10">
                 <img className="w-60" src="/assets/images/loading.gif" alt="Caregando" />
                 <p className="font-bold text-2xl">Carregando dados<span className="text-red-600">...</span></p>
             </div>
@@ -31,15 +31,16 @@ export function EditAccount(){
                                 <p>Voltar</p>
                         </span>
                     </div>
-                    <div className="flex flex-col gap-y-20">
-                        <div className="flex flex-col gap-y-10">
-                            <h2 className="text-xl underline decoration-red-600 underline-offset-4">Endereços</h2>
+                    <div className="flex justify-center gap-x-40">
+                        <div className="flex flex-col gap-y-10 relative">
+                            <h2 className="text-xl underline decoration-red-600 underline-offset-4">Seus endereços</h2>
                             <AddressList />
                         </div>
-                        
-                        <EditAccountForm />
+                        <div className="flex flex-col gap-y-10">
+                            <h2 className="text-xl underline decoration-red-600 underline-offset-4">Seus dados</h2>
+                            <EditAccountForm />
+                        </div>
                     </div>
-
                 </section>
             </main>
             <Footer />

@@ -1,7 +1,8 @@
 import { Header } from "../layouts/Header";
 import { Footer } from "../layouts/Footer";
 import { BagList } from "../components/BagList";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { BagResume } from "../components/BagResume";
 
 export function Bag(){
     const navigate = useNavigate();
@@ -17,7 +18,13 @@ export function Bag(){
                         <p className="text-sm lg:text-base">Voltar</p>
                     </span>
                 </div>
-                <BagList />
+                <section className="flex justify-around items-start">
+                    <BagList />
+                    <div className="flex flex-col gap-y-10">
+                        <BagResume />
+                        <Link to="/checkout" className="py-3 bg-black rounded-md text-white text-center hover:scale-105 transition-transform">Continuar compra</Link>
+                    </div>
+                </section>
             </main>
             <Footer />
         </>

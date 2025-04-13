@@ -1,7 +1,8 @@
-import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, signInWithEmailAndPassword, signOut, updatePassword } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { actionTypes } from "../contexts/UserProvider/actionTypes";
+import { actionTypes as checkoutActionTypes } from "../contexts/CheckoutProvider/actionTypes";
 
 export async function loginWithEmail(user, password){
     try{
@@ -54,12 +55,26 @@ export function checkAuth(dispatch){
     });
 };
 
+export async function changeUserPassword(passwordData){
+    try{
+        await updatePassword(auth.currentUser, passwordData.newPassword);
+    } catch(e){
+        if(e.code == 'auth/requires-recent-login'){
+            const credential = EmailAuthProvider.credential(auth.currentUser.email, passwordData.currentPassword);
+            reauthenticateWithCredential(auth.currentUser, credential);
+        } else{
+            throw new Error(e.message);
+        };
+    };
+};
 
-export async function logout(dispatch) {
+export async function logout(userDispatch, checkoutDispatch) {
     try{
         await signOut(auth)
-        dispatch({ type:actionTypes.REMOVE_DATA });
+        userDispatch({ type:actionTypes.REMOVE_DATA });
+        checkoutDispatch({ type: checkoutActionTypes.REMOVE_ITEMS });
+        checkoutDispatch({ type: actionTypes.SET_TOTAL_QUANTITY, payload: 0 });
     } catch(e){
-        dispatch({type: actionTypes.SET_ERROR, payload: e.message});
+        userDispatch({type: actionTypes.SET_ERROR, payload: e.message});
     };
 };

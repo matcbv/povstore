@@ -8,7 +8,7 @@ export function Header() {
 	const [userState, ] = useContext(UserContext);
 	const [checkoutState, ] = useContext(CheckoutContext);
 	const [dropdown, setDropdown] = useState(false);
-	console.log(checkoutState.totalQuantity);
+
 	return (
 		<header className="w-full flex items-center justify-between px-12 h-20 bg-black sticky top-0 z-10">
 			<h1 className="text-5xl text-white">

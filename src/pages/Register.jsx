@@ -9,7 +9,7 @@ export function Register(){
             <main className="flex items-center justify-center min-h-screen bg-[linear-gradient(to_top,_#0000004a,_white_30%)]">
                 <section className="flex justify-evenly my-20 items-center w-full">
                     <div className="flex flex-col gap-y-12 items-start">
-                        <h1 className="text-3xl font-mono font-bold tracking-tight">Crie sua conta</h1>
+                        <h1 className="text-3xl font-bold tracking-wide">Crie sua conta</h1>
                         <RegisterForm />
                     </div>
                     <div className="hidden lg:flex flex-col justify-center">

@@ -33,7 +33,7 @@ export function ProductForm(){
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(checkData()){
-            toast.error('Preencha os campos corretamente para cadastrar o produto.');
+            toast.error('Preencha todos os campos para adicionar o produto.');
             return;
         };
         const response = await addProduct(productData, productImage);
@@ -79,15 +79,15 @@ export function ProductForm(){
             <div className="flex flex-col gap-y-8 w-2/3 lg:w-1/2 h-full">
                 <div className="flex flex-col">
                     <label htmlFor="name" className="font-bold text-sm md:text-base">Nome do produto<span className="text-red-600">:</span></label>
-                    <input type="text" name="name" id="name" value={ productData.name } className="product-inputs" onChange={ handleChange } />
+                    <input type="text" name="name" id="name" value={ productData.name } className="default-inputs" onChange={ handleChange } />
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="description" className="font-bold text-sm md:text-base">Descrição<span className="text-red-600">:</span></label>
-                    <textarea name="description" id="description" rows={6} value={ productData.description } className="product-inputs resize-none" onChange={ handleChange } />
+                    <textarea name="description" id="description" rows={6} value={ productData.description } className="default-inputs resize-none" onChange={ handleChange } />
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="category" className="font-bold text-sm md:text-base">Categoria<span className="text-red-600">:</span></label>
-                    <select name="category" id="category" value={ productData.category } className="product-inputs" onChange={ handleChange }>
+                    <select name="category" id="category" value={ productData.category } className="default-inputs" onChange={ handleChange }>
                         <option value="unisex">Unissex</option>
                         <option value="man">Masculino</option>
                         <option value="woman">Feminino</option>
@@ -96,11 +96,11 @@ export function ProductForm(){
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="price" className="font-bold text-sm md:text-base">Preço<span className="text-red-600">:</span></label>
-                    <input type="text" name="price" id="price" value={ productData.price } className="product-inputs" onChange={ handleChange } />
+                    <input type="text" name="price" id="price" value={ productData.price } className="default-inputs" onChange={ handleChange } />
                 </div>
                 <div className="flex flex-col">
                     <label htmlFor="quantity" className="font-bold text-sm md:text-base">Estoque<span className="text-red-600">:</span></label>
-                    <input type="number" name="quantity" id="quantity" value={ productData.quantity } min={1} className="product-inputs" onChange={ handleChange } />
+                    <input type="number" name="quantity" id="quantity" value={ productData.quantity } min={1} className="default-inputs" onChange={ handleChange } />
                 </div>
             </div>
         </form>

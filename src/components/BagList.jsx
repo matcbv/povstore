@@ -6,7 +6,6 @@ import { UserContext } from "../contexts/UserProvider/context";
 import { collection, deleteDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { actionTypes } from "../contexts/CheckoutProvider/actionTypes";
 import { updateCheckout } from "../utils/updateCheckout";
-import { BagResume } from "./BagResume";
 
 export function BagList() {
     const navigate = useNavigate();
@@ -49,45 +48,42 @@ export function BagList() {
     };
     
     return (
-        <section className="flex justify-around items-start">
-            <div className="flex flex-col gap-y-20">
-                {checkoutState.items.map(item => (
-                    <div className="flex gap-x-10" key={item.name}>
-                        <img src={item.imageURL} alt={item.name} className="w-40 max-h-60 object-contain cursor-pointer" onClick={ () => navigate(`/catalog/product/${item.productId}`) } />
-                        <div className="flex flex-col items-start gap-y-5">
-                            <h2 className="underline underline-offset-4 decoration-2 decoration-red-600 text-lg">{item.name}</h2>
-                            <p>R$ {item.price}</p>
-                            <p>Tamanho: {item.size}</p>
-                            <div className='flex flex-col items-center gap-y-2'>
-                                <p>Quantidade:</p>
-                                <span className='flex gap-x-4'>
-                                    <img
-                                        src="/assets/images/decrease.png"
-                                        alt="Diminuir"
-                                        className='cursor-pointer'
-                                        onClick={ () => setQuantity(item.productId, false) }
-                                    />
-                                    <span>{item.quantity}</span>
-                                    <img
-                                        src="/assets/images/increase.png"
-                                        alt="Aumentar"
-                                        className='cursor-pointer'
-                                        onClick={ () => setQuantity(item.productId, true) }
-                                    />
-                                </span>
-                            </div>
+        <div className="flex flex-col gap-y-20">
+            {checkoutState.items.map(item => (
+                <div className="flex gap-x-10" key={item.name}>
+                    <img src={item.imageURL} alt={item.name} className="w-40 max-h-60 object-contain cursor-pointer" onClick={ () => navigate(`/catalog/product/${item.productId}`) } />
+                    <div className="flex flex-col items-start gap-y-5">
+                        <h2 className="underline underline-offset-4 decoration-2 decoration-red-600 text-lg">{item.name}</h2>
+                        <p>R$ {item.price}</p>
+                        <p>Tamanho: {item.size}</p>
+                        <div className='flex flex-col items-center gap-y-2'>
+                            <p>Quantidade:</p>
+                            <span className='flex gap-x-4'>
+                                <img
+                                    src="/assets/images/decrease.png"
+                                    alt="Diminuir"
+                                    className='cursor-pointer'
+                                    onClick={ () => setQuantity(item.productId, false) }
+                                />
+                                <span>{item.quantity}</span>
+                                <img
+                                    src="/assets/images/increase.png"
+                                    alt="Aumentar"
+                                    className='cursor-pointer'
+                                    onClick={ () => setQuantity(item.productId, true) }
+                                />
+                            </span>
                         </div>
                     </div>
-                ))}
-                <button
-                    type="button"
-                    className="border-2 rounded-md py-2 text-sm md:text-base border-black hover:border-red-600"
-                    onClick={ removeItems }
-                >
-                    Limpar sacola
-                </button>
-            </div>
-            <BagResume />
-        </section>   
+                </div>
+            ))}
+            <button
+                type="button"
+                className="w-40 border-2 rounded-md py-2 text-sm md:text-base border-black hover:border-red-600"
+                onClick={ removeItems }
+            >
+                Limpar sacola
+            </button>
+        </div>
     );
 };

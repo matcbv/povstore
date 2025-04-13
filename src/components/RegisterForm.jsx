@@ -6,6 +6,13 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export function RegisterForm(){
+    const labelMap = {
+        email: 'E-mail',
+        password: 'Senha',
+        name: 'Nome',
+        lastname: 'Sobrenome',
+        phoneNumber: 'Telefone', 
+    };
     const navigate = useNavigate();
     const [userData, setuserData] = useState({
         email: '',
@@ -100,26 +107,12 @@ export function RegisterForm(){
 
     return (
         <form onSubmit={ handleSubmit } className="flex flex-col w-[310px] gap-y-8 text-black overflow-hidden">
-            <div className="flex">
-                <label htmlFor="email" className="border-b border-red-600 whitespace-nowrap w-">E-mail</label>
-                <input type="email" id="email" name="email" autoComplete="email" value={ userData.email } className="form-inputs" onChange={ handleChange } />
-            </div>
-            <div className="flex">
-                <label htmlFor="password" className="border-b border-red-600">Senha</label>
-                <input type="password" id="password" name="password" autoComplete="new-password" value={ userData.password } className="form-inputs" onChange={ handleChange } />
-            </div>
-            <div className="flex">
-                <label htmlFor="name" className="border-b border-red-600">Nome</label>
-                <input type="name" id="name" name="name" autoComplete="given-name" value={ userData.name } className="form-inputs" onChange={ handleChange } />
-            </div>
-            <div className="flex">
-                <label htmlFor="lastname" className="border-b border-red-600">Sobrenome</label>
-                <input type="lastname" id="lastname" name="lastname" autoComplete="family-name" value={ userData.lastname } className="form-inputs" onChange={ handleChange } />
-            </div>
-            <div className="flex">
-                <label htmlFor="phoneNumber" className="border-b border-red-600">Telefone</label>
-                <input type="tel" id="phoneNumber" name="phoneNumber" autoComplete="tel" value={ userData.phoneNumber } className="form-inputs" onChange={ handleChange } />
-            </div>
+            {Object.keys(userData).map(key => (
+                <div key={key} className="flex">
+                    <label htmlFor={key} className="border-b border-red-600 whitespace-nowrap w-">{ labelMap[key] }</label>
+                    <input type={key === 'password' ? 'password' : 'text'} name={key} value={ userData[key] } className="account-inputs" onChange={ handleChange } />
+                </div>
+            ))}
             <div className="flex items-center gap-x-4">
                 <input type="submit" value="Cadastrar" className="border border-black py-1 rounded w-full cursor-pointer hover:font-bold" />
                 <button type="button"><img src="/assets/images/google.png" alt="Criar conta com o Google" onClick={ submitWithGoogle } /></button>

@@ -11,7 +11,7 @@ export function Session(){
             <main className="flex items-center justify-center min-h-screen bg-[linear-gradient(#0000004a,_white_30%)]">
                 <section className="flex justify-evenly items-center my-20 w-full">
                     <div className="flex flex-col gap-y-12 items-start">
-                        <h1 className="text-3xl font-mono font-bold tracking-tight">Faça login</h1>
+                        <h1 className="text-3xl font-bold tracking-wide">Faça login</h1>
                         <SessionForm />
                         <div className="flex flex-col gap-y-2 w-full">
                             <h2 className="font-bold">Ainda não possui conta?</h2>

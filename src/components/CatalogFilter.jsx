@@ -98,10 +98,10 @@ export function CatalogFilter(){
                 Limpar filtros
             </button>
             <span 
-                className="absolute top-2 right-4 transition-transform translate-x-1/2 hover:scale-105 cursor-pointer"
+                className="absolute top-2 right-4 translate-x-1/2 cursor-pointer"
                 onClick={ hideFilters }
             >
-                <img src="/assets/images/hide-filters.png" alt="Esconder filtros" /> 
+                <img src="/assets/images/close_icon_white.png" alt="Esconder filtros" /> 
             </span>
         </nav>
     );

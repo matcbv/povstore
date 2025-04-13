@@ -51,11 +51,11 @@ export function SessionForm(){
         <form onSubmit={ handleSubmit } className="flex flex-col w-[310px] gap-y-8 text-black">
         <div className="flex">
             <label htmlFor="email" className="border-red-600 border-b whitespace-nowrap">E-mail</label>
-            <input type="email" name="email" id="email" placeholder={ emailError } value={ email } className="form-inputs" onChange={ handleChange } />
+            <input type="email" name="email" id="email" placeholder={ emailError } value={ email } className="account-inputs" onChange={ handleChange } />
         </div>
         <div className="flex">
             <label htmlFor="password" className="border-red-600 border-b">Senha</label>
-            <input type="password" name="password" id="password" placeholder={ passwordError } value={ password } className="form-inputs" onChange={ handleChange } />
+            <input type="password" name="password" id="password" placeholder={ passwordError } value={ password } className="account-inputs" onChange={ handleChange } />
         </div>
         <div className="flex flex-col items-start gap-y-6">
             <div className="flex w-full gap-x-4">

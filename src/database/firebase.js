@@ -23,7 +23,7 @@ provider.setCustomParameters({
   /*
     O parâmetro prompt é usado para controlar o comportamento da tela de login ao autenticar um usuário. Temos valores como:
     
-      select_account: O usuário é forçado a escolher a conta mesmo já estando logado com o Google.
+      select_account: O usuário é forçado a escolher a conta mesmo já estando logado com o Google em seu navegador.
       consent: É solicitado ao usuário permissões de acesso novamente, mesmo ele já tendo autorizado antes.	
   */ 
   prompt: 'select_account',

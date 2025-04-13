@@ -12,10 +12,11 @@ import { Favorites } from './pages/Favorites';
 import { ProductsCatalog } from './pages/ProductsCatalog';
 import { ProductPage } from './pages/ProductPage';
 import { Checkout } from './pages/Checkout';
+import { EditAccount } from './pages/EditAccount';
 
 // Providers
 import{ ProductProvider } from './contexts/ProductProvider/index';
-import { EditAccount } from './pages/EditAccount';
+
 
 export function AppRoutes(){
     return (

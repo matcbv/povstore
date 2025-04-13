@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { CheckoutContext } from "../contexts/CheckoutProvider/context";
-import { Link } from "react-router-dom";
+import { actionTypes } from "../contexts/CheckoutProvider/actionTypes";
 
 export function BagResume(){
-    const [state, ] = useContext(CheckoutContext);
+    const [state, dispatch] = useContext(CheckoutContext);
     const [totalPrice, setTotalPrice] = useState(0);
     const [discount, ] = useState(0);
 
@@ -11,6 +11,10 @@ export function BagResume(){
         const newTotalPrice = state.items.reduce((acc, item) => acc + (parseFloat(item.price.replace(',', '.')) * item.quantity ), 0);
         setTotalPrice(newTotalPrice);
     }, [state.items]);
+
+    useEffect(() => {
+        dispatch({ type: actionTypes.SET_FINAL_PRICE, payload: totalPrice - discount });
+    }, [dispatch, discount, totalPrice]);
 
     return (
         <div className="flex flex-col gap-y-10">
@@ -23,7 +27,7 @@ export function BagResume(){
                         <li>Descontos: <span className="">R$ {discount.toFixed(2).replace('.', ',')}</span></li>
                     </ul>
                     <div>
-                        <p className="text-xl">Valor final: <span className="text-red-600">R$ {(totalPrice - discount).toFixed(2).replace('.', ',')}</span></p>
+                        <p className="text-xl">Valor final: <span className="text-red-600">R$ {(state.finalPrice).toFixed(2).replace('.', ',')}</span></p>
                     </div>
                 </div>
             </div>
@@ -33,8 +37,6 @@ export function BagResume(){
                     <input type="text" className="p-2 border-2 border-black rounded" />
                 </label>
             </div>
-            <Link to="/checkout" className="py-3 bg-black rounded-md text-white text-center hover:scale-105 transition-transform">Finalizar compra</Link>
         </div>
-
     );
 };
