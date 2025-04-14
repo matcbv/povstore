@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { AddressContext } from "../contexts/AddressProvider/context";
 import { AddressForm } from "./AddressForm";
-import { deleteDoc, doc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { db } from "../database/firebase";
 import { UserContext } from "../contexts/UserProvider/context";
 import { toast } from "react-toastify";
@@ -20,6 +20,37 @@ export function AddressList(){
             addressDispatch({ type: actionTypes.DELETE_ADDRESS, payload: address });
             address.isDefault && addressDispatch({ type: actionTypes.SET_DEFAULT_ADDRESS, payload: {} });
             toast.success('Endereço excluído com sucesso.');
+        } catch(e){
+            throw new Error(e.message);
+        };
+    };
+
+    const setDefault = async (address) => {
+        try{
+            // Obtendo a referência da coleção através do método collection:
+            const addressesRef = collection(db, 'users', userState.uid, 'addresses');
+            /*
+                Com o método query, é possível realizarmos uma busca pelos documentos de uma coleção através de:
+
+                - A referência da coleção desejada.
+                - O método where, responsável por filtrar os documentos através de determinado campo.
+
+                Obs.: Podemos utilizar mais de um where de forma encadeada.
+            */
+            const q = query(addressesRef, where('isDefault', '==', true));
+            /*
+                Obtendo todos os documentos que correspondem a query criada com o método getDocs:
+
+                Como resultado, receberemos uma QuerySnapshot, diferentemente de getDoc, que nos retorna um DocumentSnapshot.
+                Obs.: Para obtermos os documentos em forma de array do Snapshot recebido, utilizaremos a propriedade docs.
+            */
+            const defaultAddress = (await getDocs(q)).docs[0];
+            // Atualizando o documento através de sua areferência, retornada com a propriedade ref do documento obtido:
+            await updateDoc(defaultAddress.ref, { isDefault: false });
+            const addressRef = doc(db, 'users', userState.uid, 'addresses', address.id);
+            await updateDoc(addressRef, { isDefault: true });
+            addressDispatch({ type: actionTypes.SET_DEFAULT_ADDRESS, payload: {...address, isDefault: true} });
+            toast.success('Endereço principal alterado com sucesso.');
         } catch(e){
             throw new Error(e.message);
         };
@@ -51,11 +82,19 @@ export function AddressList(){
                                     className="absolute right-0 cursor-pointer"
                                     onClick={ () => deleteAddress(address) }
                                 />
-
+                                <div className="flex gap-x-2">
+                                    <p className="font-bold">Endereço principal:</p>
+                                    <input
+                                        type="radio"
+                                        name="default"
+                                        checked={address.isDefault}
+                                        onChange={ () => setDefault(address) }
+                                    />
+                                </div>
                             </div>
                         )): (
                             <div className="flex flex-col items-start gap-y-5">
-                                <p>Nenhum endereço definido.</p>
+                                <p>Nenhum endereço adicionado.</p>
                             </div>
                         )}
                     </div>

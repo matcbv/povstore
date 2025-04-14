@@ -21,10 +21,6 @@ export function CatalogFilter(){
         navigate(getPath(state.activeGender), { replace: true });
     };
 
-    const hideFilters = () => {
-        setIsVisible(prev => !prev);
-    };
-
     if(!isVisible){
         return (
             <span className="h-screen">
@@ -32,7 +28,7 @@ export function CatalogFilter(){
                     src="/assets/images/show-filters.png"
                     alt="Exibir filtros"
                     className="fixed top-1/2 left-2 cursor-pointer transition-transform hover:translate-x-2"
-                    onClick={ hideFilters }
+                    onClick={ () => setIsVisible(prev => !prev) }
                 />
             </span>
         );
@@ -99,7 +95,7 @@ export function CatalogFilter(){
             </button>
             <span 
                 className="absolute top-2 right-4 translate-x-1/2 cursor-pointer"
-                onClick={ hideFilters }
+                onClick={ () => setIsVisible(prev => !prev) }
             >
                 <img src="/assets/images/close_icon_white.png" alt="Esconder filtros" /> 
             </span>

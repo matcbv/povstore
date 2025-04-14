@@ -1,9 +1,12 @@
-import { useState } from "react";
-import { auth, db, provider } from "../database/firebase";
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { useContext, useState } from "react";
+import { auth, db } from "../database/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { loginWithGoogle } from "../database/auth";
+import { actionTypes } from "../contexts/UserProvider/actionTypes";
+import { UserContext } from "../contexts/UserProvider/context";
 
 export function RegisterForm(){
     const labelMap = {
@@ -14,6 +17,7 @@ export function RegisterForm(){
         phoneNumber: 'Telefone', 
     };
     const navigate = useNavigate();
+    const [, dispatch] = useContext(UserContext);
     const [userData, setuserData] = useState({
         email: '',
         password: '',
@@ -34,17 +38,9 @@ export function RegisterForm(){
             /*
                 Com a função createUserWithEmailAndPassword, é realizado o cadastro de um novo usuário, desde que seus dados atendam os seguintes pré-requisitos:
                 
-                O email já está cadastrado?
-                    SIM → Retorna erro (auth/email-already-in-use).
-                    NÃO → Continua com a criação da conta.
-
-                O email tem um formato válido?
-                    SIM → Continua com a criação.
-                    NÃO → Retorna erro (auth/invalid-email).
-
-                A senha atende os requisitos mínimos? (Ao mínimo 6 caracteres)
-                    SIM → Continua.
-                    NÃO → Retorna erro (auth/weak-password).
+                - O email já está cadastrado ? Retorna erro (auth/email-already-in-use) : Continua com a criação da conta
+                - O email tem um formato válido ? Continua com a criação : Retorna erro (auth/invalid-email)
+                - A senha atende os requisitos mínimos (Ao mínimo 6 caracteres) ? Continua : Retorna erro (auth/weak-password)
 
                 Ao final, caso bem-sucedido, nos será retornado um objeto contendo informações do usuário autenticado:
 
@@ -94,7 +90,22 @@ export function RegisterForm(){
         };
     };
 
-    const submitWithGoogle = () => signInWithPopup(auth, provider);
+    const submitWithGoogle = async () => {
+        const response = await loginWithGoogle();
+        if(response.success){
+            dispatch({ type: actionTypes.ADD_DATA, payload: response.data });
+            navigate('/');
+            toast.success('Conta criada com sucesso.');
+        } else{
+            if(response.error === 'auth/popup-blocked'){
+                toast.error('Popup para login bloqueado pelo navegador.');
+            } else if(response.error === 'auth/credential-already-in-use'){
+                toast.error('E-mail já vinculado à outra conta.');
+            } else{
+                toast.error('Um erro desconhecido ocorreu. Tente novamente.');
+            };
+        };
+    };
 
     const checkData = () => {
         for(const value of Object.values(userData)){
@@ -115,7 +126,12 @@ export function RegisterForm(){
             ))}
             <div className="flex items-center gap-x-4">
                 <input type="submit" value="Cadastrar" className="border border-black py-1 rounded w-full cursor-pointer hover:font-bold" />
-                <button type="button"><img src="/assets/images/google.png" alt="Criar conta com o Google" onClick={ submitWithGoogle } /></button>
+                <img
+                    src="/assets/images/google.png"
+                    alt="Criar conta com o Google"
+                    className="cursor-pointer"
+                    onClick={ submitWithGoogle }
+                />    
             </div>
         </form>
     );

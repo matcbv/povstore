@@ -12,7 +12,10 @@ export function reducer(state, action){
             const filteredAddresses = state.addresses.filter(address => address != action.payload );
             return {...state, addresses: filteredAddresses };
         };
-        case actionTypes.SET_DEFAULT_ADDRESS: return {...state, defaultAddress: action.payload};
+        case actionTypes.SET_DEFAULT_ADDRESS: {
+            const addresses = state.addresses.map(address => ({...address, isDefault: address.id === action.payload.id }));
+            return {addresses, defaultAddress: action.payload};
+        };
         default: return state;
     };
 };

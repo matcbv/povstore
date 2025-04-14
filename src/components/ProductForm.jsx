@@ -74,7 +74,7 @@ export function ProductForm(){
                     <label htmlFor="image" className="py-2 bg-black border-2 rounded-md text-center text-white cursor-pointer">Escolher Arquivo</label>
                     <input name="image" id="image" type="file" accept="image/png" className="hidden" onChange={ handleImage } />
                 </div>
-                <input type="submit" value="Adicionar produto" className="w-full border-2 border-black rounded-md px-10 py-2 font-bold cursor-pointer hover:border-red-600 transition-colors" />
+                <input type="submit" value="Adicionar produto" className="w-full border-2 border-black rounded-md px-10 py-2 font-bold cursor-pointer" />
             </div>
             <div className="flex flex-col gap-y-8 w-2/3 lg:w-1/2 h-full">
                 <div className="flex flex-col">

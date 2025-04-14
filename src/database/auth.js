@@ -1,5 +1,5 @@
-import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, signInWithEmailAndPassword, signOut, updatePassword } from "firebase/auth";
-import { auth, db } from "./firebase";
+import { EmailAuthProvider, onAuthStateChanged, reauthenticateWithCredential, signInWithEmailAndPassword, signInWithPopup, signOut, updatePassword } from "firebase/auth";
+import { auth, db, provider } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { actionTypes } from "../contexts/UserProvider/actionTypes";
 import { actionTypes as checkoutActionTypes } from "../contexts/CheckoutProvider/actionTypes";
@@ -29,6 +29,17 @@ export async function loginWithEmail(user, password){
 
             Obs.: getDoc nos retorna uma promise, portanto, devemos trabalhar por meio de funções assíncronas ou callbacks.
         */
+        const userData = (await getDoc(userRef)).data();
+        return {success: true, data: userData};
+    } catch(e){
+        return {success: false, error: e.code};
+    };
+};
+
+export const loginWithGoogle = async () => {
+    try{
+        const userCredentials = await signInWithPopup(auth, provider);
+        const userRef = doc(db, 'users', userCredentials.user.uid);
         const userData = (await getDoc(userRef)).data();
         return {success: true, data: userData};
     } catch(e){

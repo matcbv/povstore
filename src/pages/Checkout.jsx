@@ -31,7 +31,7 @@ export function Checkout(){
                                 <p>{addressState.defaultAddress.city} - {addressState.defaultAddress.state}</p>
                                 <p>{addressState.defaultAddress.complement}</p>
                             </div>
-                            <button type="button" className="border-2 rounded-md px-4 py-2 text-sm border-black hover:bg-black hover:text-white transition-colors">Alterar endereço padrão</button>
+                            <Link to="/account/edit" className="border-2 rounded-md px-4 py-2 text-sm border-black hover:bg-black hover:text-white transition-colors">Alterar endereço padrão</Link>
                         </div>
                         <div className="flex flex-col items-start gap-y-5">
                             <h2 className="text-xl">Forma de pagamento:</h2>

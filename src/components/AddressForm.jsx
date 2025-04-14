@@ -43,7 +43,7 @@ export function AddressForm({visibilityState, addressData}){
             try{
                 const addressesRef = collection(db, 'users', userState.uid, 'addresses');
                 const addressesSnap = await getDocs(addressesRef);
-                const completeAddress = {...address, isDefault: addressesSnap.empty, id: addressesRef.id};
+                const completeAddress = {...address, isDefault: addressesSnap.empty, id: addressesRef.id, addedAt: (new Date).toLocaleString('pt-BR')};
                 await addDoc(addressesRef, completeAddress);
                 addressDispatch({ type: actionTypes.ADD_ADDRESS, payload: completeAddress});
                 addressesSnap.empty && addressDispatch({ type: actionTypes.SET_DEFAULT_ADDRESS, payload: completeAddress });
