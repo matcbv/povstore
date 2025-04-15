@@ -70,7 +70,7 @@ export function Account(){
                         </div>
                         <div className="flex flex-col gap-y-4 md:gap-y-6">
                             <Link to="edit" className="account-options">Editar conta</Link>
-                            <Link className="account-options">Métodos de pagamento</Link>
+                            <Link to="payment-methods" className="account-options">Métodos de pagamento</Link>
                             <Link to="favorites" className="account-options">Favoritos</Link>
                             <Link className="account-options">Meus pedidos</Link>
                             {userState.userData.administrator && (

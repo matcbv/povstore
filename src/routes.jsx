@@ -16,6 +16,7 @@ import { EditAccount } from './pages/EditAccount';
 
 // Providers
 import{ ProductProvider } from './contexts/ProductProvider/index';
+import { PaymentMethods } from './pages/PaymentMethods';
 
 
 export function AppRoutes(){
@@ -36,6 +37,7 @@ export function AppRoutes(){
             <Route path='/account/edit' element={ <EditAccount /> } />
             <Route path='/account/add-product' element={ <AddProduct /> } />
             <Route path='/account/favorites' element={ <Favorites /> } />
+            <Route path='/account/payment-methods' element={ <PaymentMethods /> } />
             <Route path='*' element={ <NotFound /> } />
         </Routes>
     );

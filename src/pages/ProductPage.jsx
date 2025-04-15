@@ -109,7 +109,7 @@ export function ProductPage(){
                                     onClick={ handleFavorite }
                                 />
                             </div>
-                            <span className="flex flex-col items-center cursor-pointer font-bold" onClick={() => navigate(-1)}>
+                            <span className="flex flex-col items-center cursor-pointer" onClick={() => navigate(-1)}>
                                     <img src="/assets/images/return.png" alt="Voltar" />
                                     <p>Voltar</p>
                             </span>
