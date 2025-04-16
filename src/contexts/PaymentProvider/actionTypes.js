@@ -1,0 +1,4 @@
+export const actionTypes = {
+    SET_PAYMENT_METHODS: 'SET_PAYMENT_METHODS',
+    ADD_PAYMENT_METHOD: 'ADD_PAYMENT_METHOD',
+}

@@ -36,9 +36,9 @@ export function ProductsCatalog(){
             <main className="flex min-h-screen">
                 <CatalogFilter />
                 <section className="w-full flex flex-col m-20 text-black">
-                    <div className="w-full flex justify-between pb-20">
-                        <h1 className="text-2xl md:text-3xl font-bold">Catálogo <span className="underline decoration-red-600 underline-offset-4">{ state.activeGender ? Object.keys(gendersMap).find(k => gendersMap[k] === state.activeGender) : 'geral'}</span></h1>
-                        <span className="flex flex-col items-center cursor-pointer font-bold" onClick={() => navigate(-1)}>
+                    <div className="w-full flex justify-between pb-20 font-bold">
+                        <h1 className="text-2xl md:text-3xl">Catálogo <span className="underline decoration-red-600 underline-offset-4">{ state.activeGender ? Object.keys(gendersMap).find(k => gendersMap[k] === state.activeGender) : 'geral'}</span></h1>
+                        <span className="flex flex-col items-center cursor-pointer" onClick={() => navigate(-1)}>
                                 <img src="/assets/images/return.png" alt="Voltar" />
                                 <p>Voltar</p>
                         </span>

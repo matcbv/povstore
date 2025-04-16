@@ -8,11 +8,8 @@ import { actionTypes } from "../contexts/UserProvider/actionTypes";
 export function SessionForm(){
     const navigate = useNavigate();
     const [, dispatch] = useContext(UserContext);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,7 +27,7 @@ export function SessionForm(){
         } else{
             if(response.error === 'auth/invalid-email'){
                 setEmail('');
-                setEmailError('E-mail inválido');
+                toast.error('E-mail inválido');
             } else if(response.error === 'auth/invalid-credential'){
                 // Podemos chamar diferentes tipos de toasts (info, success, error, warn), passando a eles a mensagem a ser exibida e um objeto opcional para personalização.
                 toast.error('E-mail ou senha incorretos');
@@ -55,25 +52,15 @@ export function SessionForm(){
         };
     };
 
-    const handleChange = (e) => {
-        if(e.target.name === 'email'){
-            setEmailError('');
-            setEmail(e.target.value.trim());
-        } else if(e.target.name === 'password'){
-            setPasswordError('');
-            setPassword(e.target.value.trim());
-        };
-    };
-
     return (
         <form onSubmit={ handleSubmit } className="flex flex-col w-[310px] gap-y-8 text-black">
         <div className="flex">
             <label htmlFor="email" className="border-red-600 border-b whitespace-nowrap">E-mail</label>
-            <input type="email" name="email" id="email" placeholder={ emailError } value={ email } className="account-inputs" onChange={ handleChange } />
+            <input type="email" name="email" value={ email } className="account-inputs" onChange={ (e) => setEmail(e.target.value.trim()) } />
         </div>
         <div className="flex">
             <label htmlFor="password" className="border-red-600 border-b">Senha</label>
-            <input type="password" name="password" id="password" placeholder={ passwordError } value={ password } className="account-inputs" onChange={ handleChange } />
+            <input type="password" name="password" value={ password } className="account-inputs" onChange={ (e) => setPassword(e.target.value.trim()) } />
         </div>
         <div className="flex flex-col items-start gap-y-6">
             <div className="flex w-full gap-x-4">

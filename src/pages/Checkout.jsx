@@ -13,9 +13,9 @@ export function Checkout(){
     return (
         <>
             <Header />
-            <main className="min-h-screen flex flex-col gap-y-20 font-bold my-20 mx-10 lg:mx-40">
+            <main className="min-h-screen flex flex-col gap-y-20 my-20 mx-10 lg:mx-40">
                 <section>
-                    <div className="w-full flex justify-between pb-20">
+                    <div className="w-full flex justify-between font-bold pb-20">
                         <h1 className="text-2xl md:text-3xl underline decoration-red-600 underline-offset-4">Checkout</h1>
                         <span className="flex flex-col items-center cursor-pointer" onClick={() => navigate('/bag')}>
                                 <img src="/assets/images/return.png" alt="Voltar" />
