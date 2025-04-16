@@ -32,7 +32,7 @@ export function AddressForm({visibilityState, addressData}){
     const [, addressDispatch] = useContext(AddressContext);
     const [address, setAddress] = useState(initialData);
 
-    const handleChange = (e) => setAddress(prev => ({...prev, [e.target.name]: e.target.value }))
+    const handleChange = (e) => setAddress(prev => ({...prev, [e.target.name]: e.target.value }));
 
     const handleSubmit = async (e) => {
         e.preventDefault();

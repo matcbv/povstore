@@ -34,7 +34,9 @@ export function EditAccount(){
                     <div className="flex justify-center gap-x-40">
                         <div className="flex flex-col gap-y-10 relative">
                             <h2 className="text-xl underline decoration-red-600 underline-offset-4">Seus endereços</h2>
-                            <AddressList />
+                            <div className="flex flex-col gap-y-5">
+                                <AddressList />
+                            </div>
                         </div>
                         <div className="flex flex-col gap-y-10">
                             <h2 className="text-xl underline decoration-red-600 underline-offset-4">Seus dados</h2>

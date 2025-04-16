@@ -34,7 +34,7 @@ export function Account(){
             );
         } else {
             return (
-                <div className="flex flex-col items-start gap-y-4">
+                <div className="flex flex-col items-start gap-y-5">
                     <p className="md:text-lg">Nenhum endereço definido como principal<span className="text-red-600">.</span></p>
                     <Link to="/account/edit" className="bg-black rounded-md px-4 py-3 text-sm font-bold text-white hover:scale-105 transition-transform">Adicionar endereço</Link>
                 </div>
@@ -61,14 +61,14 @@ export function Account(){
                         <img src="/assets/images/sign_out.png" alt="Sair" />
                         Sair
                     </span>
-                </div>
+                </div>=
                 <section className="flex flex-col md:flex-row items-center md:items-stretch gap-y-20 md:gap-y-0 justify-center md:gap-x-10 lg:gap-x-20 text-black">
                     <div className="flex flex-col gap-y-14">
                         <div className="flex flex-col gap-y-5">
                             <h2 className="text-lg md:text-xl font-bold">Endereço principal<span className="text-red-600">:</span></h2>
                             {addressExists()}
                         </div>
-                        <div className="flex flex-col gap-y-4 md:gap-y-6">
+                        <div className="flex flex-col gap-y-5">
                             <Link to="edit" className="account-options">Editar conta</Link>
                             <Link to="payment-methods" className="account-options">Métodos de pagamento</Link>
                             <Link to="favorites" className="account-options">Favoritos</Link>

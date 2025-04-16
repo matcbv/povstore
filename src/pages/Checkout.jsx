@@ -1,13 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../layouts/Header";
 import { Footer } from "../layouts/Footer";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AddressContext } from "../contexts/AddressProvider/context";
 import { BagResume } from "../components/BagResume";
 
 export function Checkout(){
     const [addressState, ] = useContext(AddressContext);
-    const [shipping, setShipping] = useState(null);
+    // const [shipping, setShipping] = useState(null);
     const navigate = useNavigate();
 
     return (

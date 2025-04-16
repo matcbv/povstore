@@ -59,8 +59,8 @@ export function AddressList(){
     return (
         <>
             {isVisible ? <AddressForm visibilityState={[isVisible, setIsVisible]} addressData={currentAddress} /> : (
-                <div className="flex flex-col items-start gap-y-10">
-                    <div className="flex flex-col gap-y-10">
+                <>
+                    <div className="flex flex-col items-start gap-y-10">
                         {addressState.addresses.length > 0 ? addressState.addresses.map(address => (
                             <div key={address.id} className="flex flex-col items-start gap-y-2 border-l-2 border-l-red-600 pl-3 font-normal  relative">
                                 <p>CEP: {address.cep}</p>
@@ -93,9 +93,7 @@ export function AddressList(){
                                 </div>
                             </div>
                         )): (
-                            <div className="flex flex-col items-start gap-y-5">
-                                <p>Nenhum endereço adicionado.</p>
-                            </div>
+                            <p>Nenhum endereço adicionado.</p>
                         )}
                     </div>
                     <button
@@ -108,7 +106,7 @@ export function AddressList(){
                     >
                         Adicionar endereço
                     </button>
-                </div>
+                </>
             )}
         </>
     );
