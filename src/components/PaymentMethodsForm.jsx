@@ -3,9 +3,13 @@ import { toast } from "react-toastify";
 import { db } from "../database/firebase";
 import { UserContext } from "../contexts/UserProvider/context";
 import { addDoc, collection } from "firebase/firestore";
+import { actionTypes } from "../contexts/PaymentProvider/actionTypes";
+import { CardIllustration } from "./CardIllustration";
+import { PaymentContext } from "../contexts/PaymentProvider/context";
 
 export function PaymentMethodsForm({ visibilityState }){
     const [userState, ] = useContext(UserContext);
+    const [, paymentDispatch] = useContext(PaymentContext);
     const [, setIsVisible] = visibilityState;
 
     const labelMap = {
@@ -35,7 +39,9 @@ export function PaymentMethodsForm({ visibilityState }){
         if(Object.values(paymentData).every(value => value)){
             try{
                 const paymentMethodsRef = collection(db, 'users', userState.uid, 'paymentMethods');
-                await addDoc(paymentMethodsRef, paymentData);
+                const completeData = {...paymentData, addedAt: (new Date).toLocaleString('pt-BR')};
+                await addDoc(paymentMethodsRef, completeData);
+                paymentDispatch({ type: actionTypes.ADD_PAYMENT_METHOD, payload: completeData });
                 setIsVisible(false);
                 toast.success('Método de pagamento adicionado com sucesso.');
                 return;
@@ -61,23 +67,7 @@ export function PaymentMethodsForm({ visibilityState }){
                     <button type="button" className="w-40 rounded-md py-3 text-sm font-bold border-2 border-black text-black" onClick={ () => setIsVisible(false) }>Cancelar</button>
                 </div>
             </form>
-            <div className="w-[400px] h-[250px] flex flex-col justify-between items-start p-5 rounded-lg bg-black text-white">
-                <img src="/assets/images/card_flag.png" alt="Bandeira do cartão" />
-                <div className="flex flex-col gap-y-4">
-                    <p>{paymentData.cardholderName ? paymentData.cardholderName : 'Nome do titular'}</p>
-                    <p className="text-lg">{paymentData.cardNumber ? paymentData.cardNumber : '**** **** **** ****'}</p>
-                    <div className="flex gap-x-10">
-                        <span className="flex flex-col">
-                            <p className="text-[0.6rem]">VALID THRU</p>
-                            <p>{paymentData.validThru ? paymentData.validThru : '**/**'}</p>
-                        </span>
-                        <span className="flex flex-col">
-                            <p className="text-[0.6rem]">CVC</p>
-                            <p>{paymentData.cvc ? paymentData.cvc : '***'}</p>
-                        </span>
-                    </div>
-                </div>
-            </div>
+            <CardIllustration paymentData={paymentData} />
         </div>
     );
 };

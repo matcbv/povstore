@@ -63,7 +63,7 @@ export function RegisterForm(){
                     name: userData.name,
                     lastname: userData.lastname,
                     phoneNumber: userData.phoneNumber,
-                    createdAt: new Date().toLocaleDateString('pt-BR'),
+                    createdAt: new Date().toLocaleString('pt-BR'),
                 });
                 navigate('/session');
                 toast.success('Conta criada com sucesso.');
@@ -83,7 +83,7 @@ export function RegisterForm(){
                     break;
                 };
                 default: {
-                    toast.error('Um erro desconhecido ocorreu. Tente novamente.')
+                    toast.error('Um erro desconhecido ocorreu. Tente novamente.');
                     throw new Error(e.code);
                 };
             };

@@ -68,7 +68,7 @@ export function AddressList(){
                                 <p>{address.city} - {address.state}</p>
                                 <p>{address.complement}</p>
                                 <img
-                                    src="/assets/images/edit.png"
+                                    src="/assets/images/edit_black.png"
                                     alt="Editar endereço"
                                     className="absolute right-7 w-5 cursor-pointer"
                                     onClick={ () => {

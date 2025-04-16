@@ -10,7 +10,7 @@ export function PaymentMethods(){
     const [paymentState, ] = useContext(PaymentContext);
     const navigate = useNavigate();
     const [isVisible, setIsVisible] = useState(false);
-    console.log(paymentState.paymentMethods);
+    
     return (
         <>
             <Header />
@@ -24,11 +24,17 @@ export function PaymentMethods(){
                         </span>
                     </div>
                     <div className="flex flex-col gap-y-5">
-                    {paymentState.paymentMethods.length > 0 ? <PaymentMethodsList /> : (
-                        isVisible ? <PaymentMethodsForm visibilityState={[ isVisible, setIsVisible ]} /> : (
+                    {isVisible ? <PaymentMethodsForm visibilityState={[ isVisible, setIsVisible ]} /> : (
+                        paymentState.paymentMethods.length > 0 ? <PaymentMethodsList visibilityState={[ isVisible, setIsVisible ]} /> : (
                             <>
                                 <h2 className="text-lg">Nenhum método de pagamento adicionado.</h2>
-                                <button type="button" className="w-40 bg-black rounded-md py-3 text-sm font-bold text-white" onClick={ () => setIsVisible(true) }>Adicionar cartão</button>
+                                <button
+                                    type="button"
+                                    className="w-40 bg-black rounded-md py-3 text-sm font-bold text-white"
+                                    onClick={ () => setIsVisible(true) }
+                                >
+                                    Adicionar cartão
+                                </button>
                             </>
                         )
                     )}
