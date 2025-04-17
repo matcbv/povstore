@@ -19,8 +19,8 @@ export function FavoritesMap(){
                     userFavorites.docs.forEach(async (favorite) => {
                         const productData = await getProduct(favorite.id);
                         setFavorites(prevFavorites => ({...prevFavorites, [favorite.id]: productData }));
-                        dispatch({ type: actionTypes.SET_LOADING, payload: false });
                     });
+                    dispatch({ type: actionTypes.SET_LOADING, payload: false });
                 } catch(e){
                     throw new Error(e);
                 };

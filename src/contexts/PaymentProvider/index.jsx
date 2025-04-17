@@ -18,10 +18,12 @@ export function PaymentProvider({ children }){
                     const paymentMethodsRef = collection(db, 'users', userState.uid, 'paymentMethods');
                     const q = query(paymentMethodsRef, orderBy('addedAt', 'asc'));
                     const paymentMethodsSnap = await getDocs(q);
-                    dispatch({ type: actionTypes.SET_PAYMENT_METHODS, payload: paymentMethodsSnap.docs.map( snap => ({
+                    const paymentMethods = paymentMethodsSnap.docs.map( snap => ({
                         ...snap.data(),
                         id: snap.id,
-                    }))});
+                    }));
+                    dispatch({ type: actionTypes.SET_PAYMENT_METHODS, payload: paymentMethods});
+                    dispatch({ type: actionTypes.SET_LOADING, payload: false });
                 } catch(e) {
                     throw new Error(e.message);
                 };

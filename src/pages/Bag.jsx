@@ -10,7 +10,7 @@ export function Bag(){
     return (
         <>
             <Header />
-            <main className="min-h-screen flex flex-col gap-y-20 font-bold my-20 mx-10 lg:mx-40">
+            <main className="min-h-screen flex flex-col gap-y-20 my-20 mx-10 lg:mx-40">
                 <div className="flex justify-between items-center">
                     <h1 className="text-2xl lg:text-3xl underline decoration-red-600 underline-offset-4">Sacola de compras</h1>
                     <span className="flex flex-col items-center cursor-pointer" onClick={() => navigate('/catalog')}>

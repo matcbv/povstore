@@ -4,9 +4,13 @@ import { Footer } from "../layouts/Footer";
 import { useContext } from "react";
 import { AddressContext } from "../contexts/AddressProvider/context";
 import { BagResume } from "../components/BagResume";
+import { PaymentContext } from "../contexts/PaymentProvider/context";
+import { PaymentMethodsList } from "../components/PaymentMethodsList";
+import { CheckoutCardList } from "../components/CheckoutCardList";
 
 export function Checkout(){
     const [addressState, ] = useContext(AddressContext);
+    const [paymentState, ] = useContext(PaymentContext); 
     // const [shipping, setShipping] = useState(null);
     const navigate = useNavigate();
 
@@ -24,7 +28,7 @@ export function Checkout(){
                     </div>
                     <div className="flex justify-center gap-x-20">
                         <div className="flex flex-col items-start gap-y-10">
-                            <h2 className="text-xl">Endereço de entrega:</h2>
+                            <h2 className="text-xl font-bold">Endereço de entrega:</h2>
                             <div className="flex flex-col items-start gap-y-2 border-l-2 border-l-red-600 pl-3">
                                 <p>CEP: {addressState.defaultAddress.cep}</p>
                                 <p>{addressState.defaultAddress.street}, {addressState.defaultAddress.number} - {addressState.defaultAddress.neighborhood}</p>
@@ -33,10 +37,9 @@ export function Checkout(){
                             </div>
                             <Link to="/account/edit" className="border-2 rounded-md px-4 py-2 text-sm border-black hover:bg-black hover:text-white transition-colors">Alterar endereço padrão</Link>
                         </div>
-                        <div className="flex flex-col items-start gap-y-5">
-                            <h2 className="text-xl">Forma de pagamento:</h2>
-                            <p>Nenhuma forma de pagamento adicionada</p>
-                            <button type="button" className="border-2 rounded-md px-4 py-2 text-sm border-black hover:bg-black hover:text-white transition-colors">Adicionar forma de pagamento</button>
+                        <div className="flex flex-col gap-y-5">
+                            <h2 className="text-xl font-bold">Forma de pagamento:</h2>
+                            <CheckoutCardList />
                         </div>
                         <div className="flex flex-col gap-y-10">
                             <BagResume />

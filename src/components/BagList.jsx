@@ -41,7 +41,7 @@ export function BagList() {
     if(Object.keys(checkoutState.items).length <= 0){
         return (
             <section className="flex flex-col items-start gap-y-5">
-                <p className="text-lg">Ops... Ainda não há itens em sua sacola.</p>
+                <p className="text-lg font-bold">Ops... Ainda não há itens em sua sacola.</p>
                 <Link to='/catalog' className="bg-black text-white p-3 px-6 rounded transition-transform hover:scale-105">Continuar comprando</Link>
             </section>
         );
@@ -52,7 +52,7 @@ export function BagList() {
             {checkoutState.items.map(item => (
                 <div className="flex gap-x-10" key={item.name}>
                     <img src={item.imageURL} alt={item.name} className="w-40 max-h-60 object-contain cursor-pointer" onClick={ () => navigate(`/catalog/product/${item.productId}`) } />
-                    <div className="flex flex-col items-start gap-y-5">
+                    <div className="flex flex-col items-start gap-y-5 font-bold">
                         <h2 className="underline underline-offset-4 decoration-2 decoration-red-600 text-lg">{item.name}</h2>
                         <p>R$ {item.price}</p>
                         <p>Tamanho: {item.size}</p>
@@ -79,7 +79,7 @@ export function BagList() {
             ))}
             <button
                 type="button"
-                className="w-40 border-2 rounded-md py-2 text-sm md:text-base border-black hover:border-red-600"
+                className="w-40 border-2 rounded-md py-2 text-sm font-bold md:text-base border-black hover:border-red-600"
                 onClick={ removeItems }
             >
                 Limpar sacola

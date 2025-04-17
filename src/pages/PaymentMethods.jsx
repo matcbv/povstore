@@ -10,7 +10,8 @@ export function PaymentMethods(){
     const [paymentState, ] = useContext(PaymentContext);
     const navigate = useNavigate();
     const [isVisible, setIsVisible] = useState(false);
-    
+    const [currentData, setCurrentData] = useState(null);
+
     return (
         <>
             <Header />
@@ -23,9 +24,9 @@ export function PaymentMethods(){
                                 <p>Voltar</p>
                         </span>
                     </div>
-                    <div className="flex flex-col gap-y-5">
-                    {isVisible ? <PaymentMethodsForm visibilityState={[ isVisible, setIsVisible ]} /> : (
-                        paymentState.paymentMethods.length > 0 ? <PaymentMethodsList visibilityState={[ isVisible, setIsVisible ]} /> : (
+                    <div className="w-full h-full flex flex-col gap-y-5">
+                    {isVisible ? <PaymentMethodsForm setIsVisible={setIsVisible} currentState={[currentData, setCurrentData]} /> : (
+                        paymentState.paymentMethods.length > 0 ? <PaymentMethodsList setIsVisible={setIsVisible} setCurrentData={setCurrentData} /> : (
                             <>
                                 <h2 className="text-lg">Nenhum método de pagamento adicionado.</h2>
                                 <button

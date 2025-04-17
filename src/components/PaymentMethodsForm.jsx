@@ -2,16 +2,15 @@ import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { db } from "../database/firebase";
 import { UserContext } from "../contexts/UserProvider/context";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { actionTypes } from "../contexts/PaymentProvider/actionTypes";
 import { CardIllustration } from "./CardIllustration";
 import { PaymentContext } from "../contexts/PaymentProvider/context";
 
-export function PaymentMethodsForm({ visibilityState }){
+export function PaymentMethodsForm({ setIsVisible, currentState }){
+    const [currentData, setCurrentData] = currentState;
     const [userState, ] = useContext(UserContext);
     const [, paymentDispatch] = useContext(PaymentContext);
-    const [, setIsVisible] = visibilityState;
-
     const labelMap = {
         cardholderName: 'Nome do titular',
         cardNumber: 'Número do cartão',
@@ -19,10 +18,10 @@ export function PaymentMethodsForm({ visibilityState }){
         cvc: 'CVC',
     };
     const [paymentData, setPaymentData] = useState({
-        cardholderName: '',
-        cardNumber: '',
-        validThru: '',
-        cvc: '',
+        cardholderName: currentData?.cardholderName || '',
+        cardNumber: currentData?.cardNumber || '',
+        validThru: currentData?.validThru || '',
+        cvc: currentData?.cvc || '',
     });
 
     const handleChange = (e) => {
@@ -37,6 +36,10 @@ export function PaymentMethodsForm({ visibilityState }){
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(Object.values(paymentData).every(value => value)){
+            if(currentData){
+                await updatePaymentMethod();
+                return;
+            };
             try{
                 const paymentMethodsRef = collection(db, 'users', userState.uid, 'paymentMethods');
                 const completeData = {...paymentData, addedAt: (new Date).toLocaleString('pt-BR')};
@@ -47,9 +50,22 @@ export function PaymentMethodsForm({ visibilityState }){
                 return;
             } catch(e){
                 throw new Error(e.message);
-            }
+            };
         } else{
-            toast.error('Preencha todos os campos para adicionar o método de pagamento.')
+            toast.error('Preencha todos os campos para adicionar o método de pagamento.');
+        };
+    };
+
+    const updatePaymentMethod = async () => {
+        try{
+            const paymentMethodRef = doc(db, 'users', userState.uid, 'paymentMethods', currentData.id);
+            await updateDoc(paymentMethodRef, paymentData);
+            paymentDispatch({ type: actionTypes.UPDATE_PAYMENT_METHOD, payload: {...paymentData, id: currentData.id} });
+            setIsVisible(false);
+            toast.success('Método de pagamento atualizado com sucesso.');
+            return;
+        } catch(e){
+            throw new Error(e.message);
         };
     };
 
@@ -64,7 +80,16 @@ export function PaymentMethodsForm({ visibilityState }){
                 ))}
                 <div className="flex gap-x-5">
                     <button type="submit" className="w-40 bg-black rounded-md py-3 text-sm font-bold text-white">Salvar cartão</button>
-                    <button type="button" className="w-40 rounded-md py-3 text-sm font-bold border-2 border-black text-black" onClick={ () => setIsVisible(false) }>Cancelar</button>
+                    <button
+                        type="button"
+                        className="w-40 rounded-md py-3 text-sm font-bold border-2 border-black text-black"
+                        onClick={ () => {
+                            setIsVisible(false);
+                            setCurrentData(null);
+                        } }
+                    >
+                        Cancelar
+                    </button>
                 </div>
             </form>
             <CardIllustration paymentData={paymentData} />

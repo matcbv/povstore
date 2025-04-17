@@ -38,7 +38,8 @@ export function AddressForm({visibilityState, addressData}){
         e.preventDefault();
         if(Object.keys(address).every(key => address[key] || key === 'complement')){
             if(addressData){
-                return await updateAddress();
+                await updateAddress();
+                return;
             };
             try{
                 const addressesRef = collection(db, 'users', userState.uid, 'addresses');
