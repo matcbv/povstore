@@ -1,15 +1,19 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { PaymentContext } from "../contexts/PaymentProvider/context"
 import { CardIllustration } from "./CardIllustration";
 import { Link } from "react-router-dom";
 
 export function CheckoutCardList(){
     const [paymentState, ] = useContext(PaymentContext);
+    const [currentPaymentId, setCurrentPaymentId] = useState(null);
     
     if(paymentState.paymentMethods.length > 0){
         return (
             paymentState.paymentMethods.map(card => (
-                <div key={card.id}>
+                <div 
+                    key={card.id}
+                    className={`rounded-lg cursor-pointer ring-red-600 ${card.id === currentPaymentId ? 'ring-2' : 'ring-0'}`}
+                    onClick={ () => setCurrentPaymentId(card.id) }>
                     <CardIllustration paymentData={card} />
                 </div>
             ))

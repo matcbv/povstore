@@ -31,11 +31,9 @@ export function BagResume(){
                     </div>
                 </div>
             </div>
-            <div>
-                <label className="flex flex-col gap-y-1">
-                    Cupom de desconto:
-                    <input type="text" className="p-2 border-2 border-black rounded" />
-                </label>
+            <div className="flex flex-col gap-y-1">
+                <label htmlFor="discount" className="font-bold">Cupom de desconto:</label>
+                <input type="text" name="discount" className="p-2 border-2 border-black rounded" />
             </div>
         </div>
     );
