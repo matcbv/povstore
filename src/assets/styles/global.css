@@ -24,10 +24,17 @@
 	}
 }
 
-@layer utilities {
-	.no-scrollbar::-webkit-scrollbar {
-	  display: none;
-	}
+.custom-scrollbar::-webkit-scrollbar {
+	width: 5px;
+}
+  
+.custom-scrollbar::-webkit-scrollbar-track {
+	background: transparent;
+}
+  
+.custom-scrollbar::-webkit-scrollbar-thumb {
+	background-color: black;
+	border-radius: 4px;
 }
 
 * {

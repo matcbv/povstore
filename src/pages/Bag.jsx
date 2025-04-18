@@ -22,7 +22,7 @@ export function Bag(){
                     <BagList />
                     <div className="flex flex-col gap-y-10">
                         <BagResume />
-                        <Link to="/checkout" className="py-3 bg-black rounded-md text-white text-center hover:scale-105 transition-transform">Continuar compra</Link>
+                        <Link to="/checkout" className="py-3 bg-black rounded-md text-white text-center font-bold hover:scale-105 transition-transform">Continuar compra</Link>
                     </div>
                 </section>
             </main>

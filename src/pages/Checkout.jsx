@@ -4,20 +4,21 @@ import { Footer } from "../layouts/Footer";
 import { useContext } from "react";
 import { AddressContext } from "../contexts/AddressProvider/context";
 import { BagResume } from "../components/BagResume";
-import { PaymentContext } from "../contexts/PaymentProvider/context";
-import { PaymentMethodsList } from "../components/PaymentMethodsList";
 import { CheckoutCardList } from "../components/CheckoutCardList";
 
 export function Checkout(){
     const [addressState, ] = useContext(AddressContext);
-    const [paymentState, ] = useContext(PaymentContext); 
     // const [shipping, setShipping] = useState(null);
     const navigate = useNavigate();
+
+    const finalizeOrder = () => {
+        const orderRef = ''
+    }
 
     return (
         <>
             <Header />
-            <main className="min-h-screen flex flex-col gap-y-20 my-20 mx-10 lg:mx-40">
+            <main className="h-screen flex flex-col gap-y-20 my-20 mx-10 lg:mx-40">
                 <section>
                     <div className="w-full flex justify-between font-bold pb-20">
                         <h1 className="text-2xl md:text-3xl underline decoration-red-600 underline-offset-4">Checkout</h1>
@@ -37,13 +38,21 @@ export function Checkout(){
                             </div>
                             <Link to="/account/edit" className="border-2 rounded-md px-4 py-2 text-sm border-black hover:bg-black hover:text-white transition-colors">Alterar endereço padrão</Link>
                         </div>
-                        <div className="flex flex-col gap-y-5">
-                            <h2 className="text-xl font-bold">Forma de pagamento:</h2>
-                            <CheckoutCardList />
+                        <div className=" flex flex-col gap-y-10">
+                            <h2 className="text-xl font-bold pl-2">Forma de pagamento:</h2>
+                            <div className="h-[550px] flex flex-col items-center gap-y-5 p-2 pb-1 overflow-y-scroll custom-scrollbar">
+                                <CheckoutCardList />
+                            </div>
                         </div>
                         <div className="flex flex-col gap-y-10">
                             <BagResume />
-                            <Link to="/checkout" className="py-3 bg-black rounded-md text-white text-center hover:scale-105 transition-transform">Finalizar compra</Link>
+                            <button
+                                type="button"
+                                className="py-3 bg-black rounded-md text-white text-center hover:scale-105 transition-transform"
+                                onClick={ finalizeOrder }
+                            >
+                                Finalizar compra
+                            </button>
                         </div>
                     </div>
                 </section>

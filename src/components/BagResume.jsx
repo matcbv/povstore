@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CheckoutContext } from "../contexts/CheckoutProvider/context";
 import { actionTypes } from "../contexts/CheckoutProvider/actionTypes";
+import { toast } from "react-toastify";
 
 export function BagResume(){
     const [state, dispatch] = useContext(CheckoutContext);
@@ -31,9 +32,16 @@ export function BagResume(){
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col gap-y-1">
+            <div className="flex flex-col items-start gap-y-2">
                 <label htmlFor="discount" className="font-bold">Cupom de desconto:</label>
-                <input type="text" name="discount" className="p-2 border-2 border-black rounded" />
+                <input type="text" name="discount" className="w-full p-2 border-2 border-black rounded" />
+                <button
+                    type="button"
+                    className="text-sm py-3 px-5 bg-black rounded-md text-white text-center font-bold"
+                    onClick={ () => toast.error('Cupom inválido.') }
+                >
+                    Aplicar cupom
+                </button>
             </div>
         </div>
     );
