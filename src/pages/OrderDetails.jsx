@@ -32,9 +32,9 @@ export function OrdersDetails(){
                         <div className="flex flex-col gap-y-10">
                             {currentOrder?.items.map(item => (
                                 <div key={item.id} className="flex gap-x-10 items-center">
-                                    <img src={item.imageURL} alt={item.name} className="w-40" />
-                                    <div className="flex flex-col gap-y-3 font-bold">
-                                        <p className="underline underline-offset-4 decoration-red-600">{item.name}</p>
+                                    <img src={item.imageURL} alt={item.name} className="w-40 max-h-60 object-contain cursor-pointer" />
+                                    <div className="flex flex-col gap-y-3">
+                                        <p className="underline underline-offset-4 decoration-red-600 font-bold">{item.name}</p>
                                         <p>Quantidade: {item.quantity}</p>
                                         <p>Preço: {item.price}</p>
                                     </div>
@@ -43,10 +43,10 @@ export function OrdersDetails(){
                         </div>
                         {
                             <div key={currentOrder?.id} className="flex flex-col gap-y-10">
-                                <div className="flex flex-col gap-y-5 font-bold">
-                                    <h2 className="underline underline-offset-4 decoration-2 decoration-red-600 text-xl">Resumo da compra</h2>
+                                <div className="flex flex-col gap-y-5">
+                                    <h2 className="underline underline-offset-4 decoration-2 decoration-red-600 text-xl font-bold">Resumo da compra</h2>
                                     <div className="flex flex-col gap-y-2">
-                                        <p>Data da compra: {currentOrder?.orderData.slice(0, 10)}</p>
+                                        <p>Data da compra: {new Date(currentOrder?.orderData).toLocaleDateString('pt-BR')}</p>
                                         <div>Número de itens: {currentOrder?.totalQuantity}</div>
                                         <p>Preço final: R$ {currentOrder?.finalPrice.toFixed(2).replace('.', ',')}</p>
                                     </div>

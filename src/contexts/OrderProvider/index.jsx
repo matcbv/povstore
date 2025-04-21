@@ -2,7 +2,7 @@ import { useContext, useEffect, useReducer } from "react"
 import { data } from "./data";
 import { reducer } from "./reducer";
 import { UserContext } from "../UserProvider/context";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../../database/firebase";
 import { actionTypes } from "./actionTypes";
 import { OrderContext } from "./context";
@@ -15,7 +15,8 @@ export function OrderProvider({ children }){
         const callGetDocs = async () => {
             try{
                 const ordersRef = collection(db, 'users', userState.uid, 'orders');
-                const ordersSnap = await getDocs(ordersRef);
+                const q = query(ordersRef, orderBy('orderData', 'desc'));
+                const ordersSnap = await getDocs(q);
                 const orders = ordersSnap.docs.map(order => ({
                     ...order.data(),
                     id: order.id

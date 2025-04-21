@@ -10,13 +10,14 @@ import { toast } from "react-toastify";
 import { UserContext } from "../contexts/UserProvider/context";
 import { db } from "../database/firebase";
 import { OrderContext } from "../contexts/OrderProvider/context";
-import { actionTypes } from "../contexts/OrderProvider/actionTypes";
+import { actionTypes as orderActionTypes } from "../contexts/OrderProvider/actionTypes";
+import { actionTypes as checkoutActionTypes } from "../contexts/CheckoutProvider/actionTypes";
 import { CheckoutContext } from "../contexts/CheckoutProvider/context";
 import { AddressResume } from "../components/AddressResume";
 
 export function Checkout(){
     const [userState, ] = useContext(UserContext);
-    const [checkoutState, ] = useContext(CheckoutContext);
+    const [checkoutState, checkoutDispatch] = useContext(CheckoutContext);
     const [addressState, ] = useContext(AddressContext);
     const [, orderDispatch] = useContext(OrderContext);
     const [currentPayment, setCurrentPayment] = useState(null);
@@ -32,10 +33,12 @@ export function Checkout(){
             status: 'Pedido em preparação',
             paymentMethod: currentPayment,
             deliveryAddress: addressState.defaultAddress,
-            orderData: (new Date).toLocaleString('pt-BR'),
+            orderData: new Date().toISOString(),
         };
         const orderRef = await addDoc(ordersRef, orderData);
-        orderDispatch({ type: actionTypes.ADD_ORDER, payload: {...orderData, id: orderRef.id} });
+        orderDispatch({ type: orderActionTypes.ADD_ORDER, payload: {...orderData, id: orderRef.id} });
+        checkoutDispatch({ type: checkoutActionTypes.RESET });
+        navigate('/');
         toast.success('Pedido finalizado com sucesso.');
     };
 

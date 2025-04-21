@@ -5,7 +5,7 @@ export function OrderResume({ order }){
         <div className="flex items-center gap-x-10 font-bold">
             <div className="flex flex-col gap-y-5 h-[180px] overflow-y-scroll pr-4 custom-scrollbar">
                 {order.items.map(item => (
-                    <img key={item.name} className="w-[120px]" src={item.imageURL} alt={item.name} />
+                    <img key={item.name} className="max-h-40 object-contain cursor-pointer" src={item.imageURL} alt={item.name} />
                 ))}
             </div>
             <div className="flex flex-col items-start gap-y-5">

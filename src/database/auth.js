@@ -83,7 +83,7 @@ export async function logout(userDispatch, checkoutDispatch) {
     try{
         await signOut(auth)
         userDispatch({ type:actionTypes.REMOVE_DATA });
-        checkoutDispatch({ type: checkoutActionTypes.REMOVE_ITEMS });
+        checkoutDispatch({ type: checkoutActionTypes.RESET });
         checkoutDispatch({ type: actionTypes.SET_TOTAL_QUANTITY, payload: 0 });
     } catch(e){
         userDispatch({type: actionTypes.SET_ERROR, payload: e.message});

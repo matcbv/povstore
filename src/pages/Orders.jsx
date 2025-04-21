@@ -12,7 +12,7 @@ export function Orders(){
     return (
         <>
             <Header />
-            <main className="flex h-screen">
+            <main className="flex min-h-screen">
                 <section className="w-full flex flex-col m-20 text-black">
                     <div className="w-full flex justify-between items-center pb-20">
                         <h1 className="text-2xl lg:text-3xl font-bold">Seus <span className="underline decoration-red-600 underline-offset-4">pedidos</span></h1>
@@ -21,7 +21,7 @@ export function Orders(){
                             <p className="text-sm lg:text-base">Voltar</p>
                         </span>
                     </div>
-                    <div>
+                    <div className="grid grid-cols-[repeat(auto-fill,_400px)] justify-center gap-20">
                         { orderState.orders.map(order => <OrderResume key={order.id} order={order} />) }
                     </div>
                 </section>

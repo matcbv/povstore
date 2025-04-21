@@ -2,7 +2,7 @@ import { useContext, useEffect, useReducer } from 'react';
 import { PaymentContext } from './context';
 import { data } from './data';
 import { reducer } from './reducer';
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../database/firebase';
 import { UserContext } from '../UserProvider/context';
 import { actionTypes } from './actionTypes';
@@ -16,8 +16,7 @@ export function PaymentProvider({ children }){
             if(userState.uid){
                 try{
                     const paymentMethodsRef = collection(db, 'users', userState.uid, 'paymentMethods');
-                    const q = query(paymentMethodsRef, orderBy('addedAt', 'asc'));
-                    const paymentMethodsSnap = await getDocs(q);
+                    const paymentMethodsSnap = await getDocs(paymentMethodsRef);
                     const paymentMethods = paymentMethodsSnap.docs.map( snap => ({
                         ...snap.data(),
                         id: snap.id,

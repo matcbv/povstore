@@ -42,8 +42,8 @@ export function BagList() {
             {checkoutState.items.map(item => (
                 <div className="flex gap-x-10" key={item.name}>
                     <img src={item.imageURL} alt={item.name} className="w-40 max-h-60 object-contain cursor-pointer" onClick={ () => navigate(`/catalog/product/${item.productId}`) } />
-                    <div className="flex flex-col items-start gap-y-3 font-bold">
-                        <h2 className="underline underline-offset-4 decoration-2 decoration-red-600 text-lg">{item.name}</h2>
+                    <div className="flex flex-col items-start gap-y-3">
+                        <p className="underline underline-offset-4 decoration-2 decoration-red-600 text-lg font-bold">{item.name}</p>
                         <p>R$ {item.price}</p>
                         <p>Tamanho: {item.size}</p>
                         <div className='flex flex-col items-center gap-y-2'>
