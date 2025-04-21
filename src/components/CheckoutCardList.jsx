@@ -1,26 +1,26 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import { PaymentContext } from "../contexts/PaymentProvider/context"
 import { CardIllustration } from "./CardIllustration";
 import { Link } from "react-router-dom";
 
-export function CheckoutCardList(){
+export function CheckoutCardList({ currentPaymentState }){
+    const [currentPayment, setCurrentPayment] = currentPaymentState;
     const [paymentState, ] = useContext(PaymentContext);
-    const [currentPaymentId, setCurrentPaymentId] = useState(null);
 
     useEffect(() => {
-        setCurrentPaymentId(paymentState.paymentMethods[0]?.id);
-    }, [paymentState])
+        setCurrentPayment(paymentState.paymentMethods[0]);
+    }, [setCurrentPayment, paymentState])
     
     if(paymentState.paymentMethods.length > 0){
         return (
             paymentState.paymentMethods.map(card => (
                 <div key={card.id} className="relative">
                     <div 
-                        className={`rounded-lg cursor-pointer ring-red-600 ${card.id === currentPaymentId ? 'ring-2' : 'ring-0'}`}
-                        onClick={ () => setCurrentPaymentId(card.id) }
+                        className={`rounded-lg cursor-pointer ring-red-600 ${card.id === currentPayment?.id ? 'ring-2' : 'ring-0'}`}
+                        onClick={ () => setCurrentPayment(card) }
                     >
                         <CardIllustration paymentData={card} />
-                        {card.id === currentPaymentId && <img src="/assets/images/selected.png" alt="Selecionado" className="absolute top-2 right-2" />}
+                        {card.id === currentPayment?.id && <img src="/assets/images/selected.png" alt="Selecionado" className="absolute top-2 right-2" />}
                     </div>
                 </div>
             ))

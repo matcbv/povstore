@@ -12,13 +12,13 @@ export function Bag(){
             <Header />
             <main className="min-h-screen flex flex-col gap-y-20 my-20 mx-10 lg:mx-40">
                 <div className="flex justify-between items-center">
-                    <h1 className="text-2xl lg:text-3xl underline decoration-red-600 underline-offset-4">Sacola de compras</h1>
+                    <h1 className="font-bold text-2xl lg:text-3xl underline decoration-red-600 underline-offset-4">Sacola de compras</h1>
                     <span className="flex flex-col items-center cursor-pointer" onClick={() => navigate('/catalog')}>
                         <img src="/assets/images/return.png" alt="Voltar" className="w-6 lg:w-8" />
                         <p className="text-sm lg:text-base">Voltar</p>
                     </span>
                 </div>
-                <section className="flex justify-around items-start">
+                <section className="flex justify-center gap-x-40 items-start">
                     <BagList />
                     <div className="flex flex-col gap-y-10">
                         <BagResume />

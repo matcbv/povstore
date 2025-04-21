@@ -6,7 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { ProductContext } from "../contexts/ProductProvider/context";
 import { actionTypes } from "../contexts/ProductProvider/actionTypes";
 
-export function ProductsMap({ products }){
+export function ProductList({ products }){
     const navigate = useNavigate();
     const params = useParams();
     const [userState, ] = useContext(UserContext);

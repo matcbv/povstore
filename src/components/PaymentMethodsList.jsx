@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 export function PaymentMethodsList({ setIsVisible, setCurrentData }){
     const [userState, ] = useContext(UserContext);
     const [paymentState, paymentDispatch] = useContext(PaymentContext);
-    
+
     const deletePayment = async (card) => {
         try{
             const paymentMethodRef = doc(db, 'users', userState.uid, 'paymentMethods', card.id);
@@ -22,7 +22,7 @@ export function PaymentMethodsList({ setIsVisible, setCurrentData }){
             throw new Error(e);
         };
     };
-    
+
     if(paymentState.loading){
         return (
             <div className="w-full h-full flex flex-col items-center justify-center gap-y-10">
@@ -33,7 +33,7 @@ export function PaymentMethodsList({ setIsVisible, setCurrentData }){
     };
 
     return (
-        <div className="flex items-center gap-x-20">
+        <div className="grid grid-cols-[repeat(auto-fill,_285px)] items-center justify-center gap-20">
             {paymentState.paymentMethods.map(card => (
                 <div key={card.id} className="relative">
                     <CardIllustration paymentData={card} />

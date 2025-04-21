@@ -1,19 +1,43 @@
+import { collection, addDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../layouts/Header";
 import { Footer } from "../layouts/Footer";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AddressContext } from "../contexts/AddressProvider/context";
 import { BagResume } from "../components/BagResume";
 import { CheckoutCardList } from "../components/CheckoutCardList";
+import { toast } from "react-toastify";
+import { UserContext } from "../contexts/UserProvider/context";
+import { db } from "../database/firebase";
+import { OrderContext } from "../contexts/OrderProvider/context";
+import { actionTypes } from "../contexts/OrderProvider/actionTypes";
+import { CheckoutContext } from "../contexts/CheckoutProvider/context";
+import { AddressResume } from "../components/AddressResume";
 
 export function Checkout(){
+    const [userState, ] = useContext(UserContext);
+    const [checkoutState, ] = useContext(CheckoutContext);
     const [addressState, ] = useContext(AddressContext);
+    const [, orderDispatch] = useContext(OrderContext);
+    const [currentPayment, setCurrentPayment] = useState(null);
     // const [shipping, setShipping] = useState(null);
     const navigate = useNavigate();
 
-    const finalizeOrder = () => {
-        const orderRef = ''
-    }
+    const finalizeOrder = async () => {
+        const ordersRef = collection(db, 'users', userState.uid, 'orders');
+        const orderData = {
+            items: checkoutState.items,
+            finalPrice: checkoutState.finalPrice,
+            totalQuantity: checkoutState.totalQuantity,
+            status: 'Pedido em preparação',
+            paymentMethod: currentPayment,
+            deliveryAddress: addressState.defaultAddress,
+            orderData: (new Date).toLocaleString('pt-BR'),
+        };
+        const orderRef = await addDoc(ordersRef, orderData);
+        orderDispatch({ type: actionTypes.ADD_ORDER, payload: {...orderData, id: orderRef.id} });
+        toast.success('Pedido finalizado com sucesso.');
+    };
 
     return (
         <>
@@ -30,18 +54,13 @@ export function Checkout(){
                     <div className="flex justify-center gap-x-20">
                         <div className="flex flex-col items-start gap-y-10">
                             <h2 className="text-xl font-bold">Endereço de entrega:</h2>
-                            <div className="flex flex-col items-start gap-y-2 border-l-2 border-l-red-600 pl-3">
-                                <p>CEP: {addressState.defaultAddress.cep}</p>
-                                <p>{addressState.defaultAddress.street}, {addressState.defaultAddress.number} - {addressState.defaultAddress.neighborhood}</p>
-                                <p>{addressState.defaultAddress.city} - {addressState.defaultAddress.state}</p>
-                                <p>{addressState.defaultAddress.complement}</p>
-                            </div>
+                            <AddressResume address={addressState.defaultAddress} />
                             <Link to="/account/edit" className="border-2 rounded-md px-4 py-2 text-sm border-black hover:bg-black hover:text-white transition-colors">Alterar endereço padrão</Link>
                         </div>
                         <div className=" flex flex-col gap-y-10">
                             <h2 className="text-xl font-bold pl-2">Forma de pagamento:</h2>
-                            <div className="h-[550px] flex flex-col items-center gap-y-5 p-2 pb-1 overflow-y-scroll custom-scrollbar">
-                                <CheckoutCardList />
+                            <div className="h-[465px] flex flex-col items-center gap-y-5 p-2 pb-1 overflow-y-scroll custom-scrollbar">
+                                <CheckoutCardList currentPaymentState={[currentPayment, setCurrentPayment]} />
                             </div>
                         </div>
                         <div className="flex flex-col gap-y-10">

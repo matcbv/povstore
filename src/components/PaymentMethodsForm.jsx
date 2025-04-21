@@ -70,7 +70,7 @@ export function PaymentMethodsForm({ setIsVisible, currentState }){
     };
 
     return(
-        <div className="flex items-center gap-x-20">
+        <div className="flex gap-x-20">
             <form onSubmit={ handleSubmit } className="flex flex-col gap-y-10">
                 {Object.keys(paymentData).map(key => (
                     <div key={key} className="flex">

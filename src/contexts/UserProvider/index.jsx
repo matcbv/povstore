@@ -7,9 +7,7 @@ import { checkAuth } from "../../database/auth";
 export function UserProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, data);
 
-    useEffect(() => {
-        checkAuth(dispatch);
-    }, []);
+    useEffect(() => checkAuth(dispatch), []);
 
     return (
         <UserContext.Provider value={[state, dispatch]}>

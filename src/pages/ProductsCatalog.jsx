@@ -4,7 +4,7 @@ import { Header } from "../layouts/Header";
 import { getProducts } from "../utils/getProducts";
 import { useContext, useEffect, useState } from "react";
 import { CatalogFilter } from "../components/CatalogFilter";
-import { ProductsMap } from "../components/ProductsMap";
+import { ProductList } from "../components/ProductList";
 import { ProductContext } from "../contexts/ProductProvider/context";
 import { actionTypes } from "../contexts/ProductProvider/actionTypes";
 import { gendersMap } from "../utils/getPath";
@@ -43,7 +43,7 @@ export function ProductsCatalog(){
                                 <p>Voltar</p>
                         </span>
                     </div>
-                    <ProductsMap products={products} />
+                    <ProductList products={products} />
                 </section>
             </main>
             <Footer />

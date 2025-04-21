@@ -13,25 +13,23 @@ export function AddressProvider({ children }){
 
     useEffect(() => {
         const callGetDocs = async () => {
-            if(userState.uid){
-                try{
-                    const addressesRef = collection(db, 'users', userState.uid, 'addresses');
-                    const q = query(addressesRef, orderBy('addedAt', 'asc'));
-                    const addressesSnap = await getDocs(q);
-                    const addresses = addressesSnap.docs.map(snap => {
-                        snap.data().isDefault && dispatch({ type: actionTypes.SET_DEFAULT_ADDRESS, payload: snap.data() });
-                        return {
-                            ...snap.data(),
-                            id: snap.id,
-                        };
-                    });
-                    dispatch({ type: actionTypes.SET_ADDRESSES, payload: addresses });
-                } catch(e){
-                    throw new Error(e.message);
-                };
+            try{
+                const addressesRef = collection(db, 'users', userState.uid, 'addresses');
+                const q = query(addressesRef, orderBy('addedAt', 'asc'));
+                const addressesSnap = await getDocs(q);
+                const addresses = addressesSnap.docs.map(snap => {
+                    snap.data().isDefault && dispatch({ type: actionTypes.SET_DEFAULT_ADDRESS, payload: snap.data() });
+                    return {
+                        ...snap.data(),
+                        id: snap.id,
+                    };
+                });
+                dispatch({ type: actionTypes.SET_ADDRESSES, payload: addresses });
+            } catch(e){
+                throw new Error(e.message);
             };
         };
-        callGetDocs();
+        userState.uid && callGetDocs();
     }, [userState.uid]);
 
     return (

@@ -1,14 +1,36 @@
-import { useReducer } from "react"
+import { useContext, useEffect, useReducer } from "react"
 import { data } from "./data";
 import { reducer } from "./reducer";
 import { UserContext } from "../UserProvider/context";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../database/firebase";
+import { actionTypes } from "./actionTypes";
+import { OrderContext } from "./context";
 
 export function OrderProvider({ children }){
+    const [userState, ] = useContext(UserContext);
     const [state, dispatch] = useReducer(reducer, data);
 
+    useEffect(() => {
+        const callGetDocs = async () => {
+            try{
+                const ordersRef = collection(db, 'users', userState.uid, 'orders');
+                const ordersSnap = await getDocs(ordersRef);
+                const orders = ordersSnap.docs.map(order => ({
+                    ...order.data(),
+                    id: order.id
+                }));
+                dispatch({ type: actionTypes.SET_ORDERS, payload: orders });
+            } catch(e){
+                throw new Error(e.message);
+            };
+        };
+        userState.uid && callGetDocs();
+    }, [userState.uid]);
+
     return (
-        <UserContext.Provider value={[state, dispatch]}>
+        <OrderContext.Provider value={[state, dispatch]}>
             {children}
-        </UserContext.Provider>
+        </OrderContext.Provider>
     );
 };

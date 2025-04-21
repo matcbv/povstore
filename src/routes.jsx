@@ -13,10 +13,13 @@ import { ProductsCatalog } from './pages/ProductsCatalog';
 import { ProductPage } from './pages/ProductPage';
 import { Checkout } from './pages/Checkout';
 import { EditAccount } from './pages/EditAccount';
+import { PaymentMethods } from './pages/PaymentMethods';
+import { Orders } from './pages/Orders';
+import { OrdersDetails } from './pages/OrderDetails';
 
 // Providers
 import{ ProductProvider } from './contexts/ProductProvider/index';
-import { PaymentMethods } from './pages/PaymentMethods';
+
 
 
 export function AppRoutes(){
@@ -38,6 +41,8 @@ export function AppRoutes(){
             <Route path='/account/add-product' element={ <AddProduct /> } />
             <Route path='/account/favorites' element={ <Favorites /> } />
             <Route path='/account/payment-methods' element={ <PaymentMethods /> } />
+            <Route path='/account/orders' element={ <Orders /> } />
+            <Route path='/account/orders/:orderId' element={ <OrdersDetails /> } />
             <Route path='*' element={ <NotFound /> } />
         </Routes>
     );

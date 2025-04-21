@@ -1,0 +1,32 @@
+Para realizarmos o deploy de nossa aplicação no render, devemos primeiramente realizar a postagem dela no GitHub.
+
+Acessando a plataforma do Render, iremos logar com nossa conta do GitHub, e selecionar:
+
+    Add new -> Static Site
+
+Após isso, iremos selecionar o repositório que queremos realizar o deploy, e preencher informações como:
+
+    - Nome do projeto
+    - Branch do GitHub
+    - Root directory (src por padrão)
+    - Build command (Ex.: npm install; npm start)
+    - Adicionar variáveis de ambiente
+
+Por último, você irá reparar que ao recarregarmos alguma página que não seja a inicial, ou tentarmos acessar uma sub-rota diretamente (/produtos/123), o navegador faz uma requisição para o servidor pedindo aquela URL.
+
+Quando isso ocorre, o servidor (Render, por exemplo) tenta procurar um arquivo físico chamado /produtos/123 dentro do diretório do seu app (build, no caso do CRA, ou dist, no caso do Vite). Como esse arquivo não existe, o servidor responde com 404 (Not Found).
+
+Para corrigir isso, devemos criar uma rewrite rule, onde qualquer sub-rota (/*) responde com /index.html. Dessa forma, o React Router consegue interpretar a rota pra renderizar a página correta.
+
+Como isso funciona por trás dos panos?:
+
+Quando você faz um rewrite para o index.html, o servidor entrega o mesmo arquivo index.html para qualquer rota. Porém, ao contrário de redirect, o rewrite mantém a URL original na barra de endereços, apenas carregando o HTML. Após isso, o React Router lê a URL atual do navegador com window.location.pathname e verifica suas rotas configuradas, renderizando assim, o componente correto.
+
+Exemplo: https://meusite.com/produtos/123
+
+- O navegador faz uma requisição para /produtos/123
+- O servidor faz um rewrite para /index.html
+- O index.html é carregado no navegador
+- O React é inicializado
+- O React Router vê que a URL atual é /produtos/123
+- Ele encontra a <Route path="/produtos/:id" /> e renderiza a página do produto

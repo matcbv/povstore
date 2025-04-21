@@ -19,16 +19,16 @@ export function BagResume(){
 
     return (
         <div className="flex flex-col gap-y-10">
-            <div className="flex flex-col gap-y-10 w-[350px] px-5 py-10 rounded border-2 border-black shadow-lg">
+            <div className="flex flex-col gap-y-10 w-[325px] px-6 py-8 rounded border-2 border-black shadow-lg">
                 <h2 className="text-xl font-bold">Resumo da compra</h2>
-                <div className="flex flex-col gap-y-10">
-                    <ul className="flex flex-col gap-y-5">
+                <div className="flex flex-col gap-y-5">
+                    <ul className="flex flex-col gap-y-3">
                         <li>Número de itens: <span>{state.totalQuantity}</span></li>
                         <li>Valor total: <span>R$ {totalPrice.toFixed(2).replace('.', ',')}</span></li>
                         <li>Descontos: <span>R$ {discount.toFixed(2).replace('.', ',')}</span></li>
                     </ul>
                     <div>
-                        <p className="text-xl font-bold">Valor final: <span className="text-red-600">R$ {(state.finalPrice).toFixed(2).replace('.', ',')}</span></p>
+                        <p className="text-lg font-bold">Valor final: <span className="text-red-600">R$ {(state.finalPrice).toFixed(2).replace('.', ',')}</span></p>
                     </div>
                 </div>
             </div>
