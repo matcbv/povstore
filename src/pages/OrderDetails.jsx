@@ -35,6 +35,7 @@ export function OrdersDetails(){
                                     <img src={item.imageURL} alt={item.name} className="w-40 max-h-60 object-contain cursor-pointer" />
                                     <div className="flex flex-col gap-y-3">
                                         <p className="underline underline-offset-4 decoration-red-600 font-bold">{item.name}</p>
+                                        <p>Tamanho: {item.size}</p>
                                         <p>Quantidade: {item.quantity}</p>
                                         <p>Preço: {item.price}</p>
                                     </div>

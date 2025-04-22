@@ -143,6 +143,7 @@ export function ProductPage(){
                                 >
                                     Adicionar ao carrinho
                                 </button>
+                                {/* Mudar elemento abaixo para componente QuantitySelector */}
                                 <div className='flex flex-col items-center gap-y-1'>
                                     <p>Quantidade:</p>
                                     <span className='w-full flex justify-around'>

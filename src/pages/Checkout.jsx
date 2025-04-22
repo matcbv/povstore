@@ -1,4 +1,4 @@
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, deleteDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../layouts/Header";
 import { Footer } from "../layouts/Footer";
@@ -38,6 +38,8 @@ export function Checkout(){
         const orderRef = await addDoc(ordersRef, orderData);
         orderDispatch({ type: orderActionTypes.ADD_ORDER, payload: {...orderData, id: orderRef.id} });
         checkoutDispatch({ type: checkoutActionTypes.RESET });
+        const checkoutSnaps = await getDocs(collection(db, 'users', userState.uid, 'checkout'));
+        checkoutSnaps.docs.map( async item => await deleteDoc(item.ref));
         navigate('/');
         toast.success('Pedido finalizado com sucesso.');
     };

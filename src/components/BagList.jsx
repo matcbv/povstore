@@ -6,6 +6,7 @@ import { UserContext } from "../contexts/UserProvider/context";
 import { collection, deleteDoc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { actionTypes } from "../contexts/CheckoutProvider/actionTypes";
 import { updateCheckout } from "../utils/updateCheckout";
+import { QuantitySelector } from "./QuantitySelector";
 
 export function BagList() {
     const navigate = useNavigate();
@@ -46,24 +47,7 @@ export function BagList() {
                         <p className="underline underline-offset-4 decoration-2 decoration-red-600 text-lg font-bold">{item.name}</p>
                         <p>R$ {item.price}</p>
                         <p>Tamanho: {item.size}</p>
-                        <div className='flex flex-col items-center gap-y-2'>
-                            <p>Quantidade:</p>
-                            <span className='flex gap-x-4'>
-                                <img
-                                    src="/assets/images/decrease.png"
-                                    alt="Diminuir"
-                                    className='cursor-pointer'
-                                    onClick={ () => setQuantity(item.productId, false) }
-                                />
-                                <span>{item.quantity}</span>
-                                <img
-                                    src="/assets/images/increase.png"
-                                    alt="Aumentar"
-                                    className='cursor-pointer'
-                                    onClick={ () => setQuantity(item.productId, true) }
-                                />
-                            </span>
-                        </div>
+                        <QuantitySelector setQuantity={setQuantity} item={item} />
                     </div>
                 </div>
             ))}

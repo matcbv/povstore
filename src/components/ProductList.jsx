@@ -81,25 +81,26 @@ export function ProductList({ products }){
         return(
             <div className="grid grid-cols-[repeat(auto-fill,_minmax(224px,_1fr))] items-end justify-items-center gap-y-20 gap-x-16">
                 {products.map((prod) => (
-                        <div
-                            key={prod.id}
-                            className="w-56 h-[356px] flex flex-col items-center justify-end gap-y-10 relative font-bold transition-transform hover:scale-105 cursor-pointer group"
-                            onClick={ () => navigate(`/catalog/product/${prod.id}`) }
-                        >
-                            <div className="w-full h-full flex justify-center items-center relative">
-                                <img src={prod.imageURL} alt={prod.name} className="object-contain max-h-60" />
-                            </div>    
-                            <div className="flex flex-col items-center gap-y-2">
-                                <p className="pl-2 border-l-2 border-red-600">{prod.name}</p>
-                                <span className="flex flex-col items-center">
-                                    <p>R$ {prod.price}</p>
-                                    <p className="text-sm text-neutral-400">6x de R${(Number.parseFloat(prod.price)/6).toFixed(2).replace('.', ',')}</p>
-                                </span>
+                        <div key={prod.id} className="relative group">
+                            <div
+                                className="w-56 h-[356px] flex flex-col items-center justify-end gap-y-10 font-bold transition-transform hover:scale-105 cursor-pointer"
+                                onClick={ () => navigate(`/catalog/product/${prod.id}`) }
+                            >
+                                <div className="w-full h-full flex justify-center items-center relative">
+                                    <img src={prod.imageURL} alt={prod.name} className="object-contain max-h-60" />
+                                </div>    
+                                <div className="flex flex-col items-center gap-y-2">
+                                    <p className="pl-2 border-l-2 border-red-600">{prod.name}</p>
+                                    <span className="flex flex-col items-center">
+                                        <p>R$ {prod.price}</p>
+                                        <p className="text-sm text-neutral-400">6x de R${(Number.parseFloat(prod.price)/6).toFixed(2).replace('.', ',')}</p>
+                                    </span>
+                                </div>
                             </div>
                             <img
                                 src={ favorites[prod.id] ? "/assets/images/favorited.png" : "/assets/images/favorite.png" }
                                 alt="Favoritar"
-                                className="w-6 hidden absolute top-0 right-0 transition-transform group-hover:block hover:scale-110"
+                                className="w-6 hidden absolute top-0 right-0 transition-transform group-hover:block hover:scale-110 cursor-pointer"
                                 onClick={ () => handleFavorite(prod.id) }
                             />
                         </div>
