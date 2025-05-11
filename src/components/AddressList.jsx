@@ -59,7 +59,7 @@ export function AddressList() {
                 Como resultado, receberemos uma QuerySnapshot, diferentemente de getDoc, que nos retorna um DocumentSnapshot.
                 Obs.: Para obtermos os documentos em forma de array do Snapshot recebido, utilizaremos a propriedade docs.
             */
-			const defaultAddress = (await getDocs(q)).docs[0]; // Obtendo nosso endereço padrão como índice 0, já que só há ele em nosso array.
+			const defaultAddress = (await getDocs(q)).docs[0];
 			// Atualizando o documento através de sua areferência, retornada com a propriedade ref do documento obtido:
 			await updateDoc(defaultAddress.ref, { isDefault: false });
 			const addressRef = doc(
