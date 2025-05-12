@@ -15,14 +15,14 @@ export function PaymentMethods() {
 			<section className="w-full flex flex-col m-20 text-black font-bold">
 				<div className="w-full flex justify-between pb-20">
 					<h1 className="text-2xl md:text-3xl">
-						Métodos de{' '}
+						Métodos de
 						<span className="underline decoration-red-600 underline-offset-4">
 							pagamento
 						</span>
 					</h1>
 					<span
 						className="flex flex-col items-center cursor-pointer"
-						onClick={() => navigate('/account')}
+						onClick={() => navigate('/account/dashboard')}
 					>
 						<img src="/assets/images/return.png" alt="Voltar" />
 						<p>Voltar</p>

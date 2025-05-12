@@ -16,7 +16,7 @@ export function Favorites() {
 					</h1>
 					<span
 						className="flex flex-col items-center cursor-pointer"
-						onClick={() => navigate('/account')}
+						onClick={() => navigate('/account/dashboard')}
 					>
 						<img src="/assets/images/return.png" alt="Voltar" />
 						<p>Voltar</p>

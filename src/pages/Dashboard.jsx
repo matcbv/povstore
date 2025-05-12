@@ -82,20 +82,20 @@ export function Dashboard() {
 						)}
 					</div>
 					<div className="flex flex-col gap-y-5">
-						<Link to="edit" className="account-options">
+						<Link to="/account/edit" className="account-options">
 							Editar conta
 						</Link>
-						<Link to="orders" className="account-options">
+						<Link to="/account/orders" className="account-options">
 							Meus pedidos
 						</Link>
-						<Link to="favorites" className="account-options">
+						<Link to="/account/favorites" className="account-options">
 							Favoritos
 						</Link>
-						<Link to="payment-methods" className="account-options">
+						<Link to="/account/payment-methods" className="account-options">
 							Métodos de pagamento
 						</Link>
 						{userState.userData.administrator && (
-							<Link to="add-product" className="account-options">
+							<Link to="/account/add-product" className="account-options">
 								Adicionar produto
 							</Link>
 						)}

@@ -28,7 +28,7 @@ export function OrdersDetails() {
 					</h1>
 					<span
 						className="flex flex-col items-center cursor-pointer font-bold"
-						onClick={() => navigate('/account')}
+						onClick={() => navigate('/account/dashboard')}
 					>
 						<img
 							src="/assets/images/return.png"
