@@ -116,7 +116,7 @@ export function AddressForm({ visibilityState, addressData }) {
 				<div className="flex flex-col gap-y-10">
 					{Object.keys(address).map((key) => (
 						<div key={key} className="flex">
-							<label htmlFor={key} className="border-b-2 border-black">
+							<label htmlFor={key} className="border-b border-black">
 								{labelMap[key]}
 							</label>
 							<input
@@ -125,7 +125,7 @@ export function AddressForm({ visibilityState, addressData }) {
 								value={address[key]}
 								placeholder={key === 'complement' ? 'Opcional' : ''}
 								onChange={handleChange}
-								className="border-b-2 border-black bg-transparent pl-6 focus:outline-none w-full"
+								className="border-b border-black bg-transparent pl-6 focus:outline-none w-full"
 							/>
 						</div>
 					))}
