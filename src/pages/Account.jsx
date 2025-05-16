@@ -1,16 +1,22 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Header } from '../layouts/Header';
 import { Footer } from '../layouts/Footer';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { UserContext } from '../contexts/UserProvider/context';
 
 export function Account() {
-	const [state] = useContext(UserContext);
+	const [userState] = useContext(UserContext);
+	const navigate = useNavigate();
+	const location = useLocation();
 
 	// Checando se o usuário está logado
-	if (!state.userData) {
-		return <Navigate to={'/session'} state={{ isLoggedOut: true }} replace />;
-	}
+	useEffect(() => {
+		if (!userState.loading) {
+			userState.userData
+				? navigate(location.pathname)
+				: navigate('/session', { state: { isLoggedOut: true }, replace: true });
+		}
+	}, [userState, navigate, location.pathname]);
 
 	return (
 		<>

@@ -1,6 +1,4 @@
 import { useContext } from 'react';
-import { Footer } from '../layouts/Footer';
-import { Header } from '../layouts/Header';
 import { UserContext } from '../contexts/UserProvider/context';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../database/auth';
