@@ -25,14 +25,56 @@ export function PaymentMethodsForm({ setIsVisible, currentState }) {
 	});
 
 	const handleChange = (e) => {
-		if (e.target.name === 'cardNumber') {
-			if (e.target.value.match(/([1-9]{4})/g)) {
-				e.target.value + ' ';
+		const raw = e.target.value.replace(/\s|\//g, '');
+
+		switch (e.target.name) {
+			case 'cardNumber': {
+				if (raw.length <= 16 && !raw.match(/\D/g)) {
+					// Validando se o valor do campo é menor ou igual a 16 caracteres e se é um dígito (0 a 9).
+					const formatted = raw.replace(/(\d{4})(?=\d)/g, '$1 '); // Inserindo um espaço nos grupos de 4 dígitos obtidos.
+					// Obs.: Com o símbolo $ ($1 [primeiro grupo], $2 [segundo grupo], etc...), conseguimos fazer referência aos grupos de nossa regex.
+					setPaymentData((prev) => ({
+						...prev,
+						[e.target.name]: formatted,
+					}));
+				}
+				break;
 			}
-		} else if (e.target.name === 'cvc') {
-			return;
+			case 'cvc': {
+				if (!raw.match(/\D/g) && raw.length <= 3) {
+					setPaymentData((prev) => ({
+						...prev,
+						[e.target.name]: e.target.value,
+					}));
+				}
+				break;
+			}
+			case 'validThru': {
+				if (!raw.match(/\D/g) && raw.length <= 4) {
+					const formatted = raw.replace(/(\d{2})(?=\d)/g, '$1/');
+					setPaymentData((prev) => ({
+						...prev,
+						[e.target.name]: formatted,
+					}));
+				}
+				break;
+			}
+			case 'cardholderName': {
+				if (!raw.match(/\d/g)) {
+					setPaymentData((prev) => ({
+						...prev,
+						[e.target.name]: e.target.value,
+					}));
+				}
+				break;
+			}
+			default: {
+				setPaymentData((prev) => ({
+					...prev,
+					[e.target.name]: e.target.value,
+				}));
+			}
 		}
-		setPaymentData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 	};
 
 	const handleSubmit = async (e) => {
