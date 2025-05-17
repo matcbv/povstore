@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import { addItemToBag } from '../utils/addItemToBag';
 import { updateCheckout } from '../utils/updateCheckout';
 import { updateTotalQuantity } from '../utils/updateTotalQuantity';
+import { SizeOptions } from '../components/SizeOptions';
 
 export function ProductPage() {
 	const navigate = useNavigate();
@@ -151,21 +152,11 @@ export function ProductPage() {
 							</span>
 							<div className="flex flex-col gap-y-2">
 								<p className="text-lg">Tamanho:</p>
-								<div className="flex gap-x-5">
-									{['P', 'M', 'G'].map((size) => (
-										<span
-											className="flex justify-center items-center w-10 h-10 border-2 border-black rounded-full cursor-pointer"
-											key={size}
-											style={{
-												borderColor:
-													selectedSize === size ? '#dc2626' : 'black',
-											}}
-											onClick={() => setSelectedSize(size)}
-										>
-											{size}
-										</span>
-									))}
-								</div>
+								<SizeOptions
+									selectedSizeState={[selectedSize, setSelectedSize]}
+									productCategory={product.category}
+									productGender={product.gender}
+								/>
 							</div>
 							<div className="flex gap-x-10">
 								<button
@@ -175,7 +166,6 @@ export function ProductPage() {
 								>
 									Adicionar ao carrinho
 								</button>
-								{/* Mudar elemento abaixo para componente QuantitySelector */}
 								<div className="flex flex-col items-center gap-y-1">
 									<p>Quantidade:</p>
 									<span className="w-full flex justify-around">
