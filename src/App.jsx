@@ -5,16 +5,16 @@ import { AppRoutes } from './routes';
 import './assets/styles/global.css';
 import { AppProviders } from './AppProviders';
 
-export function App(){
-    return (
-        <>
-            <AppProviders>
-                <BrowserRouter>
-                    <AppRoutes />
-                </BrowserRouter>
-            </AppProviders>
-            {/* As configurações passadas para ToastContainer serão aplicadas de forma global. */}
-            <ToastContainer position='top-center' theme='dark' />
-        </>
-    );
-};
+export function App() {
+	return (
+		<>
+			<AppProviders>
+				<BrowserRouter>
+					<AppRoutes />
+				</BrowserRouter>
+			</AppProviders>
+			{/* As configurações passadas para ToastContainer serão aplicadas de forma global. */}
+			<ToastContainer position="top-center" theme="dark" />
+		</>
+	);
+}

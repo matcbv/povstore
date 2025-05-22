@@ -38,7 +38,7 @@ export function RegisterForm() {
 		try {
 			/*
                 Com a função createUserWithEmailAndPassword, é realizado o cadastro de um novo usuário, desde que seus dados atendam os seguintes pré-requisitos:
-                
+
                 - O email já está cadastrado ? Retorna erro (auth/email-already-in-use) : Continua com a criação da conta
                 - O email tem um formato válido ? Continua com a criação : Retorna erro (auth/invalid-email)
                 - A senha atende os requisitos mínimos (Ao mínimo 6 caracteres) ? Continua : Retorna erro (auth/weak-password)
@@ -48,7 +48,7 @@ export function RegisterForm() {
                     user: Um objeto com os dados do usuário autenticado.
                     providerId: O provedor de autenticação usado (por exemplo, "password").
                     operationType: O tipo de operação realizada ("signUp" para cadastro e "signIn" para login).
-                
+
                 Caso contrário, o erro contendo a causa nos é retornado.
             */
 			const userCredential = await createUserWithEmailAndPassword(

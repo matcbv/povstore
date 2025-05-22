@@ -70,7 +70,7 @@ export function ProductPage() {
 					deleteDoc(favoriteRef);
 					setIsFavorite(false);
 				} else {
-					// Abaixo, utilizaremos o setDoc, pois como estamos atendendo a codição de que a referência não existe, o addDoc geraria um ID automático para criar o documento. Essa, que terá o ID do produto passado para a referência criada acima.
+					// Abaixo, utilizaremos o setDoc, pois como estamos atendendo a condição de que a referência não existe, o addDoc geraria um ID automático para criar o documento. Esse, que terá o ID do produto passado para a referência criada acima.
 					await setDoc(favoriteRef, {
 						addedAt: new Date().toLocaleString('pt-BR'),
 					});
