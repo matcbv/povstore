@@ -35,7 +35,7 @@ export function EditAccountForm() {
 		e.preventDefault();
 		if (Object.values(newData).every((value) => value)) {
 			if (isVisible) {
-				if (passwordData.newPassword != passwordData.confirmationPassword) {
+				if (passwordData.newPassword !== passwordData.confirmationPassword) {
 					toast.error('Senhas não coincidem.');
 					return;
 				}

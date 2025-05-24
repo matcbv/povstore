@@ -84,7 +84,7 @@ export async function changeUserPassword(passwordData) {
 	try {
 		await updatePassword(auth.currentUser, passwordData.newPassword);
 	} catch (e) {
-		if (e.code == 'auth/requires-recent-login') {
+		if (e.code === 'auth/requires-recent-login') {
 			const credential = EmailAuthProvider.credential(
 				auth.currentUser.email,
 				passwordData.currentPassword,
