@@ -1,5 +1,3 @@
-import { Header } from '../layouts/Header';
-import { Footer } from '../layouts/Footer';
 import { BagList } from '../components/BagList';
 import { useNavigate } from 'react-router-dom';
 import { BagResume } from '../components/BagResume';
@@ -24,40 +22,36 @@ export function Bag() {
 	};
 
 	return (
-		<>
-			<Header />
-			<main className="min-h-screen flex flex-col gap-y-20 my-20 mx-10 lg:mx-40">
-				<div className="flex justify-between items-center">
-					<h1 className="font-bold text-2xl lg:text-3xl underline decoration-red-600 underline-offset-4">
-						Sacola de compras
-					</h1>
-					<span
-						className="flex flex-col items-center cursor-pointer"
-						onClick={() => navigate(-1)}
+		<main className="min-h-screen flex flex-col gap-y-20 my-20 mx-10 lg:mx-40">
+			<div className="flex justify-between items-center">
+				<h1 className="font-bold text-2xl lg:text-3xl underline decoration-red-600 underline-offset-4">
+					Sacola de compras
+				</h1>
+				<span
+					className="flex flex-col items-center cursor-pointer"
+					onClick={() => navigate(-1)}
+				>
+					<img
+						src="/assets/images/return.png"
+						alt="Voltar"
+						className="w-6 lg:w-8"
+					/>
+					<p className="text-sm lg:text-base">Voltar</p>
+				</span>
+			</div>
+			<section className="flex justify-center gap-x-40 items-start">
+				<BagList />
+				<div className="flex flex-col gap-y-10">
+					<BagResume />
+					<button
+						type="button"
+						onClick={checkBag}
+						className="py-3 bg-black rounded-md text-white text-center font-bold hover:scale-105 transition-transform"
 					>
-						<img
-							src="/assets/images/return.png"
-							alt="Voltar"
-							className="w-6 lg:w-8"
-						/>
-						<p className="text-sm lg:text-base">Voltar</p>
-					</span>
+						Continuar compra
+					</button>
 				</div>
-				<section className="flex justify-center gap-x-40 items-start">
-					<BagList />
-					<div className="flex flex-col gap-y-10">
-						<BagResume />
-						<button
-							type="button"
-							onClick={checkBag}
-							className="py-3 bg-black rounded-md text-white text-center font-bold hover:scale-105 transition-transform"
-						>
-							Continuar compra
-						</button>
-					</div>
-				</section>
-			</main>
-			<Footer />
-		</>
+			</section>
+		</main>
 	);
 }

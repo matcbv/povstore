@@ -1,6 +1,4 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { Header } from '../layouts/Header';
-import { Footer } from '../layouts/Footer';
 import { useContext, useEffect } from 'react';
 import { UserContext } from '../contexts/UserProvider/context';
 
@@ -18,12 +16,6 @@ export function Account() {
 		}
 	}, [userState, navigate, location.pathname]);
 
-	return (
-		<>
-			<Header />
-			{/* Através do componente Outlet, definimos onde as rotas filhas de Account serão posicionadas */}
-			<Outlet />
-			<Footer />
-		</>
-	);
+	// Através do componente Outlet, definimos onde as rotas filhas de Account serão posicionadas
+	return <Outlet />;
 }
