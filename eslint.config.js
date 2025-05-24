@@ -3,6 +3,7 @@ import globals from 'globals';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
 	{
@@ -32,6 +33,17 @@ export default [
 				'warn',
 				{ allowConstantExport: true },
 			],
+			// Garante que sejam usadas apenas operadores de comparação estrita.
+			eqeqeq: ['error'],
+			// Garante o uso de chaves em estruturas condicionais e de controle de fluxo. Com all, garantimos que a regra seja estrita para todos os casos.
+			curly: ['error', 'all'],
+			// Define o número máximo de linhas vazias entre códigos.
+			'no-multiple-empty-lines': ['error', { max: 2 }],
+			// Garante o uso de Camel Case em nosso código.
+			camelcase: ['error'],
+			// Regra para não uso de mensagem de alerta em geral.
+			'no-alert': ['warn'],
+			...eslintConfigPrettier.rules,
 		},
 	},
 ];
