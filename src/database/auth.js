@@ -20,11 +20,11 @@ export async function loginWithEmail(user, password) {
                 user: Um objeto com os dados do usuário autenticado.
                 providerId: O provedor de autenticação usado (por exemplo, "password").
                 operationType: O tipo de operação realizada ("signUp" para cadastro e "signIn" para login).
-            
+
             Caso contrário, o erro contendo a causa nos é retornado.
 
             Sua estrutura segue o seguinte padrão:
-            
+
                 signInWithEmailAndPassword(auth, 'user', 'password');
         */
 		const userCredentials = await signInWithEmailAndPassword(
