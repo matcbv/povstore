@@ -1,7 +1,10 @@
 import { CarouselCatalog } from '../components/CarouselCatalog';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export function Home() {
+	const navigate = useNavigate();
+
 	return (
 		<main>
 			<section>
@@ -30,6 +33,7 @@ export function Home() {
 							<button
 								className="bg-black/75 rounded-lg text-white font-bold w-64 py-3 border border-black hover:border-white"
 								type="button"
+								onClick={() => navigate('/catalog')}
 							>
 								Nosso catálogo
 							</button>
