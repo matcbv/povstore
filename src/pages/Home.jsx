@@ -56,7 +56,12 @@ export function Home() {
 					</div>
 				</div>
 			</section>
-			<CarouselCatalog />
+			<section className="flex flex-col items-center gap-y-20 py-[120px] bg-[linear-gradient(to_right,_#0000004a,_white,_#0000004a)]">
+				<h1 className="text-2xl md:text-4xl font-bold">
+					Coleção da estação<span className="text-red-600">.</span>
+				</h1>
+				<CarouselCatalog />
+			</section>
 		</main>
 	);
 }

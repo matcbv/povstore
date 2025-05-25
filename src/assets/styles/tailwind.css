@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.categories-btn {
+		@apply flex items-center justify-center w-full text-white text-4xl font-bold bg-[radial-gradient(circle,_#000000bd,_transparent_80%)] hover:backdrop-blur-sm;
+	}
+
+	.account-inputs {
+		@apply border-b border-red-600 bg-transparent pl-6 placeholder-red-600 placeholder:font-bold focus:outline-none w-full;
+	}
+
+	.menu-items {
+		@apply flex items-center gap-x-1 transition-transform hover:translate-x-2 cursor-pointer;
+	}
+
+	.account-options {
+		@apply w-60 border-2 rounded-md px-4 py-2 text-sm md:text-base border-black hover:bg-black hover:text-white transition-colors;
+	}
+
+	.default-inputs {
+		@apply px-2 py-1 border-2 border-black rounded-md font-bold text-gray-800 bg-white;
+	}
+}

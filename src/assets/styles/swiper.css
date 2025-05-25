@@ -1,0 +1,25 @@
+.swiper-button-next,
+.swiper-button-prev {
+	color: black;
+}
+
+.swiper-button-next {
+	margin-right: -150px;
+}
+
+.swiper-button-prev {
+	margin-left: -150px;
+}
+
+.swiper-pagination {
+	margin-bottom: -50px;
+}
+
+.swiper-pagination-bullet {
+	background-color: #ccc;
+	opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+	background-color: #dc2626;
+}
