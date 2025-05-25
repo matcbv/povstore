@@ -13,9 +13,7 @@ export function Bag() {
 
 	const checkBag = () => {
 		if (checkoutState.items.length > 0) {
-			userState.userDatanavigate('/checkout')
-				? navigate('/checkout')
-				: navigate('/session');
+			userState.userData ? navigate('/checkout') : navigate('/session');
 		} else {
 			toast.error('Adicione ao menos um item à sacola para continuar.');
 		}
