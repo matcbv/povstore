@@ -1,3 +1,4 @@
+// Ao trabalharmos com React, o Swiper nos oferece o módulo react, possuindo componentes próprios para uso no React.
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
@@ -8,11 +9,14 @@ import { slidesData } from '../utils/slidesData';
 export function CarouselCatalog() {
 	return (
 		<div className="relative w-[510px] h-[280px] overflow-visible">
+			{/* Iremos passar as configurações via props para o componente Swiper. */}
 			<Swiper
 				className="static w-full h-full"
+				// Ao definirmos os modulos a serem utilizados pelo Swiper, esses serão criados automaticamente em nosso Slider.
 				modules={[Navigation, Pagination]}
 				loop={true}
 				grabCursor={true}
+				// Definindo as propriedades dos módulos a serem utilizados:
 				navigation={true}
 				pagination={{
 					type: 'bullets',
@@ -21,8 +25,9 @@ export function CarouselCatalog() {
 				}}
 			>
 				{slidesData.map((data) => (
+					// Os slides serão passados via componente SwiperSlide.
 					<SwiperSlide key={data.title}>
-						<div className="flex items-center">
+						<div className="flex justify-center items-center h-full">
 							<div className="flex flex-col items-center md:flex-row cursor-pointer">
 								<img
 									src={data.imgUrl}
